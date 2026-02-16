@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Ops — Toluwase Sogunro</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0f1a;
+    --paper: #f5f2ed;
+    --cream: #ebe7e0;
+    --accent: #c44b2b;
+    --accent-glow: #e8654a;
+    --steel: #4a5568;
+    --mist: #8896a7;
+    --ice: #dde4ec;
+    --white: #ffffff;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(245, 242, 237, 0.85);
+    border-bottom: 1px solid rgba(10, 15, 26, 0.06);
+    padding: 0 48px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .brand { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+  nav .brand span { color: var(--accent); }
+  .back-link {
+    font-size: 0.78rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--steel); text-decoration: none;
+    display: flex; align-items: center; gap: 6px; transition: color 0.25s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 120px 48px 48px; max-width: 1200px; margin: 0 auto;
+  }
+  .page-header .project-tag {
+    display: inline-block; font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    background: rgba(196, 75, 43, 0.07); padding: 4px 12px;
+    border-radius: 100px; margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .page-header .subtitle {
+    font-size: 1.05rem; color: var(--steel); font-weight: 300; max-width: 700px;
+  }
+
+  /* CONTENT SECTIONS */
+  section { padding: 48px 48px; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1.5px; background: var(--accent); }
+  .section-heading {
+    font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1.15; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .section-text {
+    font-size: 0.92rem; line-height: 1.7; color: var(--steel); font-weight: 300;
+    max-width: 800px; margin-bottom: 24px;
+  }
+
+  .divider { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .divider hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--ice), transparent); }
+
+  /* KEY DETAILS GRID */
+  .details-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .detail-card { background: var(--paper); padding: 28px 24px; transition: background 0.3s; }
+  .detail-card:hover { background: var(--white); }
+  .detail-card .metric {
+    font-family: var(--serif); font-size: 1.8rem; color: var(--accent);
+    line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em;
+  }
+  .detail-card .metric-label {
+    font-size: 0.82rem; font-weight: 600; color: var(--ink);
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;
+  }
+  .detail-card .metric-desc {
+    font-size: 0.82rem; line-height: 1.5; color: var(--steel); font-weight: 300;
+  }
+
+  /* GARTNER CALLOUT */
+  .gartner-callout:hover {
+    background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(6,182,212,0.09)) !important;
+    border-color: rgba(59,130,246,0.35) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(59,130,246,0.1);
+  }
+
+  /* EMBEDDED MARKET BRIEF SLIDER */
+  .mb-wrapper {
+    background: #0a0e1a; border-radius: 16px; overflow: hidden;
+    position: relative; margin-bottom: 24px;
+  }
+  .mb-wrapper * { box-sizing: border-box; }
+  .mb-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px; background: rgba(10,14,26,0.95);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .mb-nav-title {
+    font-family: 'IBM Plex Mono', var(--mono); font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: #94a3b8;
+  }
+  .mb-nav-dots { display: flex; gap: 5px; }
+  .mb-nav-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #64748b;
+    cursor: pointer; transition: all 0.3s; border: none; padding: 0;
+  }
+  .mb-nav-dot.active { background: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,0.5); width: 20px; border-radius: 4px; }
+  .mb-nav-arrows { display: flex; gap: 6px; }
+  .mb-nav-arrows button {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06);
+    color: #f1f5f9; width: 28px; height: 28px; border-radius: 6px;
+    cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .mb-nav-arrows button:hover { background: rgba(255,255,255,0.12); }
+  .mb-track-container { overflow: hidden; }
+  .mb-track {
+    display: flex; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .mb-slide {
+    min-width: 100%; padding: 28px 24px; display: flex; align-items: center; justify-content: center;
+    font-family: 'Sora', var(--sans); color: #f1f5f9;
+  }
+  .mb-slide-inner { width: 100%; }
+  .mb-slide-header { margin-bottom: 16px; }
+  .mb-slide-header .mb-num {
+    font-family: 'IBM Plex Mono', var(--mono); font-size: 0.55rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: #64748b; margin-bottom: 4px;
+  }
+  .mb-slide-header h3 { font-size: 1.15rem; font-weight: 700; color: #f1f5f9; }
+  /* Title slide */
+  .mb-title-slide { text-align: center; padding: 48px 24px; }
+  .mb-title-slide .mb-eyebrow {
+    font-family: 'IBM Plex Mono', var(--mono); font-size: 0.58rem;
+    letter-spacing: 0.25em; text-transform: uppercase; color: #06b6d4; margin-bottom: 12px;
+  }
+  .mb-title-slide h3 { font-size: clamp(1.4rem,3vw,2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; }
+  .mb-title-slide h3 em {
+    font-style: normal; background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .mb-title-slide .mb-sub { font-size: 0.82rem; color: #94a3b8; line-height: 1.55; max-width: 500px; margin: 0 auto 12px; }
+  .mb-title-slide .mb-swipe-hint {
+    font-family: 'IBM Plex Mono', var(--mono); font-size: 0.7rem; color: #3b82f6;
+    letter-spacing: 0.12em; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(59,130,246,0.1); padding: 8px 20px; border-radius: 100px;
+    border: 1px solid rgba(59,130,246,0.25);
+  }
+  .mb-title-slide .mb-swipe-hint .mb-arrow-anim {
+    display: inline-block; animation: mbBounce 1.5s infinite;
+    font-size: 1rem;
+  }
+  @keyframes mbBounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+  /* Market cards */
+  .mb-market-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; }
+  .mb-mcard { padding: 14px; border: 1px solid rgba(255,255,255,0.06); transition: background 0.3s; position: relative; }
+  .mb-mcard:hover { background: #1a2235; }
+  .mb-mcard::before { content:''; position:absolute; top:0; left:14px; width:24px; height:2.5px; border-radius: 0 0 2px 2px; }
+  .mb-mc1::before { background: #10b981; } .mb-mc2::before { background: #06b6d4; }
+  .mb-mc3::before { background: #f59e0b; } .mb-mc4::before { background: #8b5cf6; }
+  .mb-mcard .mb-mc-label { font-family:'IBM Plex Mono',var(--mono); font-size:0.5rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:5px; }
+  .mb-mc1 .mb-mc-label { color:#10b981; } .mb-mc2 .mb-mc-label { color:#06b6d4; }
+  .mb-mc3 .mb-mc-label { color:#f59e0b; } .mb-mc4 .mb-mc-label { color:#8b5cf6; }
+  .mb-mcard .mb-mc-title { font-size:0.78rem; font-weight:600; margin-bottom:6px; color:#f1f5f9; }
+  .mb-mcard .mb-mc-value { font-family:'IBM Plex Mono',var(--mono); font-size:1.1rem; font-weight:700; margin-bottom:3px; }
+  .mb-mc1 .mb-mc-value { color:#10b981; } .mb-mc2 .mb-mc-value { color:#06b6d4; }
+  .mb-mc3 .mb-mc-value { color:#f59e0b; } .mb-mc4 .mb-mc-value { color:#8b5cf6; }
+  .mb-mcard .mb-mc-sub { font-size:0.62rem; color:#94a3b8; line-height:1.4; }
+  .mb-gartner { padding:10px 14px; border:1px solid rgba(255,255,255,0.06); border-top:none; background:rgba(59,130,246,0.04); grid-column:1/-1; font-size:0.68rem; color:#94a3b8; line-height:1.5; }
+  .mb-gartner strong { color:#3b82f6; }
+  /* Use case cards */
+  .mb-uc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+  .mb-uc { padding:14px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; position:relative; }
+  .mb-uc:hover { background:#1a2235; }
+  .mb-uc-num { font-family:'IBM Plex Mono',var(--mono); font-size:1.5rem; font-weight:700; opacity:0.06; position:absolute; top:6px; right:10px; }
+  .mb-uc-title { font-size:0.72rem; font-weight:700; margin-bottom:5px; padding-right:1.2rem; color:#f1f5f9; }
+  .mb-uc-desc { font-size:0.6rem; color:#94a3b8; line-height:1.45; margin-bottom:6px; }
+  .mb-uc-impact { font-size:0.6rem; line-height:1.4; padding:5px 8px; border-radius:4px; background:rgba(255,255,255,0.03); border-left:2px solid; }
+  /* Industry cards */
+  .mb-ind-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  .mb-ind { padding:14px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; }
+  .mb-ind:hover { background:#1a2235; }
+  .mb-ind-icon { font-size:1.2rem; margin-bottom:5px; }
+  .mb-ind-title { font-size:0.78rem; font-weight:700; margin-bottom:2px; color:#f1f5f9; }
+  .mb-ind-sub { font-family:'IBM Plex Mono',var(--mono); font-size:0.55rem; margin-bottom:6px; }
+  .mb-ind-bullets { list-style:none; font-size:0.58rem; color:#94a3b8; line-height:1.65; }
+  .mb-ind-bullets li::before { content:'\203A'; margin-right:4px; font-weight:700; color:#64748b; }
+  .mb-ind-stat { margin-top:6px; font-family:'IBM Plex Mono',var(--mono); font-size:0.55rem; padding:3px 6px; border-radius:3px; background:rgba(255,255,255,0.03); }
+  /* Company cards */
+  .mb-co-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+  .mb-co { padding:12px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; }
+  .mb-co:hover { background:#1a2235; }
+  .mb-co-name { font-size:0.75rem; font-weight:700; margin-bottom:2px; color:#f1f5f9; }
+  .mb-co-type { font-family:'IBM Plex Mono',var(--mono); font-size:0.5rem; color:#64748b; margin-bottom:5px; }
+  .mb-co-what { font-size:0.58rem; color:#94a3b8; margin-bottom:6px; line-height:1.45; }
+  .mb-co-metric { font-family:'IBM Plex Mono',var(--mono); font-size:1rem; font-weight:700; margin-bottom:2px; }
+  .mb-co-metric-label { font-size:0.5rem; color:#64748b; }
+  /* Vendor cards */
+  .mb-vd-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0; }
+  .mb-vd { padding:14px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; }
+  .mb-vd:hover { background:#1a2235; }
+  .mb-vd-type { font-family:'IBM Plex Mono',var(--mono); font-size:0.5rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:4px; }
+  .mb-vd-companies { font-size:0.78rem; font-weight:700; margin-bottom:4px; color:#f1f5f9; line-height:1.3; }
+  .mb-vd-why { font-size:0.6rem; color:#94a3b8; line-height:1.5; }
+  /* Cost cards */
+  .mb-ct-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  .mb-ct { padding:12px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; }
+  .mb-ct:hover { background:#1a2235; }
+  .mb-ct-label { font-family:'IBM Plex Mono',var(--mono); font-size:0.48rem; letter-spacing:0.1em; text-transform:uppercase; color:#64748b; margin-bottom:3px; }
+  .mb-ct-title { font-size:0.68rem; font-weight:700; margin-bottom:3px; color:#f1f5f9; }
+  .mb-ct-range { font-family:'IBM Plex Mono',var(--mono); font-size:0.85rem; font-weight:700; color:#f59e0b; margin-bottom:3px; }
+  .mb-ct-desc { font-size:0.52rem; color:#94a3b8; line-height:1.45; }
+  .mb-ct-klarna { padding:10px 14px; border:1px solid rgba(255,255,255,0.06); border-top:none; background:rgba(16,185,129,0.04); grid-column:1/-1; font-size:0.65rem; color:#94a3b8; line-height:1.5; }
+  .mb-ct-klarna strong { color:#10b981; }
+  .mb-ct-moat { padding:8px 14px; border:1px solid rgba(255,255,255,0.06); border-top:none; background:rgba(245,158,11,0.04); grid-column:1/-1; font-size:0.6rem; color:#f59e0b; font-style:italic; font-weight:600; }
+  /* Benefit cards */
+  .mb-bn-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  .mb-bn { padding:12px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; }
+  .mb-bn:hover { background:#1a2235; }
+  .mb-bn-icon { font-size:1rem; margin-bottom:3px; }
+  .mb-bn-title { font-size:0.68rem; font-weight:700; margin-bottom:3px; color:#f1f5f9; }
+  .mb-bn-desc { font-size:0.55rem; color:#94a3b8; line-height:1.45; margin-bottom:5px; }
+  .mb-bn-stat { font-family:'IBM Plex Mono',var(--mono); font-size:0.55rem; color:#10b981; font-weight:600; }
+  /* Challenge cards */
+  .mb-ch-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  .mb-ch { padding:12px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; }
+  .mb-ch:hover { background:#1a2235; }
+  .mb-ch-icon { font-size:1rem; margin-bottom:3px; }
+  .mb-ch-title { font-size:0.68rem; font-weight:700; margin-bottom:3px; color:#f1f5f9; }
+  .mb-ch-desc { font-size:0.55rem; color:#94a3b8; line-height:1.45; margin-bottom:5px; }
+  .mb-ch-stat { font-family:'IBM Plex Mono',var(--mono); font-size:0.55rem; color:#f43f5e; }
+  /* Gap/Opportunity cards */
+  .mb-gap-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+  .mb-gap { padding:14px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; position:relative; overflow:hidden; }
+  .mb-gap:hover { background:#1a2235; }
+  .mb-gap::before { content:''; position:absolute; top:0; left:0; width:100%; height:2.5px; }
+  .mb-gap:nth-child(1)::before { background:linear-gradient(90deg,#10b981,#06b6d4); }
+  .mb-gap:nth-child(2)::before { background:linear-gradient(90deg,#3b82f6,#8b5cf6); }
+  .mb-gap:nth-child(3)::before { background:linear-gradient(90deg,#f59e0b,#f43f5e); }
+  .mb-gap:nth-child(4)::before { background:linear-gradient(90deg,#06b6d4,#3b82f6); }
+  .mb-gap:nth-child(5)::before { background:linear-gradient(90deg,#8b5cf6,#f43f5e); }
+  .mb-gap:nth-child(6)::before { background:linear-gradient(90deg,#10b981,#f59e0b); }
+  .mb-gap-icon { font-size:1.1rem; margin-bottom:4px; }
+  .mb-gap-title { font-size:0.72rem; font-weight:700; margin-bottom:4px; color:#f1f5f9; }
+  .mb-gap-desc { font-size:0.58rem; color:#94a3b8; line-height:1.5; margin-bottom:6px; }
+  .mb-gap-stat { font-family:'IBM Plex Mono',var(--mono); font-size:0.55rem; font-weight:600; color:#10b981; padding:3px 8px; background:rgba(16,185,129,0.08); border-radius:4px; display:inline-block; }
+  /* Financial Services Deep Dive */
+  .mb-fs-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  .mb-fs { padding:14px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; text-align:center; }
+  .mb-fs:hover { background:#1a2235; }
+  .mb-fs-label { font-family:'IBM Plex Mono',var(--mono); font-size:0.5rem; letter-spacing:0.1em; text-transform:uppercase; color:#64748b; margin-bottom:4px; }
+  .mb-fs-value { font-family:'IBM Plex Mono',var(--mono); font-size:1.3rem; font-weight:700; margin-bottom:3px; }
+  .mb-fs-desc { font-size:0.55rem; color:#94a3b8; line-height:1.4; }
+  .mb-mat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  .mb-mat { padding:12px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; position:relative; }
+  .mb-mat:hover { background:#1a2235; }
+  .mb-mat::before { content:''; position:absolute; top:0; left:0; width:100%; height:2.5px; }
+  .mb-mat:nth-child(1)::before { background:#10b981; }
+  .mb-mat:nth-child(2)::before { background:#3b82f6; }
+  .mb-mat:nth-child(3)::before { background:#f59e0b; }
+  .mb-mat:nth-child(4)::before { background:#f43f5e; }
+  .mb-mat-stage { font-family:'IBM Plex Mono',var(--mono); font-size:0.5rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:4px; }
+  .mb-mat-title { font-size:0.72rem; font-weight:700; margin-bottom:4px; color:#f1f5f9; }
+  .mb-mat-desc { font-size:0.55rem; color:#94a3b8; line-height:1.45; margin-bottom:5px; }
+  .mb-mat-stat { font-family:'IBM Plex Mono',var(--mono); font-size:0.52rem; font-weight:600; }
+  .mb-risk { padding:10px 14px; border:1px solid rgba(255,255,255,0.06); border-top:none; background:rgba(244,63,94,0.04); grid-column:1/-1; font-size:0.62rem; color:#94a3b8; line-height:1.5; }
+  .mb-risk strong { color:#f43f5e; }
+  /* Future Timeline */
+  .mb-tl-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative; }
+  .mb-tl-grid::before { content:''; position:absolute; top:26px; left:5%; width:90%; height:2px; background:linear-gradient(90deg,#10b981,#06b6d4,#3b82f6,#8b5cf6,#f43f5e); z-index:1; }
+  .mb-tl { padding:14px 10px; border:1px solid rgba(255,255,255,0.06); transition:background 0.3s; text-align:center; position:relative; }
+  .mb-tl:hover { background:#1a2235; }
+  .mb-tl-year { font-family:'IBM Plex Mono',var(--mono); font-size:0.65rem; font-weight:700; margin-bottom:8px; padding:3px 8px; border-radius:4px; display:inline-block; position:relative; z-index:2; }
+  .mb-tl-title { font-size:0.7rem; font-weight:700; margin-bottom:4px; color:#f1f5f9; }
+  .mb-tl-stat { font-family:'IBM Plex Mono',var(--mono); font-size:1rem; font-weight:700; margin-bottom:3px; }
+  .mb-tl-desc { font-size:0.52rem; color:#94a3b8; line-height:1.4; }
+  /* Sources */
+  .mb-sources { font-size:0.5rem; color:#64748b; font-style:italic; margin-top:10px; }
+  .mb-sources a { color:#3b82f6; text-decoration:none; transition:color 0.2s; }
+  .mb-sources a:hover { color:#60a5fa; text-decoration:underline; }
+  @media (max-width:900px) {
+    .mb-market-grid, .mb-ind-grid, .mb-ch-grid, .mb-gap-grid, .mb-bn-grid, .mb-ct-grid, .mb-fs-grid, .mb-mat-grid { grid-template-columns: repeat(2,1fr); }
+    .mb-uc-grid, .mb-co-grid { grid-template-columns: repeat(2,1fr); }
+    .mb-vd-grid { grid-template-columns: 1fr; }
+    .mb-tl-grid { grid-template-columns: repeat(3,1fr); }
+  }
+  @media (max-width:550px) {
+    .mb-market-grid, .mb-uc-grid, .mb-co-grid, .mb-ind-grid, .mb-ch-grid, .mb-gap-grid, .mb-bn-grid, .mb-ct-grid, .mb-fs-grid, .mb-mat-grid, .mb-tl-grid { grid-template-columns: 1fr; }
+    .mb-tl-grid::before { display:none; }
+  }
+
+  /* PROJECT INTERFACE SLIDER */
+  .pi-wrapper {
+    background: #0a0e1a; border-radius: 16px; overflow: hidden;
+    position: relative; margin-bottom: 24px;
+  }
+  .pi-wrapper * { box-sizing: border-box; }
+  .pi-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px; background: rgba(10,14,26,0.95);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .pi-nav-title {
+    font-family: 'IBM Plex Mono', var(--mono); font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: #94a3b8;
+  }
+  .pi-nav-dots { display: flex; gap: 5px; }
+  .pi-nav-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #64748b;
+    cursor: pointer; transition: all 0.3s; border: none; padding: 0;
+  }
+  .pi-nav-dot.active { background: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,0.5); width: 20px; border-radius: 4px; }
+  .pi-nav-arrows { display: flex; gap: 6px; }
+  .pi-nav-arrows button {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06);
+    color: #f1f5f9; width: 28px; height: 28px; border-radius: 6px;
+    cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .pi-nav-arrows button:hover { background: rgba(255,255,255,0.12); }
+  .pi-track-container { overflow: hidden; }
+  .pi-track {
+    display: flex; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .pi-slide {
+    min-width: 100%; padding: 20px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: 'Sora', var(--sans); color: #f1f5f9;
+  }
+  .pi-slide img {
+    max-width: 100%; max-height: 520px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08); object-fit: contain;
+  }
+  .pi-slide-caption {
+    margin-top: 12px; text-align: center;
+  }
+  .pi-slide-caption h4 {
+    font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 4px;
+  }
+  .pi-slide-caption p {
+    font-size: 0.65rem; color: #94a3b8; line-height: 1.5; max-width: 600px;
+  }
+
+  /* BACK TO TOP */
+  .back-to-portfolio {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    background: var(--accent); color: var(--white); transition: all 0.3s;
+    margin-top: 16px;
+  }
+  .back-to-portfolio:hover {
+    background: var(--accent-glow); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196, 75, 43, 0.3);
+  }
+
+  @media (max-width: 900px) {
+    nav, .page-header, section { padding-left: 24px; padding-right: 24px; }
+    .divider { padding: 0 24px; }
+    .details-grid { grid-template-columns: 1fr !important; }
+    .details-grid .detail-card { grid-column: auto !important; }
+    .ms-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Toluwase<span>.</span></a>
+  <a class="back-link" href="index.html#portfolio">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Portfolio
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header reveal">
+  <span class="project-tag">Agentic AI · LangGraph · RAG</span>
+  <h1>Support Ops</h1>
+  <p class="subtitle">Pootman Payments — B2C Digital Wallet (POC)</p>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- EXECUTIVE SUMMARY -->
+<section>
+  <div class="section-label reveal">Executive Summary</div>
+  <h2 class="section-heading reveal">What this project is</h2>
+  <p class="section-text reveal" style="margin-bottom:0;">Support Ops is an agentic AI customer service system built for Pootman Payments.</p>
+  <p class="section-text reveal" style="margin-bottom:0;">It autonomously resolves customer issues end-to-end through a multi-agent pipeline that detects intent, sentiment, and urgency across multi-turn conversations, and takes actions across internal systems.</p>
+  <p class="section-text reveal" style="margin-bottom:0;">The system leverages Retrieval-Augmented Generation (RAG) to ground every response in verified company knowledge (policies, incidents, FAQs), alongside a built-in critic that evaluates outputs for accuracy and determines when to escalate to human agents.</p>
+  <p class="section-text reveal">This demonstrates how agentic AI can be used to improve operational efficiency, reduce support costs, and deliver faster, more consistent, and trustworthy customer experiences at scale.</p>
+
+  <div class="details-grid reveal">
+    <div class="detail-card">
+      <div class="metric">22</div>
+      <div class="metric-label">LangGraph Nodes</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">13</div>
+      <div class="metric-label">Routing Paths</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">16</div>
+      <div class="metric-label">Data Tools</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.005&ndash;$0.015</div>
+      <div class="metric-label">Cost Per Query</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ABOUT POOTMAN PAYMENTS -->
+<section>
+  <div class="section-label reveal">The Company</div>
+  <h2 class="section-heading reveal">About Pootman Payments</h2>
+  <p class="section-text reveal">Pootman Payments is a UK-based B2C digital wallet designed for everyday personal payments. Core services include GBP wallets with instant P2P transfers, tiered accounts (Basic, Standard, Premium), bill payments, virtual cards, in-chat account opening, wallet top-ups, and bank transfers.</p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- THE PROBLEM -->
+<section>
+  <div class="section-label reveal">The Problem</div>
+  <h2 class="section-heading reveal">Core Challenges</h2>
+  <div class="details-grid reveal">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.4rem;">Customer</div>
+      <div class="metric-desc" style="margin-top:8px;">Customers experience long resolution times for simple queries, with 88% of journeys failing in self-service despite 59% preferring independent resolution, leading to frustration and dissatisfaction.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.4rem;">Support Agent</div>
+      <div class="metric-desc" style="margin-top:8px;">Overloaded with repetitive, low-value queries while juggling multiple systems and strict SLAs, leaving limited time for complex cases like fraud and disputes &mdash; leading to backlogs of high-impact issues, increased risk exposure, and error-prone workflows that drive frustration, burnout, and higher attrition.</div>
+    </div>
+    <div class="detail-card" style="grid-column: 1 / -1;">
+      <div class="metric" style="font-size:1.4rem;">Business</div>
+      <div class="metric-desc" style="margin-top:8px;">Customer service operations face high staff turnover and recurring training costs, while human support ($10&ndash;$14 per call; $6&ndash;$8 per live chat) remains significantly more expensive than AI chatbots ($0.03&ndash;$0.25 per minute), driving high OPEX, slower resolution, and increased churn.</div>
+    </div>
+  </div>
+
+  <a href="https://www.gartner.com/en/newsroom/press-releases/2025-03-05-gartner-predicts-agentic-ai-will-autonomously-resolve-80-percent-of-common-customer-service-issues-without-human-intervention-by-20290" target="_blank" class="gartner-callout reveal" style="display:block; background:linear-gradient(135deg, rgba(59,130,246,0.08), rgba(6,182,212,0.06)); border:1px solid rgba(59,130,246,0.2); border-radius:12px; padding:20px 24px; text-decoration:none; transition:all 0.3s; margin-top:8px;">
+    <div style="font-family:var(--mono); font-size:0.6rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:#3b82f6; margin-bottom:8px;">Gartner (2025) &#8599;</div>
+    <div style="font-family:var(--serif); font-size:1.15rem; color:var(--ink); line-height:1.4;">Agentic AI will autonomously resolve <strong style="color:#3b82f6;">80%</strong> of common customer service issues by 2029, driving <strong style="color:#3b82f6;">~30% OPEX reduction</strong>.</div>
+  </a>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- AGENTIC AI CUSTOMER SERVICE OVERVIEW — EMBEDDED SLIDER -->
+<section>
+  <div class="section-label reveal">Market Context</div>
+  <h2 class="section-heading reveal">Agentic AI in Customer Support: Market Overview</h2>
+  <p class="section-text reveal">Research conducted to validate the business case and understand the landscape for AI-powered customer service.</p>
+
+  <div class="mb-wrapper reveal" id="mbSlider">
+    <div class="mb-nav">
+      <div class="mb-nav-title">Market Brief &middot; 2025</div>
+      <div class="mb-nav-dots" id="mbDots"></div>
+      <div class="mb-nav-arrows">
+        <button id="mbPrev">&lsaquo;</button>
+        <button id="mbNext">&rsaquo;</button>
+      </div>
+    </div>
+    <div class="mb-track-container">
+      <div class="mb-track" id="mbTrack">
+
+        <!-- Slide 0: Title -->
+        <div class="mb-slide">
+          <div class="mb-title-slide">
+            <div class="mb-eyebrow">Market Research Brief &middot; 2025</div>
+            <h3>Agentic AI for<br><em>Customer Service</em></h3>
+            <div class="mb-sub">A $73.99B market growing at ~25% CAGR. Here's who's deploying, what's working, and where the opportunity sits.</div>
+            <div class="mb-swipe-hint">SWIPE OR USE ARROWS <span class="mb-arrow-anim">&rarr;</span></div>
+          </div>
+        </div>
+
+        <!-- Slide 1: Market Size -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">01 / 12</div>
+              <h3>Market Size &amp; Growth</h3>
+            </div>
+            <div class="mb-market-grid">
+              <div class="mb-mcard mb-mc1">
+                <div class="mb-mc-label">Call Center AI</div>
+                <div class="mb-mc-title">Call Center AI</div>
+                <div class="mb-mc-value">$1.99B &rarr; $7.08B</div>
+                <div class="mb-mc-sub">2024 &rarr; 2030 &middot; CAGR &asymp; 23.8%</div>
+              </div>
+              <div class="mb-mcard mb-mc2">
+                <div class="mb-mc-label">Customer Service</div>
+                <div class="mb-mc-title">AI for Customer Service</div>
+                <div class="mb-mc-value">$12.58B &rarr; $73.99B</div>
+                <div class="mb-mc-sub">2024 &rarr; 2032 &middot; CAGR &asymp; 24.9%</div>
+              </div>
+              <div class="mb-mcard mb-mc3">
+                <div class="mb-mc-label">Conversational AI</div>
+                <div class="mb-mc-title">Conversational AI</div>
+                <div class="mb-mc-value">$100B+</div>
+                <div class="mb-mc-sub">Projected by mid-2030s &middot; High double-digit CAGR</div>
+              </div>
+              <div class="mb-mcard mb-mc4">
+                <div class="mb-mc-label">Big Picture</div>
+                <div class="mb-mc-title">Total Addressable Opportunity</div>
+                <div class="mb-mc-value">5.9&times;</div>
+                <div class="mb-mc-sub">Avg market expansion by 2032 &middot; CAGR &asymp; 24&ndash;25%</div>
+              </div>
+              <a href="https://www.gartner.com/en/newsroom/press-releases/2025-03-05-gartner-predicts-agentic-ai-will-autonomously-resolve-80-percent-of-common-customer-service-issues-without-human-intervention-by-20290" target="_blank" class="mb-gartner" style="display:block;text-decoration:none;cursor:pointer;"><strong>Gartner (2025):</strong> Agentic AI will autonomously resolve <strong>80%</strong> of common customer service issues by 2029, driving <strong>~30% OPEX reduction</strong>. <span style="color:#3b82f6;font-size:0.6rem;">&#8599; Source</span></a>
+            </div>
+            <div class="mb-sources">Sources: <a href="https://www.grandviewresearch.com/industry-analysis/call-center-artificial-intelligence-market-report" target="_blank">Grand View Research</a>, <a href="https://www.snsinsider.com/reports/ai-for-customer-service-market-7986" target="_blank">SNS Insider</a>, <a href="https://www.precedenceresearch.com/conversational-ai-market" target="_blank">Precedence Research</a>, Goldman Sachs, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-03-05-gartner-predicts-agentic-ai-will-autonomously-resolve-80-percent-of-common-customer-service-issues-without-human-intervention-by-20290" target="_blank">Gartner (2025)</a></div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Top 6 Use Cases -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">02 / 12</div>
+              <h3>Top 6 Use Cases</h3>
+            </div>
+            <div class="mb-uc-grid">
+              <div class="mb-uc"><div class="mb-uc-num">01</div><div class="mb-uc-title">Chatbots &amp; Virtual Assistants</div><div class="mb-uc-desc">24/7 self-service, FAQ resolution, account queries</div><div class="mb-uc-impact" style="border-color:#3b82f6;color:#3b82f6;">28.1% market share. 81% of customers prefer self-service.</div></div>
+              <div class="mb-uc"><div class="mb-uc-num">02</div><div class="mb-uc-title">Intelligent Ticket Routing</div><div class="mb-uc-desc">AI routes inquiries to best agent/system using NLP + predictive analytics</div><div class="mb-uc-impact" style="border-color:#06b6d4;color:#06b6d4;">8% reduction in avg handle time; 5% increase in CSAT.</div></div>
+              <div class="mb-uc"><div class="mb-uc-num">03</div><div class="mb-uc-title">Agent Assist / Copilots</div><div class="mb-uc-desc">Real-time suggestions, knowledge retrieval, call summarisation</div><div class="mb-uc-impact" style="border-color:#10b981;color:#10b981;">Fastest-growing segment. Reduces resolution times + improves accuracy.</div></div>
+              <div class="mb-uc"><div class="mb-uc-num">04</div><div class="mb-uc-title">Fraud Detection &amp; Security</div><div class="mb-uc-desc">Continuous monitoring, anomaly detection, automated threat response</div><div class="mb-uc-impact" style="border-color:#f59e0b;color:#f59e0b;">56% of banking execs report high AI capability. #1 banking use case.</div></div>
+              <div class="mb-uc"><div class="mb-uc-num">05</div><div class="mb-uc-title">Automated Refunds &amp; Orders</div><div class="mb-uc-desc">End-to-end resolution of transactional issues without human escalation</div><div class="mb-uc-impact" style="border-color:#f43f5e;color:#f43f5e;">Klarna: 2.3M chats/month, 2-min resolution vs 11-min previously.</div></div>
+              <div class="mb-uc"><div class="mb-uc-num">06</div><div class="mb-uc-title">Proactive Service &amp; Sentiment</div><div class="mb-uc-desc">Predicts issues before escalation; detects tone and intent in real-time</div><div class="mb-uc-impact" style="border-color:#8b5cf6;color:#8b5cf6;">72% of CX leaders say AI will enable all proactive outreach.</div></div>
+            </div>
+            <div class="mb-sources">Sources: <a href="https://www.grandviewresearch.com/industry-analysis/ai-customer-service-market-report" target="_blank">Grand View Research</a>, <a href="https://www.marketsandmarkets.com/Market-Reports/ai-for-customer-service-market-244430169.html" target="_blank">MarketsandMarkets</a>, <a href="https://www.marketsandmarkets.com/PressReleases/ai-for-customer-service.asp" target="_blank">Genesys</a>, <a href="https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/" target="_blank">Klarna (Feb 2024)</a>, <a href="https://www.nice.com/resources" target="_blank">NICE</a></div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Top Industries -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">03 / 12</div>
+              <h3>Top Industries Deploying</h3>
+            </div>
+            <div class="mb-ind-grid">
+              <div class="mb-ind"><div class="mb-ind-icon">&#127974;</div><div class="mb-ind-title">BFSI</div><div class="mb-ind-sub" style="color:#3b82f6;">#1 by revenue share</div><ul class="mb-ind-bullets"><li>Virtual assistants (BofA Erica: 58M/month)</li><li>Fraud detection &amp; KYC/AML automation</li><li>Lending &mdash; processing times cut 80%</li><li>Claims triage &amp; customer onboarding</li></ul><div class="mb-ind-stat" style="color:#3b82f6;">75% of financial firms already use AI</div></div>
+              <div class="mb-ind"><div class="mb-ind-icon">&#128722;</div><div class="mb-ind-title">Retail &amp; E-Commerce</div><div class="mb-ind-sub" style="color:#10b981;">Fastest growing &mdash; 26% CAGR</div><ul class="mb-ind-bullets"><li>Automated refunds &amp; order management</li><li>Personalised recommendations</li><li>Cart abandonment recovery</li><li>Multilingual global support</li></ul><div class="mb-ind-stat" style="color:#10b981;">63% of retail orgs use GenAI for CX</div></div>
+              <div class="mb-ind"><div class="mb-ind-icon">&#128225;</div><div class="mb-ind-title">Telecommunications</div><div class="mb-ind-sub" style="color:#f59e0b;">High-volume sweet spot</div><ul class="mb-ind-bullets"><li>Billing inquiries &amp; plan changes</li><li>Technical troubleshooting</li><li>Churn prediction &amp; retention</li><li>Network issue triage</li></ul><div class="mb-ind-stat" style="color:#f59e0b;">Massive call volumes, repetitive patterns</div></div>
+              <div class="mb-ind"><div class="mb-ind-icon">&#127973;</div><div class="mb-ind-title">Healthcare</div><div class="mb-ind-sub" style="color:#06b6d4;">Growing rapidly, compliance-heavy</div><ul class="mb-ind-bullets"><li>Patient intake &amp; scheduling</li><li>Claims processing &amp; insurance</li><li>Symptom triage &amp; care navigation</li><li>Post-visit follow-up</li></ul><div class="mb-ind-stat" style="color:#06b6d4;">8% AHT reduction, 5% CSAT increase</div></div>
+            </div>
+            <div class="mb-sources">Sources: <a href="https://www.grandviewresearch.com/industry-analysis/ai-customer-service-market-report" target="_blank">Grand View Research</a>, <a href="https://www.marketsandmarkets.com/Market-Reports/ai-for-customer-service-market-244430169.html" target="_blank">MarketsandMarkets</a>, <a href="https://www.capgemini.com/insights/research-library/generative-ai-in-organizations/" target="_blank">Capgemini (2024)</a>, <a href="https://www.bankofengland.co.uk/report/2024/machine-learning-in-uk-financial-services" target="_blank">Bank of England (2024)</a>, <a href="https://insurancenewsnet.com/innarticle/ai-adoption-in-insurance-surges" target="_blank">InsuranceNewsNet</a>, <a href="https://www.ey.com/en_us/insights/banking-capital-markets/how-banks-are-using-generative-ai" target="_blank">MIT/EY (2025)</a></div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Company Results -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">04 / 12</div>
+              <h3>Real-World Deployments &amp; Results</h3>
+            </div>
+            <div class="mb-co-grid">
+              <div class="mb-co"><div class="mb-co-name">Klarna</div><div class="mb-co-type">Fintech</div><div class="mb-co-what">OpenAI-powered assistant across 23 markets, 35+ languages</div><div class="mb-co-metric" style="color:#10b981;">$40M</div><div class="mb-co-metric-label">profit improvement &middot; 2-min resolution (from 11)</div></div>
+              <div class="mb-co"><div class="mb-co-name">Bank of America</div><div class="mb-co-type">Banking</div><div class="mb-co-what">Erica virtual assistant &mdash; 10 years of AI investment</div><div class="mb-co-metric" style="color:#3b82f6;">3B+</div><div class="mb-co-metric-label">interactions since launch &middot; 58M/month</div></div>
+              <div class="mb-co"><div class="mb-co-name">Salesforce</div><div class="mb-co-type">Agentforce Platform</div><div class="mb-co-what">Used by Reddit, Pfizer, OpenTable</div><div class="mb-co-metric" style="color:#8b5cf6;">18,000</div><div class="mb-co-metric-label">deals closed since Oct 2024</div></div>
+              <div class="mb-co"><div class="mb-co-name">NatWest</div><div class="mb-co-type">UK Banking</div><div class="mb-co-what">Cora AI assistant for retail banking</div><div class="mb-co-metric" style="color:#06b6d4;">11.2M</div><div class="mb-co-metric-label">conversations in 2024 &mdash; matching human scale</div></div>
+              <div class="mb-co"><div class="mb-co-name">Capital One</div><div class="mb-co-type">Banking</div><div class="mb-co-what">Chat Concierge &mdash; agentic AI for auto dealers</div><div class="mb-co-metric" style="color:#f59e0b;">55%</div><div class="mb-co-metric-label">more successful converting engagement</div></div>
+              <div class="mb-co"><div class="mb-co-name">Grupo Globo</div><div class="mb-co-type">Media</div><div class="mb-co-what">AI customer retention agents</div><div class="mb-co-metric" style="color:#f43f5e;">22%</div><div class="mb-co-metric-label">increase in customer retention</div></div>
+            </div>
+            <div class="mb-sources">Sources: <a href="https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/" target="_blank">Klarna/OpenAI (Feb 2024)</a>, Bank of America (Aug 2025), Salesforce, NatWest/UXDA, Fortune (Dec 2025)</div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Benefits -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">05 / 12</div>
+              <h3>Core Value Drivers in Agentic AI</h3>
+            </div>
+            <div class="mb-bn-grid">
+              <div class="mb-bn"><div class="mb-bn-icon">&#128181;</div><div class="mb-bn-title">Cost Reduction</div><div class="mb-bn-desc">~30% OPEX reduction by 2029 (Gartner). Klarna: 40% drop in cost per transaction. 20&ndash;30% OpEx savings within 5 years.</div><div class="mb-bn-stat">$16/interaction &rarr; $0.005</div></div>
+              <div class="mb-bn"><div class="mb-bn-icon">&#9889;</div><div class="mb-bn-title">Speed</div><div class="mb-bn-desc">Resolution from 11 min to 2 min (Klarna). Microsoft Copilot cuts average handling time by 12%.</div><div class="mb-bn-stat">82% faster resolution</div></div>
+              <div class="mb-bn"><div class="mb-bn-icon">&#127760;</div><div class="mb-bn-title">24/7 Availability</div><div class="mb-bn-desc">Always-on across 35+ languages, 23+ markets. No shifts, no holidays, no call queues.</div><div class="mb-bn-stat">Zero downtime</div></div>
+              <div class="mb-bn"><div class="mb-bn-icon">&#128200;</div><div class="mb-bn-title">ROI</div><div class="mb-bn-desc">Average 171% ROI. US enterprises: 192%. Exceeds traditional automation by 3x.</div><div class="mb-bn-stat">171% avg return</div></div>
+              <div class="mb-bn"><div class="mb-bn-icon">&#128640;</div><div class="mb-bn-title">Scalability</div><div class="mb-bn-desc">Handles millions of interactions without linear cost increase. BofA Erica: 58M interactions/month.</div><div class="mb-bn-stat">58M interactions/month</div></div>
+              <div class="mb-bn"><div class="mb-bn-icon">&#129302;</div><div class="mb-bn-title">Agent Productivity</div><div class="mb-bn-desc">Copilots auto-summarise calls, surface relevant info in real-time, suggest next-best-action.</div><div class="mb-bn-stat">AHT down 12% (Copilot)</div></div>
+              <div class="mb-bn"><div class="mb-bn-icon">&#9989;</div><div class="mb-bn-title">Consistency</div><div class="mb-bn-desc">Uniform, policy-correct answers every time. Eliminates performance variability between agents.</div><div class="mb-bn-stat">25% fewer repeat contacts</div></div>
+              <div class="mb-bn"><div class="mb-bn-icon">&#11088;</div><div class="mb-bn-title">Better CX</div><div class="mb-bn-desc">NatWest CSAT uplift with Cora AI. Proactive service identifies issues before customers contact support.</div><div class="mb-bn-stat">NatWest: 11.2M AI convos</div></div>
+            </div>
+            <div class="mb-sources">Sources: <a href="https://www.gartner.com/en/newsroom/press-releases/2025-03-05-gartner-predicts-agentic-ai-will-autonomously-resolve-80-percent-of-common-customer-service-issues-without-human-intervention-by-20290" target="_blank">Gartner (Mar 2025)</a>, <a href="https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/" target="_blank">Klarna</a>, <a href="https://www.cxtoday.com/workforce-engagement-management/copilot-cuts-average-handling-time-by-12-percent-claims-microsoft/" target="_blank">CX Today / Microsoft</a>, <a href="https://www.reuters.com/technology/natwest-seals-milestone-uk-banking-collaboration-with-openai-2025-03-20/" target="_blank">Reuters / NatWest</a>, PwC 2025, Accenture 2024</div>
+          </div>
+        </div>
+
+        <!-- Slide 6: Cost to Deploy -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">06 / 12</div>
+              <h3>Cost to Deploy &amp; Maintain</h3>
+            </div>
+            <div class="mb-ct-grid">
+              <div class="mb-ct"><div class="mb-ct-label">Low-Code / Simple</div><div class="mb-ct-title">Simple Chatbot</div><div class="mb-ct-range">$5K &ndash; $50K</div><div class="mb-ct-desc">Platforms like Zapier, Make. FAQ-level automation. 4&ndash;6 weeks.</div></div>
+              <div class="mb-ct"><div class="mb-ct-label">Mid-Complexity</div><div class="mb-ct-title">Custom AI Agent</div><div class="mb-ct-range">$15K &ndash; $75K</div><div class="mb-ct-desc">CRM/ticketing integrations. Multi-step reasoning. 8&ndash;16 weeks.</div></div>
+              <div class="mb-ct"><div class="mb-ct-label">Enterprise-Grade</div><div class="mb-ct-title">Multi-Agent System</div><div class="mb-ct-range">$150K &ndash; $500K+</div><div class="mb-ct-desc">Advanced reasoning, memory, compliance. Full stack. 4&ndash;6 months.</div></div>
+              <div class="mb-ct"><div class="mb-ct-label">SaaS Per-Resolution</div><div class="mb-ct-title">Usage-Based Pricing</div><div class="mb-ct-range">$0.60 &ndash; $2.00</div><div class="mb-ct-desc">Salesforce Agentforce: &pound;1.60/convo. Intercom Fin: $0.99/resolution.</div></div>
+              <div class="mb-ct"><div class="mb-ct-label">Hidden Cost #1</div><div class="mb-ct-title">Data Preparation</div><div class="mb-ct-range">60&ndash;75%</div><div class="mb-ct-desc">Of total project effort. Cleaning, structuring, indexing enterprise knowledge.</div></div>
+              <div class="mb-ct"><div class="mb-ct-label">Hidden Cost #2</div><div class="mb-ct-title">Compliance &amp; Security</div><div class="mb-ct-range">$50K+/yr</div><div class="mb-ct-desc">SOC2, GDPR, audits, access controls. Doubles in regulated industries.</div></div>
+              <div class="mb-ct"><div class="mb-ct-label">Hidden Cost #3</div><div class="mb-ct-title">Human Oversight</div><div class="mb-ct-range">0.5 &ndash; 3 FTEs</div><div class="mb-ct-desc">Monitoring, edge cases, compliance. ~$80K&ndash;$200K/yr per FTE.</div></div>
+              <div class="mb-ct"><div class="mb-ct-label">Ongoing</div><div class="mb-ct-title">Maintenance</div><div class="mb-ct-range">15&ndash;25%/yr</div><div class="mb-ct-desc">Of initial dev cost. Model retraining, pipeline updates, compliance audits.</div></div>
+              <div class="mb-ct-klarna"><strong>Klarna Case Study:</strong> $2&ndash;3M investment generated $40M in projected profit improvement. That's <strong>~15x ROI in year one</strong>.</div>
+              <div class="mb-ct-moat">Software pricing is visible; implementation + governance is the moat.</div>
+            </div>
+            <div class="mb-sources">Sources: <a href="https://www.salesforce.com/uk/agentforce/pricing/" target="_blank">Salesforce Agentforce Pricing</a>, <a href="https://www.intercom.com/pricing" target="_blank">Intercom Fin Pricing</a>, <a href="https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/" target="_blank">Klarna</a>, ProductCrafters (2026), Azilen Technologies, Gravitee</div>
+          </div>
+        </div>
+
+        <!-- Slide 7: Vendor Landscape -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">07 / 12</div>
+              <h3>Vendor Landscape</h3>
+            </div>
+            <div class="mb-vd-grid">
+              <div class="mb-vd"><div class="mb-vd-type" style="color:#3b82f6;">Hyperscalers</div><div class="mb-vd-companies">Microsoft &middot; AWS &middot; Google Cloud</div><div class="mb-vd-why">They own the compute. Microsoft leads with Copilot Studio &mdash; "low-code" agents for 400K+ organisations.</div></div>
+              <div class="mb-vd"><div class="mb-vd-type" style="color:#8b5cf6;">Model Makers</div><div class="mb-vd-companies">OpenAI &middot; Anthropic &middot; Cohere</div><div class="mb-vd-why">They provide the brains. GPT-4o/Operator and Anthropic's "Computer Use" are the current gold standards for agency.</div></div>
+              <div class="mb-vd"><div class="mb-vd-type" style="color:#10b981;">Enterprise Orchestrators</div><div class="mb-vd-companies">Salesforce &middot; ServiceNow &middot; Zendesk</div><div class="mb-vd-why">They own the workflow. Agentforce is the largest deployment of specialised agents in the CRM space.</div></div>
+              <div class="mb-vd"><div class="mb-vd-type" style="color:#f59e0b;">Open Source / Frameworks</div><div class="mb-vd-companies">LangChain &middot; CrewAI &middot; AutoGPT</div><div class="mb-vd-why">The preferred choice for developers building custom, private-cloud agentic systems.</div></div>
+            </div>
+            <div class="mb-sources">Sources: CB Insights (Nov 2025), Technavio, Mordor Intelligence, Fortune (Dec 2025)</div>
+          </div>
+        </div>
+
+        <!-- Slide 6: Challenges -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">08 / 12</div>
+              <h3>Key Deployment Challenges</h3>
+            </div>
+            <div class="mb-ch-grid">
+              <div class="mb-ch"><div class="mb-ch-icon">&#128274;</div><div class="mb-ch-title">Data Privacy</div><div class="mb-ch-desc">Top barrier for 35% of organisations. Sensitive data doubles compliance costs.</div><div class="mb-ch-stat">96% cite regulatory challenges</div></div>
+              <div class="mb-ch"><div class="mb-ch-icon">&#127919;</div><div class="mb-ch-title">Hallucination</div><div class="mb-ch-desc">AI can produce incorrect responses, especially in regulated contexts.</div><div class="mb-ch-stat">Only 38% trust full autonomy</div></div>
+              <div class="mb-ch"><div class="mb-ch-icon">&#128268;</div><div class="mb-ch-title">Integration</div><div class="mb-ch-desc">Enterprise systems require custom connectors. $3K&ndash;$10K per integration.</div><div class="mb-ch-stat">Data prep = 60&ndash;75% of effort</div></div>
+              <div class="mb-ch"><div class="mb-ch-icon">&#128203;</div><div class="mb-ch-title">Governance</div><div class="mb-ch-desc">No standard governance frameworks exist for agentic AI yet.</div><div class="mb-ch-stat">63% say #1 challenge</div></div>
+              <div class="mb-ch"><div class="mb-ch-icon">&#127922;</div><div class="mb-ch-title">Non-Determinism</div><div class="mb-ch-desc">Agentic AI reasons and decides &mdash; unlike rules-based systems.</div><div class="mb-ch-stat">Needs new orchestration engines</div></div>
+              <div class="mb-ch"><div class="mb-ch-icon">&#128100;</div><div class="mb-ch-title">Talent Gap</div><div class="mb-ch-desc">Need AI engineers + domain experts who understand regulations.</div><div class="mb-ch-stat">Only 38% can act autonomously</div></div>
+              <div class="mb-ch"><div class="mb-ch-icon">&#128260;</div><div class="mb-ch-title">Change Mgmt</div><div class="mb-ch-desc">Employee resistance, especially among long-serving staff.</div><div class="mb-ch-stat">&lt;10% in production</div></div>
+              <div class="mb-ch"><div class="mb-ch-icon">&#128176;</div><div class="mb-ch-title">Cost Volatility</div><div class="mb-ch-desc">Token-based pricing makes costs hard to forecast.</div><div class="mb-ch-stat">Bills up 120%+ reported</div></div>
+            </div>
+            <div class="mb-sources">Sources: <a href="https://www.capgemini.com/insights/research-library/generative-ai-in-organizations/" target="_blank">Capgemini (Nov 2025)</a>, <a href="https://www.ey.com/en_us/insights/banking-capital-markets/how-banks-are-using-generative-ai" target="_blank">MIT/EY Banking Survey</a>, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-03-05-gartner-predicts-agentic-ai-will-autonomously-resolve-80-percent-of-common-customer-service-issues-without-human-intervention-by-20290" target="_blank">Gartner</a>, Intercom</div>
+          </div>
+        </div>
+
+        <!-- Slide 7: Where the Gap Is -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">09 / 12</div>
+              <h3>Where the Gap Is</h3>
+            </div>
+            <div style="font-size:0.68rem; color:#94a3b8; margin-bottom:12px; line-height:1.5;">The underserved opportunity isn't "another chatbot." It's the <strong style="color:#f1f5f9;">action layer + governance layer</strong> &mdash; agents that complete real tasks across messy enterprise systems.</div>
+            <div class="mb-gap-grid">
+              <div class="mb-gap"><div class="mb-gap-icon">&#9889;</div><div class="mb-gap-title">End-to-End Action Agents</div><div class="mb-gap-desc">Reliable tool-using agents that complete tasks across CRM, core banking, identity, billing &amp; ticketing systems &mdash; not just answer questions.</div><div class="mb-gap-stat">Task completion &gt; conversation</div></div>
+              <div class="mb-gap"><div class="mb-gap-icon">&#128737;</div><div class="mb-gap-title">Compliance &amp; Governance</div><div class="mb-gap-desc">Audit trails, policy constraints, approvals, redaction &amp; model risk documentation. No commercial standard exists yet.</div><div class="mb-gap-stat">63% say governance is #1 blocker</div></div>
+              <div class="mb-gap"><div class="mb-gap-icon">&#127974;</div><div class="mb-gap-title">Vertical BFSI Playbooks</div><div class="mb-gap-desc">Pre-built, regulation-ready agents for banking disputes, KYC/AML, claims triage, fraud flows &amp; lending.</div><div class="mb-gap-stat">Vertical AI agents: 62.7% CAGR</div></div>
+              <div class="mb-gap"><div class="mb-gap-icon">&#129309;</div><div class="mb-gap-title">Human-AI Orchestration</div><div class="mb-gap-desc">Seamless escalation with full context transfer. Klarna learned pure AI cost-cutting hurt quality &mdash; hybrid is the future.</div><div class="mb-gap-stat">Hybrid &gt; full automation</div></div>
+              <div class="mb-gap"><div class="mb-gap-icon">&#128178;</div><div class="mb-gap-title">Outcome-Based Pricing</div><div class="mb-gap-desc">ROI instrumentation: containment rate, cost per resolution, risk cost, escalation rate. Winners prove measurable cost-to-serve reduction.</div><div class="mb-gap-stat">Enterprise platforms cost $50K&ndash;$200K</div></div>
+              <div class="mb-gap"><div class="mb-gap-icon">&#128300;</div><div class="mb-gap-title">Testing &amp; Validation</div><div class="mb-gap-desc">Tools to measure AI agent accuracy, safety &amp; compliance in production. Most teams skip this &mdash; and pay for it.</div><div class="mb-gap-stat">40% of projects fail without it</div></div>
+            </div>
+            <div class="mb-sources">Sources: <a href="https://www.capgemini.com/insights/research-library/generative-ai-in-organizations/" target="_blank">Capgemini</a>, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-03-05-gartner-predicts-agentic-ai-will-autonomously-resolve-80-percent-of-common-customer-service-issues-without-human-intervention-by-20290" target="_blank">Gartner</a>, <a href="https://www.marketsandmarkets.com/Market-Reports/ai-for-customer-service-market-244430169.html" target="_blank">MarketsandMarkets</a>, CB Insights (Nov 2025), American Banker</div>
+          </div>
+        </div>
+
+        <!-- Slide 10: Financial Services Deep Dive -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">10 / 12</div>
+              <h3>Financial Services Deep Dive</h3>
+            </div>
+            <div style="font-size:0.68rem; color:#94a3b8; margin-bottom:10px; line-height:1.5;">BFSI is the <strong style="color:#f1f5f9;">#1 vertical by revenue share</strong> for AI customer service. Here's why it leads &mdash; and where the risks sit.</div>
+            <div class="mb-fs-grid">
+              <div class="mb-fs"><div class="mb-fs-label">AI Adoption</div><div class="mb-fs-value" style="color:#10b981;">75%</div><div class="mb-fs-desc">of financial firms already use AI (Bank of England, 2024)</div></div>
+              <div class="mb-fs"><div class="mb-fs-label">Agentic AI</div><div class="mb-fs-value" style="color:#3b82f6;">70%</div><div class="mb-fs-desc">of banks using or planning agentic AI (MIT/EY, 2025)</div></div>
+              <div class="mb-fs"><div class="mb-fs-label">JPMorgan Tech Spend</div><div class="mb-fs-value" style="color:#f59e0b;">$18B</div><div class="mb-fs-desc">annual technology budget &mdash; largest in banking</div></div>
+              <div class="mb-fs"><div class="mb-fs-label">Insurance Surge</div><div class="mb-fs-value" style="color:#8b5cf6;">8% &rarr; 34%</div><div class="mb-fs-desc">AI adoption in insurance in one year</div></div>
+            </div>
+            <div class="mb-mat-grid">
+              <div class="mb-mat"><div class="mb-mat-stage" style="color:#10b981;">Mature</div><div class="mb-mat-title">Virtual Assistants</div><div class="mb-mat-desc">BofA Erica: 58M interactions/month. NatWest Cora: 11.2M conversations in 2024.</div><div class="mb-mat-stat" style="color:#10b981;">3B+ total interactions</div></div>
+              <div class="mb-mat"><div class="mb-mat-stage" style="color:#3b82f6;">Scaling</div><div class="mb-mat-title">Fraud Detection</div><div class="mb-mat-desc">56% of banking execs report high AI capability. #1 use case in banking today.</div><div class="mb-mat-stat" style="color:#3b82f6;">56% high capability</div></div>
+              <div class="mb-mat"><div class="mb-mat-stage" style="color:#f59e0b;">Emerging</div><div class="mb-mat-title">KYC/AML &amp; Lending</div><div class="mb-mat-desc">Compliance automation and lending decisions. Processing times cut by 80%.</div><div class="mb-mat-stat" style="color:#f59e0b;">80% faster processing</div></div>
+              <div class="mb-mat"><div class="mb-mat-stage" style="color:#f43f5e;">Pilot</div><div class="mb-mat-title">Full Autonomy</div><div class="mb-mat-desc">Only 38% of banking execs believe AI can act with full digital autonomy today.</div><div class="mb-mat-stat" style="color:#f43f5e;">38% trust full autonomy</div></div>
+            </div>
+            <div class="mb-risk"><strong>Risk Factors:</strong> Regulatory uncertainty (96% cite compliance challenges) &middot; Hallucination in regulated contexts &middot; Vendor lock-in with hyperscalers &middot; Cost unpredictability with token-based pricing &middot; Governance frameworks still undefined (63% say #1 challenge)</div>
+            <div class="mb-sources">Sources: <a href="https://www.bankofengland.co.uk/report/2024/machine-learning-in-uk-financial-services" target="_blank">Bank of England (2024)</a>, <a href="https://www.ey.com/en_us/insights/banking-capital-markets/how-banks-are-using-generative-ai" target="_blank">MIT/EY (Sep 2025)</a>, <a href="https://insurancenewsnet.com/innarticle/ai-adoption-in-insurance-surges" target="_blank">InsuranceNewsNet</a>, <a href="https://www.capgemini.com/insights/research-library/generative-ai-in-organizations/" target="_blank">Capgemini (Nov 2025)</a></div>
+          </div>
+        </div>
+
+        <!-- Slide 11: Future of Agentic AI -->
+        <div class="mb-slide">
+          <div class="mb-slide-inner">
+            <div class="mb-slide-header">
+              <div class="mb-num">11 / 12</div>
+              <h3>The Future of Agentic AI</h3>
+            </div>
+            <div style="font-size:0.68rem; color:#94a3b8; margin-bottom:10px; line-height:1.5;">Where the market is heading &mdash; <strong style="color:#f1f5f9;">from today's pilots to tomorrow's autonomy</strong>.</div>
+            <div class="mb-tl-grid">
+              <div class="mb-tl"><div class="mb-tl-year" style="background:rgba(16,185,129,0.12); color:#10b981;">2028</div><div class="mb-tl-stat" style="color:#10b981;">68%</div><div class="mb-tl-title">AI-Handled</div><div class="mb-tl-desc">of customer interactions handled by AI agents</div></div>
+              <div class="mb-tl"><div class="mb-tl-year" style="background:rgba(6,182,212,0.12); color:#06b6d4;">2029</div><div class="mb-tl-stat" style="color:#06b6d4;">80%</div><div class="mb-tl-title">Autonomous</div><div class="mb-tl-desc">of common issues resolved without human intervention (Gartner)</div></div>
+              <div class="mb-tl"><div class="mb-tl-year" style="background:rgba(59,130,246,0.12); color:#3b82f6;">2030</div><div class="mb-tl-stat" style="color:#3b82f6;">50%</div><div class="mb-tl-title">Machine-Initiated</div><div class="mb-tl-desc">of service interactions will be proactive, started by AI</div></div>
+              <div class="mb-tl"><div class="mb-tl-year" style="background:rgba(139,92,246,0.12); color:#8b5cf6;">2034</div><div class="mb-tl-stat" style="color:#8b5cf6;">$199B</div><div class="mb-tl-title">Market Size</div><div class="mb-tl-desc">projected AI customer service market valuation</div></div>
+              <div class="mb-tl"><div class="mb-tl-year" style="background:rgba(244,63,94,0.12); color:#f43f5e;">2035+</div><div class="mb-tl-stat" style="color:#f43f5e;">$100B+</div><div class="mb-tl-title">Conversational AI</div><div class="mb-tl-desc">full conversational AI market (incl. non-service)</div></div>
+            </div>
+            <div style="padding:12px 14px; border:1px solid rgba(255,255,255,0.06); margin-top:0; background:rgba(59,130,246,0.04); font-size:0.65rem; color:#94a3b8; line-height:1.6;"><strong style="color:#3b82f6;">The shift:</strong> From reactive chatbots &rarr; proactive agents that anticipate needs, execute tasks, and learn from outcomes. Companies that build the <strong style="color:#f1f5f9;">action + governance layer</strong> now will own the $199B market.</div>
+            <div class="mb-sources">Sources: <a href="https://www.gartner.com/en/newsroom/press-releases/2025-03-05-gartner-predicts-agentic-ai-will-autonomously-resolve-80-percent-of-common-customer-service-issues-without-human-intervention-by-20290" target="_blank">Gartner (Mar 2025)</a>, <a href="https://www.marketsandmarkets.com/Market-Reports/ai-for-customer-service-market-244430169.html" target="_blank">MarketsandMarkets</a>, <a href="https://www.precedenceresearch.com/conversational-ai-market" target="_blank">Precedence Research</a></div>
+          </div>
+        </div>
+
+        <!-- Slide 12: Closing -->
+        <div class="mb-slide">
+          <div class="mb-title-slide">
+            <div class="mb-eyebrow">Summary</div>
+            <h3>The Opportunity is <em>Now</em></h3>
+            <div class="mb-sub">$74B market by 2032. Up to 80% of queries projected to be resolved autonomously by 2029. Early adopters already report 40%+ cost reductions. The shift is inevitable &mdash; but durable advantage will be built on integration depth, governance, and learning speed.</div>
+            <div class="mb-swipe-hint" style="margin-top:8px;">RESEARCH COMPILED BY TOLUWASE &middot; 2025</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- SOLUTION & BENEFITS -->
+<section>
+  <div class="section-label reveal">Solution</div>
+  <h2 class="section-heading reveal">How it works</h2>
+  <p class="section-text reveal" style="margin-bottom:0;">An agentic AI support system built on LangGraph that orchestrates six specialised agents to classify customer messages across 13 routes, retrieve grounded evidence from the company knowledge base using finance-domain embeddings, execute real transactions (balance lookups, wallet transfers, bill payments) through a tool-calling agent with 16 data tools, and verify every response via topic-aware critic evaluation before delivery.</p>
+  <p class="section-text reveal">The system handles multi-intent messages, maintains multi-turn conversational context, and escalates to human agents with full decision trace and supporting evidence when confidence thresholds are not met.</p>
+
+  <div class="section-label reveal" style="margin-top:32px; text-align:center;">Benefits</div>
+
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr 1fr;">
+
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Customers</div>
+      <div class="metric" style="font-size:1rem; margin-top:4px; opacity:0.7;">Faster, safer, always available support</div>
+      <div class="metric-desc" style="margin-top:16px; text-align:left;">
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Instant resolutions (~2.5s vs minutes)</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>24/7 access with no queues</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Policy-accurate, grounded answers</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Secure transactions executed in real time</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0;"><span style="opacity:0.5;">&rsaquo;</span><span>Smooth escalation with zero context loss</span></div>
+      </div>
+      <div class="metric-desc" style="margin-top:16px; opacity:0.85; font-style:italic;">&rarr; Faster help, fewer errors, higher trust.</div>
+    </div>
+
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Human Agents</div>
+      <div class="metric" style="font-size:1rem; margin-top:4px; opacity:0.7;">From repetitive triage to high-impact work</div>
+      <div class="metric-desc" style="margin-top:16px; text-align:left;">
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>85%+ of routine queries resolved before reaching the queue</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>AI-drafted escalations with evidence, grounding scores, and full trace</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Reduced triage time and context switching</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Greater focus on complex cases: fraud, disputes, and risk reviews</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0;"><span style="opacity:0.5;">&rsaquo;</span><span>Opportunity to build deeper expertise instead of repetitive transactional tasks</span></div>
+      </div>
+      <div class="metric-desc" style="margin-top:16px; opacity:0.85; font-style:italic;">&rarr; Higher job satisfaction, reduced burnout, clearer progression toward specialist roles.</div>
+    </div>
+
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Business</div>
+      <div class="metric" style="font-size:1rem; margin-top:4px; opacity:0.7;">Lower operating cost, stronger workforce stability</div>
+      <div class="metric-desc" style="margin-top:16px; text-align:left;">
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>~$0.01 per query vs $6&ndash;$8 live chat</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Scales to volume spikes without proportional headcount growth</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Reduced agent burnout &rarr; lower attrition and higher retention</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Lower retraining and onboarding costs</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Fewer service disruptions from staffing shortages</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="opacity:0.5;">&rsaquo;</span><span>Full audit trail supporting FCA compliance</span></div>
+        <div style="display:flex; gap:8px; padding:8px 0;"><span style="opacity:0.5;">&rsaquo;</span><span>Structured learning loop that improves without reinforcing bad outputs</span></div>
+      </div>
+      <div class="metric-desc" style="margin-top:16px; opacity:0.85; font-style:italic;">&rarr; Margin expansion, reduced operational risk, more stable support organisation.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- SYSTEM CAPABILITIES -->
+<section>
+  <div class="section-label reveal">System Capabilities</div>
+  <h2 class="section-heading reveal">What the system can do</h2>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Intelligent Routing</div>
+      <div class="metric-desc" style="margin-top:8px;">Auto-classifies user requests into 13 routes with confidence scoring. Handles multi-intent detection, splitting complex messages into separate resolutions whilst maintaining multi-turn conversation context to prevent misrouting on follow-ups, and auto-escalates low-confidence queries to human agents.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Account Opening</div>
+      <div class="metric-desc" style="margin-top:8px;">Guides customers through a full onboarding conversation, from choosing the right tier to collecting details, validating identity, and creating their account. It also understands when users want to upgrade (&ldquo;close my Basic, open Premium&rdquo;), catches corrections mid-flow, and handles edge cases like opening accounts for multiple people with age verification.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Data Queries &amp; Transactions</div>
+      <div class="metric-desc" style="margin-top:8px;">Executes real account operations through a tool-calling agent with 16 data tools &mdash; checking balances, searching transactions, transferring funds between wallets, and processing bill payments. Authenticates customers with bcrypt-verified credentials and a 3-attempt limit. Transfers over &pound;250 automatically flag for human approval.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Safety &amp; Security</div>
+      <div class="metric-desc" style="margin-top:8px;">PII masking, input sanitisation, prompt injection detection, and full audit logging on all interactions.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Grounding &amp; Critic Verification</div>
+      <div class="metric-desc" style="margin-top:8px;">Every AI response passes through critic verification before reaching the customer. Four critic tiers matched to query risk: general queries verified at 0.75, billing at 0.85, fraud at 0.90. Uses weakest-claim scoring &mdash; one fabricated claim fails the entire response. If below threshold, the system escalates rather than guessing.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Agent &amp; Admin Tools</div>
+      <div class="metric-desc" style="margin-top:8px;">Gives human agents an escalation queue with the AI&rsquo;s draft response, evidence sources, and confidence scores already attached. Includes an AI review queue for approving or rejecting auto-resolved answers and for responding in real time to user requests escalated for immediate approval.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">RAG &amp; Learning Loop</div>
+      <div class="metric-desc" style="margin-top:8px;">The system uses a three-stage retrieval pipeline consisting of query rewriting, vector search across the company&rsquo;s knowledge base using finance-domain embeddings, and LLM-based reranking to surface the most relevant evidence. Successfully resolved queries are stored as learned resolutions within a controlled learning loop. AI-generated answers begin with reduced weighting, human-approved responses are promoted, and three consecutive failures trigger automatic deactivation.</div>
+      <div class="metric-desc" style="margin-top:8px;">The system improves with use, while maintaining strict quality safeguards.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Knowledge Base</div>
+      <div class="metric-desc" style="margin-top:8px;">Document management system for uploading, updating, and deleting company policies, guides, and incident reports, with immediate embedding and indexing using finance-domain vectors.</div>
+    </div>
+    <div class="detail-card" style="grid-column: 1 / -1;">
+      <div class="metric" style="font-size:1.2rem;">Evaluation &amp; Tracing</div>
+      <div class="metric-desc" style="margin-top:8px;">Tracks live metrics with daily trend charts &mdash; grounding accuracy, auto-resolve rate, escalation rate, cost per query. Full pipeline trace board lets you inspect any conversation node by node: timing, evidence retrieved, LLM calls, and prompt text.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- PROJECT INTERFACE -->
+<section>
+  <div class="section-label reveal">Interface</div>
+  <h2 class="section-heading reveal">What it looks like</h2>
+
+  <div class="pi-wrapper reveal" id="piSlider">
+    <div class="pi-nav">
+      <div class="pi-nav-title">Project Interface</div>
+      <div class="pi-nav-dots" id="piDots"></div>
+      <div class="pi-nav-arrows">
+        <button id="piPrev">&lsaquo;</button>
+        <button id="piNext">&rsaquo;</button>
+      </div>
+    </div>
+    <div class="pi-track-container">
+      <div class="pi-track" id="piTrack">
+
+        <!-- User Chat Interface -->
+        <div class="pi-slide">
+          <img src="images/UserChat Interface .png" alt="User Chat Interface — customer-facing conversation view">
+          <div class="pi-slide-caption">
+            <h4>User Chat Interface</h4>
+            <p>Customer-facing conversation view where users interact with the AI support agent in real time.</p>
+          </div>
+        </div>
+
+        <!-- Agent Dashboard: Overview -->
+        <div class="pi-slide">
+          <img src="images/Agent Dashboard.webp" alt="Agent Dashboard — metrics, AI reviews queue, and response detail">
+          <div class="pi-slide-caption">
+            <h4>Agent Dashboard</h4>
+            <p>34 auto-resolved, 11 escalated, 72% resolve rate, 6.5s avg response. AI Reviews queue with grounding scores. Full query/response detail with approve/reject controls.</p>
+          </div>
+        </div>
+
+        <!-- Agent Dashboard: Review Detail -->
+        <div class="pi-slide">
+          <img src="images/Agent dashboard 2.webp" alt="Agent Dashboard — AI review detail with approve and reject">
+          <div class="pi-slide-caption">
+            <h4>AI Review &amp; Approval</h4>
+            <p>Human-in-the-loop review: customer query, full AI response, grounding score (98%), and approve/reject actions. Approved answers feed back into the learning store.</p>
+          </div>
+        </div>
+
+        <!-- Pipeline Trace: Overview -->
+        <div class="pi-slide">
+          <img src="images/Pipeline Trace Board 1.webp" alt="Pipeline Trace Board — session overview with metrics">
+          <div class="pi-slide-caption">
+            <h4>Pipeline Trace Board</h4>
+            <p>Session-level view showing turns, total time (3691ms), token count (2,764), and cost ($0.0067). Select any session to inspect the full decision chain.</p>
+          </div>
+        </div>
+
+        <!-- Pipeline Trace: Triage Detail -->
+        <div class="pi-slide">
+          <img src="images/Pipeline Trace board 2.webp" alt="Pipeline Trace — triage node detail with routing reasoning">
+          <div class="pi-slide-caption">
+            <h4>Triage Node Detail</h4>
+            <p>Node-by-node inspection: route, topic, sentiment, sensitivity, intent count, routing confidence (0.9), and full reasoning chain for every turn.</p>
+          </div>
+        </div>
+
+        <!-- Pipeline Trace: Prompt Templates -->
+        <div class="pi-slide">
+          <img src="images/Pipeline Trace board 3.webp" alt="Pipeline Trace — account opening node with 13 prompt templates">
+          <div class="pi-slide-caption">
+            <h4>Prompt Registry &amp; Templates</h4>
+            <p>Account opening node with 13 viewable prompt templates. Every prompt in the system is inspectable directly from the trace board.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- MAJOR FEATURES -->
+<section>
+  <div class="section-label reveal">Major Features</div>
+  <h2 class="section-heading reveal">Five core interfaces</h2>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Customer Chat</div>
+      <div class="metric-desc" style="margin-top:8px;">Real-time AI-powered chat handling multi-turn conversations, account opening, balance enquiries, and bill payments autonomously.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Agent Dashboard</div>
+      <div class="metric-desc" style="margin-top:8px;">Unified workspace where human agents review escalations, monitor AI decisions, and intervene when necessary.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Pipeline Trace</div>
+      <div class="metric-desc" style="margin-top:8px;">Transparent execution view displaying node-by-node decision flow, state transitions, and system reasoning paths.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Evals Dashboard</div>
+      <div class="metric-desc" style="margin-top:8px;">Performance monitoring panel tracking accuracy, confidence scores, grounding validation, and system metrics.</div>
+    </div>
+    <div class="detail-card" style="grid-column: 1 / -1;">
+      <div class="metric" style="font-size:1.3rem;">Knowledge Base</div>
+      <div class="metric-desc" style="margin-top:8px;">Document management system for securely uploading, updating, and deleting company data used for grounded AI responses.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- EVALUATION METRICS -->
+<section>
+  <div class="section-label reveal">Evaluation</div>
+  <h2 class="section-heading reveal">System targets vs current metrics</h2>
+
+  <!-- Golden Dataset Evaluation -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2rem;">Golden Dataset Evaluation <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">(Offline &mdash; Ground Truth)</span></h3>
+  <div class="detail-card reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+      <thead>
+        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Metric</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Target</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Current</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Routing Accuracy</td>
+          <td style="text-align:center; padding:10px 12px;">85%</td>
+          <td style="text-align:center; padding:10px 12px;">88.0%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">PASS</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Retrieval Precision</td>
+          <td style="text-align:center; padding:10px 12px;">60%</td>
+          <td style="text-align:center; padding:10px 12px;">61.4%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">PASS</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Auto-Resolve Rate</td>
+          <td style="text-align:center; padding:10px 12px;">80%</td>
+          <td style="text-align:center; padding:10px 12px;">87.8%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">PASS</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Escalation Accuracy</td>
+          <td style="text-align:center; padding:10px 12px;">90%</td>
+          <td style="text-align:center; padding:10px 12px;">100%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">PASS</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;">Grounding Accuracy</td>
+          <td style="text-align:center; padding:10px 12px;">85%</td>
+          <td style="text-align:center; padding:10px 12px;">77.8%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#f87171;">MISS</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Live Metrics -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Live Metrics <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">(Last 7 Days &mdash; 1,281 queries)</span></h3>
+  <div class="detail-card reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+      <thead>
+        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Metric</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Target</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Current</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Auto-Resolve Rate</td>
+          <td style="text-align:center; padding:10px 12px;">80%</td>
+          <td style="text-align:center; padding:10px 12px;">83.4% (1,068/1,281)</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">PASS</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Avg Grounding (simple_qa)</td>
+          <td style="text-align:center; padding:10px 12px;">0.85</td>
+          <td style="text-align:center; padding:10px 12px;">0.834</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#facc15;">CLOSE</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Avg Grounding (data_query)</td>
+          <td style="text-align:center; padding:10px 12px;">0.85</td>
+          <td style="text-align:center; padding:10px 12px;">0.769</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#f87171;">MISS</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Avg Retrieval Precision</td>
+          <td style="text-align:center; padding:10px 12px;">0.60</td>
+          <td style="text-align:center; padding:10px 12px;">0.563</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#facc15;">CLOSE</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Avg Processing Time</td>
+          <td style="text-align:center; padding:10px 12px;">&lt;10s</td>
+          <td style="text-align:center; padding:10px 12px;">13.2s</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#f87171;">MISS</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Cost Per Query</td>
+          <td style="text-align:center; padding:10px 12px;">&lt;$0.02</td>
+          <td style="text-align:center; padding:10px 12px;">$0.017</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">PASS</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;">Total Cost (7 days)</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
+          <td style="text-align:center; padding:10px 12px;">$21.70</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Route Distribution -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Route Distribution <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">(7 days)</span></h3>
+  <div class="detail-card reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+      <thead>
+        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Route</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Queries</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Auto-Resolved</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Escalated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">simple_qa</td>
+          <td style="text-align:center; padding:10px 12px;">598</td>
+          <td style="text-align:center; padding:10px 12px;">502 (84%)</td>
+          <td style="text-align:center; padding:10px 12px;">96</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">data_query</td>
+          <td style="text-align:center; padding:10px 12px;">384</td>
+          <td style="text-align:center; padding:10px 12px;">353 (92%)</td>
+          <td style="text-align:center; padding:10px 12px;">31</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">account_opening</td>
+          <td style="text-align:center; padding:10px 12px;">173</td>
+          <td style="text-align:center; padding:10px 12px;">172 (99%)</td>
+          <td style="text-align:center; padding:10px 12px;">1</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">human_handoff</td>
+          <td style="text-align:center; padding:10px 12px;">78</td>
+          <td style="text-align:center; padding:10px 12px;">0</td>
+          <td style="text-align:center; padding:10px 12px;">78 (correct)</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">greeting</td>
+          <td style="text-align:center; padding:10px 12px;">35</td>
+          <td style="text-align:center; padding:10px 12px;">35 (100%)</td>
+          <td style="text-align:center; padding:10px 12px;">0</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">retention_intercept</td>
+          <td style="text-align:center; padding:10px 12px;">19</td>
+          <td style="text-align:center; padding:10px 12px;">16 (84%)</td>
+          <td style="text-align:center; padding:10px 12px;">3</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">investigation</td>
+          <td style="text-align:center; padding:10px 12px;">8</td>
+          <td style="text-align:center; padding:10px 12px;">6 (75%)</td>
+          <td style="text-align:center; padding:10px 12px;">2</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;">clarification</td>
+          <td style="text-align:center; padding:10px 12px;">5</td>
+          <td style="text-align:center; padding:10px 12px;">0</td>
+          <td style="text-align:center; padding:10px 12px;">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ARCHITECTURE -->
+<section>
+  <div class="section-label reveal">Architecture</div>
+  <h2 class="section-heading reveal">Why LangGraph</h2>
+  <p class="section-text reveal">In a highly regulated industry like financial services, where trust is essential and errors carry real consequences, the agentic AI framework choice matters. LangGraph provides the control, transparency, and reliability needed to build a system that is not just scalable, but safe.</p>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Explicit State Machine</div>
+      <div class="metric-desc" style="margin-top:8px;">Every decision point defined upfront &mdash; predictable, traceable, debuggable behaviour for financial data.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Conditional Routing</div>
+      <div class="metric-desc" style="margin-top:8px;">Precise control over execution paths across 13 distinct routes based on intent, sensitivity, and sentiment.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">State Management</div>
+      <div class="metric-desc" style="margin-top:8px;">50+ state fields track everything from triage classification to critic verdicts, supporting multi-turn flows.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Guardrails via Edges</div>
+      <div class="metric-desc" style="margin-top:8px;">High-sensitivity queries must escalate, prompt injections blocked before LLM calls, no response without critic verification.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Loop Support</div>
+      <div class="metric-desc" style="margin-top:8px;">Controlled self-correction when critic rejects a response, with hard caps (max 2 loops) to prevent runaway execution.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Full Auditability</div>
+      <div class="metric-desc" style="margin-top:8px;">Every node's input/output traceable. 20+ field audit trail per request for debugging and bottleneck identification.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- KEY DESIGN DECISIONS -->
+<section>
+  <div class="section-label reveal">Design Rationale</div>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Model Selection for Tool-Calling</div>
+      <div class="metric-desc" style="margin-top:8px;">Haiku loses instruction stability after 2&ndash;3 tool calls, while Sonnet maintains consistency across 5+ rounds. Though 12x more expensive, Sonnet is limited to the ~15&ndash;20% of messages requiring data tools.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Weakest-Claim Scoring</div>
+      <div class="metric-desc" style="margin-top:8px;">Critics use weakest-claim scoring, not averages. One hallucinated fact among four correct ones should fail the check, not pass with a 0.75.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Quality-Gated Learning</div>
+      <div class="metric-desc" style="margin-top:8px;">Auto-resolved answers begin with reduced confidence weighting, are promoted through human validation, and auto-deactivate after repeated failures.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Context-Gated Fast-Paths</div>
+      <div class="metric-desc" style="margin-top:8px;">Keywords like &ldquo;balance&rdquo; and &ldquo;open&rdquo; trigger fast-paths on first messages but are ignored in multi-turn conversations where they&rsquo;re naturally common.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- GROUNDING & LEARNING -->
+<section>
+  <div class="section-label reveal">Grounding &amp; Learning</div>
+  <h2 class="section-heading reveal">Topic-aware confidence &amp; three learning paths</h2>
+  <div class="details-grid reveal" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 32px;">
+    <div class="detail-card">
+      <div class="metric">0.75</div>
+      <div class="metric-label">General / Technical</div>
+      <div class="metric-desc">Lower-risk informational queries</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">0.85</div>
+      <div class="metric-label">Billing / Account</div>
+      <div class="metric-desc">Financial topics require higher bar</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">0.90</div>
+      <div class="metric-label">Fraud / Legal</div>
+      <div class="metric-desc">Maximum grounding required</div>
+    </div>
+  </div>
+  <div class="details-grid reveal" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Path 1</div>
+      <div class="metric-label">AI Resolution Learning</div>
+      <div class="metric-desc" style="margin-top:6px;">Successful auto-resolved queries stored with embeddings. Weightings increase from 0.85x &rarr; 1.2x after approval. Quality-weighted search with 30% floor.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Path 2</div>
+      <div class="metric-label">Human Resolution Learning</div>
+      <div class="metric-desc" style="margin-top:6px;">Human-resolved escalations stored with grounding_score=1.0. Weighted 1.3x higher in search results.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.3rem;">Path 3</div>
+      <div class="metric-label">Failure Tracking</div>
+      <div class="metric-desc" style="margin-top:6px;">Escalated queries logged with evidence gaps and failure reasons, enabling analysis of what the AI can't handle.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- TECH STACK -->
+<section>
+  <div class="section-label reveal">Tech Stack</div>
+  <h2 class="section-heading reveal">Built with</h2>
+  <div class="details-grid reveal" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Frontend</div>
+      <div class="metric-desc" style="margin-top:6px;">Streamlit hosted on Railway</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Backend</div>
+      <div class="metric-desc" style="margin-top:6px;">FastAPI hosted on Railway</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Database</div>
+      <div class="metric-desc" style="margin-top:6px;">PostgreSQL + pgvector on Neon</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Embeddings</div>
+      <div class="metric-desc" style="margin-top:6px;">Voyage AI</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Agent Framework</div>
+      <div class="metric-desc" style="margin-top:6px;">LangGraph</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">LLM Models</div>
+      <div class="metric-desc" style="margin-top:6px;">Claude (Haiku &amp; Sonnet)</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Prototyping</div>
+      <div class="metric-desc" style="margin-top:6px;">Claude Code / VS Code</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Budget</div>
+      <div class="metric-desc" style="margin-top:6px;">~$10&ndash;$30 for 500 test queries</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- COST ANALYSIS -->
+<section>
+  <div class="section-label reveal">Cost Analysis</div>
+  <h2 class="section-heading reveal">Per-node cost breakdown</h2>
+  <p class="section-text reveal">Based on Anthropic API pricing: Haiku $0.80/1M input, $4.00/1M output; Sonnet $3.00/1M input, $15.00/1M output. Voyage AI embeddings ~$0.0001/query.</p>
+  <div class="details-grid reveal" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="detail-card">
+      <div class="metric">$0.001</div>
+      <div class="metric-label">Triage (Haiku)</div>
+      <div class="metric-desc">700 input / 200 output tokens</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.002</div>
+      <div class="metric-label">Retriever</div>
+      <div class="metric-desc">Haiku + Voyage AI embeddings</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.003</div>
+      <div class="metric-label">Haiku Resolver</div>
+      <div class="metric-desc">1500 input / 500 output tokens</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.018</div>
+      <div class="metric-label">Sonnet Resolver</div>
+      <div class="metric-desc">2000 input / 800 output tokens</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.015</div>
+      <div class="metric-label">Sonnet Critic</div>
+      <div class="metric-desc">2500 input / 500 output tokens</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.005&ndash;$0.015</div>
+      <div class="metric-label">Blended Cost/Message</div>
+      <div class="metric-desc">Mix of fast-path and full pipeline</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- WHY THIS DOMAIN -->
+<section>
+  <div class="section-label reveal">Motivation</div>
+  <h2 class="section-heading reveal">Why this project &mdash; agentic AI for fintech customer support</h2>
+  <p class="section-text reveal" style="margin-bottom:0;">I chose fintech customer service because financial services operate in a high-trust, high-risk environment, where inaccuracies or hallucinations can carry serious regulatory, financial, and reputational consequences. This makes it an ideal domain to demonstrate grounded AI competence and the ability to design a multi-agent system that prioritises accuracy, safety, and auditability over speed alone.</p>
+  <p class="section-text reveal" style="margin-bottom:0;">The sector also presents strong adoption potential, given high support volumes, strict compliance requirements, and clear cost pressures. Lessons learned in this environment &mdash; particularly around designing systems that are trustworthy, governed, and reliable &mdash; are transferable to other regulated industries such as healthcare, insurance, and enterprise SaaS.</p>
+  <p class="section-text reveal">Finally, I intentionally selected a real-world scenario complex enough to exercise the full spectrum of agentic system design: multi-agent orchestration, RAG grounding, evaluation loops, escalation policies, and memory mechanisms. As someone deeply familiar with the fintech domain, this allowed me to build a system that reflects practical operational realities rather than a theoretical use case.</p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- PRODUCT CHALLENGES -->
+<section>
+  <div class="section-label reveal">Challenges</div>
+  <h2 class="section-heading reveal">Product challenges, solutions &amp; improvements</h2>
+
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Low Retrieval Precision (0.35 &rarr; 0.60)</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> The RAG pipeline returned broad, multi-topic chunks that only partially answered customer questions. The original chunker split documents only on <code>##</code> headers, merging unrelated subsections into single chunks.</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Upgraded embedding model from voyage-4-lite to voyage-finance-2 (finance-domain trained), implemented subsection-aware chunking (<code>###</code> headers), reduced chunk size from 512 to 300 tokens, split FAQ sections into individual Q&amp;A pairs, added a similarity floor filter to remove low-relevance noise, and rebuilt the IVFFlat vector index. Total chunks increased from 354 to 495 (+40%).</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Poor Auto-Resolve Rate (64% &rarr; 87%)</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> The grounding critic escalated too many queries to human agents. Root causes: binary pass/escalate routing (no retry path), verbose critic prompts degrading scoring quality, and retrieval confidence miscalibration causing unnecessary Sonnet critic usage.</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Added a revise &rarr; retry path to the Haiku critic, recalibrated confidence thresholds to match the new embedding model&rsquo;s similarity scale (ceiling 0.80 &rarr; 0.68), lowered revise floors by 0.10 across all topics to widen the retry band, and added temperature=0.1 on all critics for near-deterministic scoring. Sonnet critic usage dropped from 41% to 6%.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Role Confusion in AI Responses</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> The resolver LLM occasionally spoke as the customer (&ldquo;Thanks for the details&hellip;&rdquo;) instead of to the customer, leaking internal prompt structure into responses.</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Built a 3-step <code>filter_output()</code> post-processing defence: opener stripping (13 regex patterns), holistic customer-voice indicator check, and agent-voice detection safety net. Hardened the resolver prompt with explicit role context, information flow direction rules, and BAD/GOOD response examples.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Account Opening Workflow Failures</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> A production conversation (ticket t_1145) exposed four issues: (a) the bot confused &ldquo;open account for my daughter&rdquo; with a data lookup, repeatedly asking for credentials; (b) contradicted itself on age eligibility; (c) ignored abusive language; and (d) ignored explicit refusal (&ldquo;I am not opening the account again&rdquo;), continuing to show the sign-up form.</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> (a) Separated the age gate into self-reference vs third-party regex &mdash; &ldquo;my daughter is 17&rdquo; now stays in the workflow and offers the parent an account instead. (b) Third-party age rejection preserves workflow state so follow-ups maintain context. (c) Added a P0b abuse/profanity interrupt that runs at every workflow step and escalates to a human agent. (d) Expanded cancel detection with negated-intent patterns (&ldquo;not opening&rdquo;, &ldquo;won&rsquo;t open&rdquo;, &ldquo;not going ahead&rdquo;).</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Multi-Turn Context Loss</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> Keyword-based fast-paths (account opening, retention, data query) fired on follow-up messages that naturally contained trigger words like &ldquo;wallet&rdquo;, &ldquo;open&rdquo;, or &ldquo;balance&rdquo;, breaking multi-turn conversations.</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Added a <code>has_history</code> flag &mdash; workflow-triggering fast-paths only fire on first messages. Follow-ups go through full LLM classification. Safety fast-paths (prompt injection, language detection) remain unconditional.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Multi-Intent Detection</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> Customers making multiple requests in one message (&ldquo;check my balance and open an account&rdquo;) only had one request handled. The triage LLM collapsed same-type-but-separate intents into one.</div>
+      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Added critical rules with explicit examples to the triage prompt for counting distinct intents, conjunction detection (&ldquo;and&rdquo;, &ldquo;also&rdquo;, &ldquo;plus&rdquo;), and requirement vs action distinction. Added warm, conversational multi-intent acknowledgement with intelligent ordering advice.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- PERSONAL LEARNINGS -->
+<section>
+  <div class="section-label reveal">Learnings</div>
+  <h2 class="section-heading reveal">What I learned building this</h2>
+  <p class="section-text reveal">This project gave me hands-on experience across the full spectrum of agentic AI system design.</p>
+
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2rem;">Architecture &amp; Design</h3>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Architectural Trade-offs</div>
+      <div class="metric-desc" style="margin-top:8px;">When to split responsibilities across multiple agents vs. consolidating into one, balancing modularity, debuggability, and latency.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Context Engineering</div>
+      <div class="metric-desc" style="margin-top:8px;">What you put into the context window matters more than how you phrase the prompt. Designing dynamic context assembly per query was critical.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Prompting &amp; Design</div>
+      <div class="metric-desc" style="margin-top:8px;">Clear instructions, explicit examples, and well-defined boundaries mattered just as much as architecture or model choice. When the system failed, the root cause was usually missing context or poorly defined constraints.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Framework Choice</div>
+      <div class="metric-desc" style="margin-top:8px;">In regulated environments, traceability and control matter more than flexibility. Every decision point should be explainable and auditable. Your choice of agent framework should be determined by this.</div>
+    </div>
+  </div>
+
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2rem;">Cost, Quality &amp; Trade-offs</h3>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Balancing Constraints</div>
+      <div class="metric-desc" style="margin-top:8px;">Navigating the tension between cost, speed, accuracy, and safety and knowing which to prioritise for different query types.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Model Selection &amp; Cost Trade-offs</div>
+      <div class="metric-desc" style="margin-top:8px;">Certain tasks require more capable models regardless of cost. Cheaper models work for simple routing, but critical decisions need stronger reasoning. Over-optimising for cost quietly degrades quality and leads to inaccuracies.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Guardrails &amp; the &ldquo;Box&rdquo; Principle</div>
+      <div class="metric-desc" style="margin-top:8px;">With agentic AI, there&rsquo;s no &ldquo;thinking outside the box.&rdquo; The model must stay inside the box you design. Define that box clearly, then give the system enough freedom and tools to operate effectively within it. It&rsquo;s better to escalate to a human than risk the cost of misinformation.</div>
+    </div>
+  </div>
+
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2rem;">Evaluation &amp; Debugging</h3>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">AI Evaluation</div>
+      <div class="metric-desc" style="margin-top:8px;">How to measure what actually matters: retrieval precision, recall, grounding accuracy, and answer rate not just &ldquo;does it work.&rdquo;</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Root Cause Analysis</div>
+      <div class="metric-desc" style="margin-top:8px;">Diagnosing why metrics underperformed (retrieval at 38% recall, grounding inflated by hedging) and fixing systematically rather than guessing.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Testing &amp; Observability</div>
+      <div class="metric-desc" style="margin-top:8px;">Keep testing. Introduce edge cases. Learn from errors. Iterate. Then iterate again. When you notice an error, go deep, understanding your system&rsquo;s architecture helps you debug quickly because you know where things could have gone wrong.</div>
+      <div class="metric-desc" style="margin-top:8px;">Take evals seriously. Design evaluation tools that suit your use case. I built an evals dashboard and a pipeline trace page that let me inspect every conversation from start to finish, node by node, with evidence inspection and similarity scores. This gave me a built-in audit system. Every bug I found, I diagnosed from audit entries and trace spans stored in the database. Without that observability, I&rsquo;d have been guessing.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- FUTURE IMPROVEMENTS -->
+<section>
+  <div class="section-label reveal">Next Steps</div>
+  <h2 class="section-heading reveal">Future improvements</h2>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Add Write Operations</div>
+      <div class="metric-desc" style="margin-top:8px;">Enable refund processing, not just answering questions.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Reduce Latency</div>
+      <div class="metric-desc" style="margin-top:8px;">Optimise for faster response times.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Expand Capabilities</div>
+      <div class="metric-desc" style="margin-top:8px;">Handle more complex multi-step transactions.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- BROADER OPPORTUNITY -->
+<section>
+  <div class="section-label reveal">Opportunity</div>
+  <h2 class="section-heading reveal">Broader opportunity</h2>
+  <p class="section-text reveal" style="margin-bottom:0;">Building systems like this goes beyond the traditional PM skill set. It requires structural architectural judgement, clear risk modelling, and deliberate trade-offs between autonomy, control, and reliability, as the system must remain grounded in verified knowledge, apply structured escalation logic, and make every decision traceable and accountable.</p>
+  <p class="section-text reveal">This project demonstrates my ability to design and build such systems, including multi-agent orchestration, precision-focused RAG pipelines that ground responses in authoritative data, transactional tool execution, well-defined confidence frameworks, controlled human escalation, and complete decision transparency.</p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- NOTE -->
+<section>
+  <div class="section-label reveal">Note</div>
+  <p class="section-text reveal" style="font-style:italic; color: var(--mist);">PootMan Payments is a completely fictional company created for the purpose of this portfolio project.</p>
+  <a class="back-to-portfolio" href="index.html#portfolio">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Portfolio
+  </a>
+</section>
+
+<script>
+  // Reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.04}s`;
+    observer.observe(el);
+  });
+
+  // Embedded Market Brief Slider
+  (() => {
+    const track = document.getElementById('mbTrack');
+    const dotsContainer = document.getElementById('mbDots');
+    const prevBtn = document.getElementById('mbPrev');
+    const nextBtn = document.getElementById('mbNext');
+    const slides = track.children.length;
+    let mbCurrent = 0;
+
+    // Create dots
+    for (let i = 0; i < slides; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'mb-nav-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => mbGoTo(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    function mbGoTo(n) {
+      mbCurrent = Math.max(0, Math.min(n, slides - 1));
+      track.style.transform = 'translateX(-' + (mbCurrent * 100) + '%)';
+      dotsContainer.querySelectorAll('.mb-nav-dot').forEach((d, i) => {
+        d.className = 'mb-nav-dot' + (i === mbCurrent ? ' active' : '');
+      });
+    }
+
+    prevBtn.addEventListener('click', () => mbGoTo(mbCurrent - 1));
+    nextBtn.addEventListener('click', () => mbGoTo(mbCurrent + 1));
+
+    // Touch swipe
+    let touchStartX = 0;
+    const wrapper = document.getElementById('mbSlider');
+    wrapper.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) { diff > 0 ? mbGoTo(mbCurrent + 1) : mbGoTo(mbCurrent - 1); }
+    }, { passive: true });
+
+    // Mouse drag
+    let mouseDown = false, mouseStartX = 0;
+    wrapper.addEventListener('mousedown', e => { mouseDown = true; mouseStartX = e.clientX; });
+    wrapper.addEventListener('mouseup', e => {
+      if (!mouseDown) return;
+      mouseDown = false;
+      const diff = mouseStartX - e.clientX;
+      if (Math.abs(diff) > 60) { diff > 0 ? mbGoTo(mbCurrent + 1) : mbGoTo(mbCurrent - 1); }
+    });
+    wrapper.addEventListener('mouseleave', () => { mouseDown = false; });
+  })();
+
+  // Project Interface Slider
+  (() => {
+    const track = document.getElementById('piTrack');
+    const dotsContainer = document.getElementById('piDots');
+    const prevBtn = document.getElementById('piPrev');
+    const nextBtn = document.getElementById('piNext');
+    const slides = track.children.length;
+    let piCurrent = 0;
+
+    for (let i = 0; i < slides; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'pi-nav-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => piGoTo(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    function piGoTo(n) {
+      piCurrent = Math.max(0, Math.min(n, slides - 1));
+      track.style.transform = 'translateX(-' + (piCurrent * 100) + '%)';
+      dotsContainer.querySelectorAll('.pi-nav-dot').forEach((d, i) => {
+        d.className = 'pi-nav-dot' + (i === piCurrent ? ' active' : '');
+      });
+    }
+
+    prevBtn.addEventListener('click', () => piGoTo(piCurrent - 1));
+    nextBtn.addEventListener('click', () => piGoTo(piCurrent + 1));
+
+    let tStartX = 0;
+    const piWrapper = document.getElementById('piSlider');
+    piWrapper.addEventListener('touchstart', e => { tStartX = e.changedTouches[0].screenX; }, { passive: true });
+    piWrapper.addEventListener('touchend', e => {
+      const diff = tStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) { diff > 0 ? piGoTo(piCurrent + 1) : piGoTo(piCurrent - 1); }
+    }, { passive: true });
+
+    let mDown = false, mStartX = 0;
+    piWrapper.addEventListener('mousedown', e => { mDown = true; mStartX = e.clientX; });
+    piWrapper.addEventListener('mouseup', e => {
+      if (!mDown) return;
+      mDown = false;
+      const diff = mStartX - e.clientX;
+      if (Math.abs(diff) > 60) { diff > 0 ? piGoTo(piCurrent + 1) : piGoTo(piCurrent - 1); }
+    });
+    piWrapper.addEventListener('mouseleave', () => { mDown = false; });
+  })();
+</script>
+
+</body>
+</html>

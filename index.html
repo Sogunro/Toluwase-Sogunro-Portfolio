@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toluwase Sogunro — Product Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0f1a;
+    --paper: #f5f2ed;
+    --cream: #ebe7e0;
+    --accent: #c44b2b;
+    --accent-glow: #e8654a;
+    --steel: #4a5568;
+    --mist: #8896a7;
+    --ice: #dde4ec;
+    --white: #ffffff;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(245, 242, 237, 0.85);
+    border-bottom: 1px solid rgba(10, 15, 26, 0.06);
+    padding: 0 48px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .brand { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); font-weight: 900; }
+  nav .brand span { color: var(--accent); }
+  nav .nav-links { display: flex; gap: 32px; list-style: none; }
+  nav .nav-links a {
+    font-size: 0.78rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--steel); text-decoration: none; transition: color 0.25s;
+  }
+  nav .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 48px 80px; max-width: 1200px; margin: 0 auto;
+  }
+  .hero-label {
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent);
+    margin-bottom: 24px; display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before { content: ''; width: 32px; height: 1.5px; background: var(--accent); }
+  .hero h1 {
+    font-family: var(--serif); font-size: clamp(3rem, 6.5vw, 5.5rem);
+    line-height: 1.02; letter-spacing: -0.03em; color: var(--ink);
+    max-width: 900px; margin-bottom: 32px;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 1.15rem; line-height: 1.65; color: var(--steel);
+    max-width: 620px; font-weight: 300; margin-bottom: 40px;
+  }
+  .hero-stats { display: flex; gap: 48px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; }
+  .hero-stat .num {
+    font-family: var(--serif); font-size: 2.4rem; line-height: 1;
+    color: var(--ink); letter-spacing: -0.02em;
+  }
+  .hero-stat .label {
+    font-size: 0.75rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--mist); margin-top: 6px;
+  }
+
+  /* SECTIONS */
+  section { padding: 96px 48px; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1.5px; background: var(--accent); }
+  .section-heading {
+    font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 48px; max-width: 700px;
+  }
+
+  .divider { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .divider hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--ice), transparent); }
+
+  /* VALUE GRID */
+  .value-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden;
+  }
+  .value-card {
+    background: var(--paper); padding: 36px 32px;
+    transition: background 0.3s;
+  }
+  .value-card:hover { background: var(--white); }
+  .value-card .icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 20px;
+    background: rgba(196, 75, 43, 0.08); color: var(--accent);
+  }
+  .value-card h3 {
+    font-family: var(--serif); font-size: 1.25rem;
+    letter-spacing: -0.01em; margin-bottom: 10px; color: var(--ink);
+  }
+  .value-card p { font-size: 0.88rem; line-height: 1.6; color: var(--steel); font-weight: 300; }
+
+  /* TRACK RECORD */
+  .track-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden;
+  }
+  .track-card { background: var(--paper); padding: 36px 32px; transition: background 0.3s; }
+  .track-card:hover { background: var(--white); }
+  .track-card .metric {
+    font-family: var(--serif); font-size: 2.2rem; color: var(--accent);
+    line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em;
+  }
+  .track-card .metric-label {
+    font-size: 0.82rem; font-weight: 600; color: var(--ink);
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px;
+  }
+  .track-card .metric-desc {
+    font-size: 0.84rem; line-height: 1.55; color: var(--steel); font-weight: 300;
+  }
+
+  /* PORTFOLIO PROJECTS — SWIPEABLE CAROUSEL */
+  .projects-carousel-wrapper { position: relative; }
+  .projects-carousel {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; padding-bottom: 8px;
+  }
+  .projects-carousel::-webkit-scrollbar { display: none; }
+  .project-card {
+    background: var(--white); border: 1px solid var(--ice); border-radius: 16px;
+    padding: 40px; display: flex; flex-direction: column; gap: 24px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    min-width: 100%; width: 100%; scroll-snap-align: start; flex-shrink: 0;
+  }
+  .project-card:hover {
+    border-color: rgba(196, 75, 43, 0.2);
+    box-shadow: 0 8px 40px rgba(10, 15, 26, 0.06);
+  }
+  /* Carousel indicators */
+  .carousel-nav {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin-top: 24px;
+  }
+  .carousel-dot {
+    width: 10px; height: 10px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--ice); transition: all 0.3s; padding: 0;
+  }
+  .carousel-dot.active { background: var(--accent); transform: scale(1.2); }
+  .carousel-arrow {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--ice);
+    background: var(--white); cursor: pointer; display: flex;
+    align-items: center; justify-content: center; transition: all 0.3s;
+    color: var(--steel); font-size: 1rem;
+  }
+  .carousel-arrow:hover { border-color: var(--accent); color: var(--accent); }
+  .swipe-hint {
+    text-align: center; margin-top: 8px;
+    font-family: var(--mono); font-size: 0.65rem; color: var(--mist);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .project-meta .project-tag {
+    display: inline-block; font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    background: rgba(196, 75, 43, 0.07); padding: 4px 12px;
+    border-radius: 100px; margin-bottom: 16px;
+  }
+  .project-meta h3 {
+    font-family: var(--serif); font-size: 1.45rem;
+    letter-spacing: -0.01em; color: var(--ink); margin-bottom: 10px; line-height: 1.2;
+  }
+  .project-meta .project-org {
+    font-size: 0.82rem; color: var(--mist); font-weight: 500; margin-bottom: 14px;
+  }
+  .project-meta p {
+    font-size: 0.86rem; line-height: 1.6; color: var(--steel); font-weight: 300;
+  }
+  .project-details { display: flex; flex-direction: column; gap: 10px; }
+  .detail-row {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid rgba(221, 228, 236, 0.6);
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); margin-top: 6px; flex-shrink: 0;
+  }
+  .detail-row span { font-size: 0.84rem; line-height: 1.5; color: var(--ink); font-weight: 400; }
+  .detail-row strong { font-weight: 600; }
+
+  /* MARKET SIZING EMBED */
+  .market-sizing-embed {
+    background: #0d1117;
+    border-radius: 16px;
+    padding: 36px 28px;
+    margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .ms-header {
+    text-align: center; margin-bottom: 24px;
+  }
+  .ms-header h4 {
+    font-family: 'Outfit', var(--sans); font-size: 1.15rem; font-weight: 700;
+    color: #f1f5f9; margin-bottom: 4px;
+  }
+  .ms-header .ms-sub {
+    font-family: var(--mono); font-size: 0.6rem; font-weight: 400;
+    letter-spacing: 0.25em; text-transform: uppercase; color: #64748b;
+  }
+  .ms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ms-card {
+    border-radius: 12px; padding: 20px 18px; position: relative;
+    overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
+  }
+  .ms-card::before {
+    content: ''; position: absolute; top: 0; left: 18px;
+    width: 28px; height: 2.5px; border-radius: 0 0 3px 3px;
+  }
+  .ms-c1 { background: linear-gradient(135deg, #151d2a, #1a2536); }
+  .ms-c1::before { background: #4ade80; }
+  .ms-c2 { background: linear-gradient(135deg, #0f2a35, #0a3040); }
+  .ms-c2::before { background: #22d3ee; }
+  .ms-c3 { background: linear-gradient(135deg, #1a1f2e, #1e2438); }
+  .ms-c3::before { background: #fbbf24; }
+  .ms-c4 { background: linear-gradient(135deg, #1c1535, #251d42); }
+  .ms-c4::before { background: #a78bfa; }
+  .ms-badge {
+    display: inline-block; font-family: var(--mono); font-size: 0.55rem;
+    font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 4px; margin-bottom: 10px; border: 1px solid;
+  }
+  .ms-c1 .ms-badge { color: #4ade80; border-color: rgba(74,222,128,0.25); background: rgba(74,222,128,0.08); }
+  .ms-c2 .ms-badge { color: #22d3ee; border-color: rgba(34,211,238,0.25); background: rgba(34,211,238,0.08); }
+  .ms-c3 .ms-badge { color: #fbbf24; border-color: rgba(251,191,36,0.25); background: rgba(251,191,36,0.08); }
+  .ms-c4 .ms-badge { color: #a78bfa; border-color: rgba(167,139,250,0.25); background: rgba(167,139,250,0.08); }
+  .ms-title { font-size: 0.82rem; font-weight: 600; color: #f1f5f9; margin-bottom: 10px; line-height: 1.3; }
+  .ms-values { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .ms-val { font-family: var(--mono); font-size: 1.2rem; font-weight: 700; line-height: 1; }
+  .ms-c1 .ms-val { color: #4ade80; }
+  .ms-c2 .ms-val { color: #22d3ee; }
+  .ms-c3 .ms-val { color: #fbbf24; }
+  .ms-c4 .ms-val { color: #a78bfa; }
+  .ms-arrow { font-size: 0.85rem; color: #64748b; }
+  .ms-meta { font-size: 0.68rem; color: #94a3b8; line-height: 1.5; }
+  .ms-cagr { font-family: var(--mono); font-weight: 600; }
+  .ms-c1 .ms-cagr { color: #4ade80; }
+  .ms-c2 .ms-cagr { color: #22d3ee; }
+  .ms-c3 .ms-cagr { color: #fbbf24; }
+  .ms-c4 .ms-cagr { color: #a78bfa; }
+  .ms-sources {
+    text-align: center; margin-top: 16px; font-size: 0.58rem;
+    color: #64748b; font-style: italic;
+  }
+
+  /* TOOLBOX */
+  .toolbox-layout { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .tool-group h4 {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);
+    margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 1.5px solid rgba(196, 75, 43, 0.15);
+  }
+  .tool-group ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .tool-group li {
+    font-size: 0.86rem; color: var(--ink); font-weight: 400;
+    padding-left: 16px; position: relative;
+  }
+  .tool-group li::before {
+    content: ''; position: absolute; left: 0; top: 8px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--ice);
+  }
+
+  /* EDUCATION */
+  .edu-strip {
+    display: flex; gap: 2px; background: var(--ice);
+    border-radius: 12px; overflow: hidden;
+  }
+  .edu-item { flex: 1; background: var(--paper); padding: 28px 24px; transition: background 0.3s; }
+  .edu-item:hover { background: var(--white); }
+  .edu-item .edu-degree { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); margin-bottom: 4px; }
+  .edu-item .edu-school { font-size: 0.78rem; color: var(--steel); font-weight: 400; margin-bottom: 2px; }
+  .edu-item .edu-year { font-family: var(--mono); font-size: 0.7rem; color: var(--mist); }
+
+  /* CTA */
+  .cta-section {
+    background: var(--ink); padding: 80px 48px; text-align: center;
+    margin-top: 48px; position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; top: -50%; left: 50%;
+    transform: translateX(-50%); width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(196, 75, 43, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--paper); line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 20px; position: relative;
+  }
+  .cta-section p {
+    font-size: 1rem; color: var(--mist); margin-bottom: 36px; font-weight: 300;
+    max-width: 500px; margin-left: auto; margin-right: auto; position: relative;
+  }
+  .cta-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; position: relative; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: all 0.3s;
+  }
+  .cta-btn.primary { background: var(--accent); color: var(--white); }
+  .cta-btn.primary:hover {
+    background: var(--accent-glow); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196, 75, 43, 0.3);
+  }
+  .cta-btn.secondary {
+    background: transparent; color: var(--paper);
+    border: 1px solid rgba(245, 242, 237, 0.2);
+  }
+  .cta-btn.secondary:hover {
+    border-color: rgba(245, 242, 237, 0.5);
+    background: rgba(245, 242, 237, 0.05);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav, .hero, section { padding-left: 24px; padding-right: 24px; }
+    .divider { padding: 0 24px; }
+    .value-grid, .toolbox-layout { grid-template-columns: 1fr; }
+    .track-grid { grid-template-columns: 1fr; }
+    .project-card { padding: 28px 20px; }
+    .edu-strip { flex-direction: column; }
+    .hero-stats { gap: 32px; }
+    .ms-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 60px 24px; }
+  }
+  @media (max-width: 600px) {
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Toluwase Sogunro<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#value">Value</a></li>
+    <li><a href="#track">Track Record</a></li>
+    <li><a href="#portfolio">AI Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-label reveal">Product Manager</div>
+  <h1 class="reveal">I build <em>intelligent systems</em> that solve real business problems</h1>
+  <p class="hero-sub reveal">
+    Product manager with 5+ years in fintech and banking, now specialising in agentic AI systems. I combine deep domain expertise in digital payments with hands-on AI architecture skills to ship products that drive revenue, cut costs, and scale.
+  </p>
+  <div class="hero-stats reveal">
+    <div class="hero-stat">
+      <div class="num">5+</div>
+      <div class="label">Years in Product</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">900K+</div>
+      <div class="label">Users Served</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">£750K+</div>
+      <div class="label">Weekly Tx Volume</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">3,000+</div>
+      <div class="label">Corporate Clients</div>
+    </div>
+  </div>
+</header>
+
+<div class="divider"><hr></div>
+
+<!-- VALUE PROPOSITION -->
+<section id="value">
+  <div class="section-label reveal">What I Bring</div>
+  <h2 class="section-heading reveal">Three capabilities in one hire</h2>
+  <div class="value-grid reveal">
+    <div class="value-card">
+      <div class="icon">⚡</div>
+      <h3>AI Systems Expertise</h3>
+      <p>Designed and built production-grade agentic AI systems using LangGraph, RAG pipelines, multi-agent orchestration, and grounding verification. Working code with real architecture decisions.</p>
+    </div>
+    <div class="value-card">
+      <div class="icon">📊</div>
+      <h3>Proven PM Track Record</h3>
+      <p>Shipped digital products at Heritage Bank across mobile, web, and SaaS — from 0→1 builds to scaling platforms for 900K+ users. A/B testing, data-driven optimisation, cross-functional delivery.</p>
+    </div>
+    <div class="value-card">
+      <div class="icon">🔬</div>
+      <h3>Strategic Research & Analysis</h3>
+      <p>Conducted market sizing, competitive analysis, and cost modelling for AI-powered customer service — with cited sources, TAM/SAM breakdowns, and investor-grade positioning.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- TRACK RECORD -->
+<section id="track">
+  <div class="section-label reveal">Proof Points</div>
+  <h2 class="section-heading reveal">Numbers that tell the story</h2>
+  <div class="track-grid">
+    <div class="track-card reveal">
+      <div class="metric">40%</div>
+      <div class="metric-label">Increase in Monthly Active Users</div>
+      <div class="metric-desc">Led mobile app revamp (HB Padie 2.0) for 600K+ users — added self-service chatbot, card management, digital account opening.</div>
+    </div>
+    <div class="track-card reveal">
+      <div class="metric">60%</div>
+      <div class="metric-label">Payment Completion Rate Lift</div>
+      <div class="metric-desc">A/B tested bill payment flows, identified drop-off points, redesigned the experience. Support tickets down 35%.</div>
+    </div>
+    <div class="track-card reveal">
+      <div class="metric">800+</div>
+      <div class="metric-label">Corporate Users in 4 Months</div>
+      <div class="metric-desc">Built the bank's first in-house corporate banking platform with real-time monitoring and role-based access. Migrated 400+ customers from third-party system.</div>
+    </div>
+    <div class="track-card reveal">
+      <div class="metric">200+</div>
+      <div class="metric-label">Merchants Digitised</div>
+      <div class="metric-desc">PSP-integrated platform with automated invoicing and real-time tracking — drove 10% growth in deposit inflow and non-interest revenue.</div>
+    </div>
+    <div class="track-card reveal">
+      <div class="metric">10K+</div>
+      <div class="metric-label">Users in 5 Months</div>
+      <div class="metric-desc">Virtual account system from concept to production — digital wallets, API-driven collections, 3 fintech partner integrations.</div>
+    </div>
+    <div class="track-card reveal">
+      <div class="metric">50%</div>
+      <div class="metric-label">Faster Issue Resolution</div>
+      <div class="metric-desc">Internal ticket system deployed across 120 branches for payment products. Improved operational efficiency across 3,000+ corporate clients.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- AI PORTFOLIO PROJECTS -->
+<section id="portfolio">
+  <div class="section-label reveal">AI Portfolio Projects</div>
+  <h2 class="section-heading reveal">What I've built</h2>
+  <div class="projects-carousel-wrapper reveal">
+    <div class="projects-carousel" id="projectsCarousel">
+
+      <!-- 1. Support Ops Copilot -->
+      <div class="project-card">
+        <div class="project-meta">
+          <span class="project-tag">Agentic AI · LangGraph · RAG</span>
+          <h3>Support Ops Copilot</h3>
+          <div class="project-org">Pootman Payments — B2C Digital Wallet (POC)</div>
+          <p>An agentic, RAG-based AI support system for a B2C digital wallet, designed to autonomously resolve routine customer queries while routing complex or high-risk cases to human agents — with a grounding verification layer that ensures every AI response is factually accurate before reaching the customer.</p>
+        </div>
+        <div class="project-details">
+          <div class="detail-row"><div class="dot"></div><span><strong>20-node, 6-layer</strong> LangGraph pipeline with 13 routing paths and 50+ state fields</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Topic-aware grounding</strong> — fraud/legal at 0.90, billing at 0.85, general at 0.75</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>$0.005–$0.015</strong> blended cost per message vs $6–$16 human agent</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>5 interfaces</strong> — Customer chat, Agent dashboard, Pipeline trace, Evals dashboard, Knowledge base</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Safety layer</strong> — PII masking, input sanitisation, prompt injection detection, audit logging</span></div>
+          <a href="support-ops.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:1rem;font-weight:800;color:var(--white);background:var(--accent);padding:12px 28px;border-radius:100px;text-decoration:none;letter-spacing:0.02em;transition:all 0.3s;box-shadow:0 4px 12px rgba(196,75,43,0.25);" onmouseover="this.style.background='var(--accent-glow)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(196,75,43,0.35)'" onmouseout="this.style.background='var(--accent)';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 12px rgba(196,75,43,0.25)'">View Full Details <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- 2. Money Buddy -->
+      <div class="project-card">
+        <div class="project-meta">
+          <span class="project-tag">AI Fintech · Supabase · Vertex AI</span>
+          <h3>Money Buddy</h3>
+          <div class="project-org">AI-Powered Personal Finance App</div>
+          <p>AI app that analyses bank statements to reveal spending patterns, surface insights, and generate personalised budget plans.</p>
+        </div>
+        <div class="project-details">
+          <div class="detail-row"><div class="dot"></div><span><strong>Bank statement analysis</strong> — categorises transactions, detects patterns</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Personalised budgets</strong> — AI-generated plans based on actual spending</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Stack:</strong> Rork, Supabase, Google Cloud Functions, Vertex AI</span></div>
+        </div>
+      </div>
+
+      <!-- 3. Discovery OS -->
+      <div class="project-card">
+        <div class="project-meta">
+          <span class="project-tag">AI Product Discovery · n8n · Claude</span>
+          <h3>Discovery OS</h3>
+          <div class="project-org">AI-Powered Product Discovery Platform</div>
+          <p>Transforms scattered team signals — customer feedback, support tickets, sales notes — into evidence-scored product decisions using Claude models and n8n automation workflows.</p>
+        </div>
+        <div class="project-details">
+          <div class="detail-row"><div class="dot"></div><span><strong>Evidence scoring</strong> — confidence scores, contradiction detection, audit trails</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Two-mode system</strong> — Canvas Mode for ideation, Evaluation Mode for analysis</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>n8n integration</strong> — connects to external tools to extract and synthesise insights</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Decision briefs</strong> — generates audit-ready summaries for stakeholders</span></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Carousel controls -->
+    <div class="carousel-nav">
+      <button class="carousel-arrow" id="carouselPrev">&#8592;</button>
+      <button class="carousel-dot active" data-index="0"></button>
+      <button class="carousel-dot" data-index="1"></button>
+      <button class="carousel-dot" data-index="2"></button>
+      <button class="carousel-arrow" id="carouselNext">&#8594;</button>
+    </div>
+    <div class="swipe-hint">Swipe or click arrows to browse projects</div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label reveal">Toolbox</div>
+  <h2 class="section-heading reveal">How I operate</h2>
+  <div class="toolbox-layout reveal">
+    <div class="tool-group">
+      <h4>AI & Technical</h4>
+      <ul>
+        <li>LangGraph / LangChain</li>
+        <li>RAG Pipeline Design</li>
+        <li>Multi-Agent Orchestration</li>
+        <li>Claude API / Vertex AI</li>
+        <li>n8n Workflow Automation</li>
+        <li>Supabase / PostgreSQL</li>
+        <li>Prompt Engineering</li>
+        <li>AI Safety & Evaluation</li>
+      </ul>
+    </div>
+    <div class="tool-group">
+      <h4>Product Management</h4>
+      <ul>
+        <li>Product Strategy & Roadmapping</li>
+        <li>A/B Testing & Experimentation</li>
+        <li>User Research & Discovery</li>
+        <li>Agile / Scrum Delivery</li>
+        <li>Stakeholder Management</li>
+        <li>Data Analytics & KPIs</li>
+        <li>0→1 Product Development</li>
+        <li>API Design & Integration</li>
+      </ul>
+    </div>
+    <div class="tool-group">
+      <h4>Tools & Platforms</h4>
+      <ul>
+        <li>Jira / Confluence</li>
+        <li>Figma / Miro</li>
+        <li>Mixpanel / Amplitude</li>
+        <li>Google Analytics / Hotjar</li>
+        <li>Power BI / Postman</li>
+        <li>Notion / Documentation</li>
+        <li>Claude Code / VS Code</li>
+        <li>Lovable / Vercel</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- EDUCATION -->
+<section>
+  <div class="section-label reveal">Education & Certification</div>
+  <div class="edu-strip reveal">
+    <div class="edu-item">
+      <div class="edu-degree">AI Security & Governance</div>
+      <div class="edu-school">Securiti</div>
+      <div class="edu-year">2026</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-degree">MSc International Business</div>
+      <div class="edu-school">Manchester Metropolitan University</div>
+      <div class="edu-year">2023–2024</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-degree">BSc Mathematics</div>
+      <div class="edu-school">Bowen University · 2:1 (3.9)</div>
+      <div class="edu-year">2012–2016</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-degree">CFA Investment Foundation</div>
+      <div class="edu-school">CFA Institute</div>
+      <div class="edu-year">2019</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<footer class="cta-section" id="contact">
+  <div style="font-family:var(--serif); font-size:clamp(2.4rem,5vw,3.5rem); font-weight:900; color:var(--paper); letter-spacing:-0.03em; margin-bottom:8px; position:relative;">Toluwase Sogunro</div>
+  <h2>Let's build something intelligent</h2>
+  <p>Looking for an AI PM who bridges strategy, architecture, and delivery — I'd love to talk.</p>
+  <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:28px; position:relative;">
+    <a href="mailto:Sogunro@rocketmail.com" style="display:inline-flex; align-items:center; gap:6px; color:var(--mist); text-decoration:none; font-size:0.82rem; font-weight:400; transition:color 0.3s;" onmouseover="this.style.color='var(--paper)'" onmouseout="this.style.color='var(--mist)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg> Sogunro@rocketmail.com</a>
+    <a href="tel:07440175045" style="display:inline-flex; align-items:center; gap:6px; color:var(--mist); text-decoration:none; font-size:0.82rem; font-weight:400; transition:color 0.3s;" onmouseover="this.style.color='var(--paper)'" onmouseout="this.style.color='var(--mist)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 07440 175 045</a>
+    <a href="https://www.linkedin.com/in/toluwasesogunro" target="_blank" style="display:inline-flex; align-items:center; gap:6px; color:var(--mist); text-decoration:none; font-size:0.82rem; font-weight:400; transition:color 0.3s;" onmouseover="this.style.color='var(--paper)'" onmouseout="this.style.color='var(--mist)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a>
+  </div>
+  <div class="cta-links">
+    <a class="cta-btn primary" href="mailto:Sogunro@rocketmail.com">
+      <span>Get in Touch</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="cta-btn secondary" href="https://www.linkedin.com/in/toluwasesogunro" target="_blank">LinkedIn Profile</a>
+  </div>
+</footer>
+
+<script>
+  // Reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.04}s`;
+    observer.observe(el);
+  });
+
+  // Projects carousel
+  (() => {
+    const carousel = document.getElementById('projectsCarousel');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    let current = 0;
+    const total = dots.length;
+
+    function goTo(index) {
+      current = Math.max(0, Math.min(index, total - 1));
+      carousel.scrollTo({ left: carousel.offsetWidth * current, behavior: 'smooth' });
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.index)));
+
+    // Sync dots on manual swipe/scroll
+    carousel.addEventListener('scrollend', () => {
+      const idx = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+      if (idx !== current) { current = idx; dots.forEach((d, i) => d.classList.toggle('active', i === current)); }
+    });
+    // Fallback for browsers without scrollend
+    let scrollTimer;
+    carousel.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const idx = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+        if (idx !== current) { current = idx; dots.forEach((d, i) => d.classList.toggle('active', i === current)); }
+      }, 100);
+    });
+  })();
+</script>
+
+</body>
+</html>

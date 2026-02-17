@@ -1255,38 +1255,84 @@
     </table>
   </div>
 
-  <!-- Cost Breakdown (Post-Fix) -->
-  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Cost Breakdown <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">(Post-Fix &mdash; current session)</span></h3>
-  <p class="section-text reveal" style="font-size:0.95rem; margin-bottom:1rem;">Overall spend today: <strong>$5.90</strong> at <strong>$0.0156/query</strong> &mdash; under the $0.02 target.</p>
+  <!-- Per-Node Cost Breakdown -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Per-Node Cost Breakdown <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">(Blended: $0.0156/query)</span></h3>
   <div class="detail-card reveal" style="overflow-x:auto;">
     <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
       <thead>
         <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
-          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Route</th>
-          <th style="text-align:center; padding:10px 12px; opacity:0.7;">% of Spend</th>
-          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Note</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Node</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Dashboard Estimate</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Actual</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Model</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Avg Input</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Avg Output</th>
         </tr>
       </thead>
       <tbody>
         <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">simple_qa</td>
-          <td style="text-align:center; padding:10px 12px;"><strong>74.6%</strong></td>
-          <td style="text-align:center; padding:10px 12px; opacity:0.7;">Highest volume + RAG retrieval + critic loop</td>
+          <td style="padding:10px 12px;">Triage</td>
+          <td style="text-align:center; padding:10px 12px;">$0.001 (Haiku)</td>
+          <td style="text-align:center; padding:10px 12px;"><strong>$0.0155</strong> (Sonnet)</td>
+          <td style="text-align:center; padding:10px 12px;">Sonnet 4</td>
+          <td style="text-align:center; padding:10px 12px;">3,887</td>
+          <td style="text-align:center; padding:10px 12px;">257</td>
         </tr>
         <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">data_query</td>
-          <td style="text-align:center; padding:10px 12px;">Low</td>
-          <td style="text-align:center; padding:10px 12px; opacity:0.7;">Tool-calling route &mdash; fewer LLM tokens per query</td>
+          <td style="padding:10px 12px;">Retriever</td>
+          <td style="text-align:center; padding:10px 12px;">$0.002</td>
+          <td style="text-align:center; padding:10px 12px;">~$0.002</td>
+          <td style="text-align:center; padding:10px 12px;">Haiku + Voyage</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
         </tr>
         <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">greeting</td>
-          <td style="text-align:center; padding:10px 12px;">Cheapest</td>
-          <td style="text-align:center; padding:10px 12px; opacity:0.7;">Single-turn, no retrieval or critic pass</td>
+          <td style="padding:10px 12px;">Sonnet Resolver</td>
+          <td style="text-align:center; padding:10px 12px;">$0.018</td>
+          <td style="text-align:center; padding:10px 12px;"><strong>$0.0108</strong></td>
+          <td style="text-align:center; padding:10px 12px;">Sonnet 4</td>
+          <td style="text-align:center; padding:10px 12px;">1,923</td>
+          <td style="text-align:center; padding:10px 12px;">337</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Haiku Resolver</td>
+          <td style="text-align:center; padding:10px 12px;">$0.003</td>
+          <td style="text-align:center; padding:10px 12px;"><strong>$0.0008</strong></td>
+          <td style="text-align:center; padding:10px 12px;">Haiku 3</td>
+          <td style="text-align:center; padding:10px 12px;">1,910</td>
+          <td style="text-align:center; padding:10px 12px;">258</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Sonnet Critic</td>
+          <td style="text-align:center; padding:10px 12px;">$0.015</td>
+          <td style="text-align:center; padding:10px 12px;"><strong>$0.0055</strong></td>
+          <td style="text-align:center; padding:10px 12px;">Sonnet 4</td>
+          <td style="text-align:center; padding:10px 12px;">1,536</td>
+          <td style="text-align:center; padding:10px 12px;">60</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Haiku Critic</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
+          <td style="text-align:center; padding:10px 12px;"><strong>$0.0006</strong></td>
+          <td style="text-align:center; padding:10px 12px;">Haiku 3</td>
+          <td style="text-align:center; padding:10px 12px;">1,387</td>
+          <td style="text-align:center; padding:10px 12px;">207</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Data Resolver</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
+          <td style="text-align:center; padding:10px 12px;"><strong>$0.0390</strong></td>
+          <td style="text-align:center; padding:10px 12px;">Sonnet 4</td>
+          <td style="text-align:center; padding:10px 12px;">11,429</td>
+          <td style="text-align:center; padding:10px 12px;">316</td>
         </tr>
         <tr>
-          <td style="padding:10px 12px;">Other routes</td>
-          <td style="text-align:center; padding:10px 12px;">Remainder</td>
-          <td style="text-align:center; padding:10px 12px; opacity:0.7;">account_opening, retention, investigation, etc.</td>
+          <td style="padding:10px 12px;"><strong>Blended</strong></td>
+          <td style="text-align:center; padding:10px 12px;">$0.005&ndash;$0.015</td>
+          <td style="text-align:center; padding:10px 12px;"><strong>$0.0156</strong></td>
+          <td style="text-align:center; padding:10px 12px;">Mix</td>
+          <td style="text-align:center; padding:10px 12px;">6,779</td>
+          <td style="text-align:center; padding:10px 12px;">685</td>
         </tr>
       </tbody>
     </table>

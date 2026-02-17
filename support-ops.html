@@ -441,10 +441,9 @@
 <section>
   <div class="section-label reveal">Executive Summary</div>
   <h2 class="section-heading reveal">What this project is</h2>
-  <p class="section-text reveal" style="margin-bottom:0;">Support Ops is an agentic AI customer service system built for Pootman Payments.</p>
-  <p class="section-text reveal" style="margin-bottom:0;">It autonomously resolves customer issues end-to-end through a multi-agent pipeline that detects intent, sentiment, and urgency across multi-turn conversations, and takes actions across internal systems.</p>
-  <p class="section-text reveal" style="margin-bottom:0;">The system leverages Retrieval-Augmented Generation (RAG) to ground every response in verified company knowledge (policies, incidents, FAQs), alongside a built-in critic that evaluates outputs for accuracy and determines when to escalate to human agents.</p>
-  <p class="section-text reveal">This demonstrates how agentic AI can be used to improve operational efficiency, reduce support costs, and deliver faster, more consistent, and trustworthy customer experiences at scale.</p>
+  <p class="section-text reveal" style="margin-bottom:0;">Support Ops is an Agentic AI customer service system built for Pootman Payments that autonomously resolves users&rsquo; issues end-to-end across multi-intent, multi-turn conversations.</p>
+  <p class="section-text reveal" style="margin-bottom:0;">Built on LangGraph, it orchestrates six specialised agents that perceive context, sentiment, and urgency, and classify users&rsquo; requests and queries across 13 operational routes whilst maintaining full conversational context throughout each session.</p>
+  <p class="section-text reveal">The system leverages Retrieval-Augmented Generation (RAG) to ground every response in verified company knowledge, including policies, active incidents, and FAQs, while a tool-calling agent equipped with 16 data tools executes real transactions such as balance lookups, wallet transfers, and bill payments. It has an inbuilt critic system that evaluates every output for accuracy, policy compliance, and tone, determining whether to deliver the response or escalate to a human agent.</p>
 
   <div class="details-grid reveal">
     <div class="detail-card">
@@ -1006,8 +1005,67 @@
   <div class="section-label reveal">Evaluation</div>
   <h2 class="section-heading reveal">System targets vs current metrics</h2>
 
+  <!-- Eval Results v2 -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2rem;">Eval Results: 43/50 (86%) <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">&mdash; up from 34/50 (68%)</span></h3>
+  <div class="detail-card reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+      <thead>
+        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Metric</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Previous</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Now</th>
+          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Pass rate</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.5;">68% (34/50)</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">86% (43/50)</span></td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Routing accuracy</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.5;">100%</td>
+          <td style="text-align:center; padding:10px 12px;">98%</td>
+          <td style="text-align:center; padding:10px 12px;">85%</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Retrieval precision</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.5;">~48%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">74.7%</span></td>
+          <td style="text-align:center; padding:10px 12px;">60%</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Retrieval recall</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.5;">~48%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">85.3%</span></td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Grounding accuracy</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.5;">81%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#facc15;">80%</span></td>
+          <td style="text-align:center; padding:10px 12px;">85%</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Auto-resolve rate</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.5;">90.2%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">85.4%</span></td>
+          <td style="text-align:center; padding:10px 12px;">80%</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;">Escalation accuracy</td>
+          <td style="text-align:center; padding:10px 12px; opacity:0.5;">100%</td>
+          <td style="text-align:center; padding:10px 12px;"><span style="color:#4ade80;">100%</span></td>
+          <td style="text-align:center; padding:10px 12px;">90%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- Golden Dataset Evaluation -->
-  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2rem;">Golden Dataset Evaluation <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">(Offline &mdash; Ground Truth)</span></h3>
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Golden Dataset Evaluation <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">(Offline &mdash; Ground Truth)</span></h3>
   <div class="detail-card reveal" style="overflow-x:auto;">
     <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
       <thead>
@@ -1378,40 +1436,129 @@
 
 <!-- PRODUCT CHALLENGES -->
 <section>
-  <div class="section-label reveal">Challenges</div>
+  <div class="section-label reveal">Issues &amp; Resolutions</div>
   <h2 class="section-heading reveal">Product challenges, solutions &amp; improvements</h2>
 
-  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
-    <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Low Retrieval Precision (0.35 &rarr; 0.60)</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> The RAG pipeline returned broad, multi-topic chunks that only partially answered customer questions. The original chunker split documents only on <code>##</code> headers, merging unrelated subsections into single chunks.</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Upgraded embedding model from voyage-4-lite to voyage-finance-2 (finance-domain trained), implemented subsection-aware chunking (<code>###</code> headers), reduced chunk size from 512 to 300 tokens, split FAQ sections into individual Q&amp;A pairs, added a similarity floor filter to remove low-relevance noise, and rebuilt the IVFFlat vector index. Total chunks increased from 354 to 495 (+40%).</div>
-    </div>
-    <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Poor Auto-Resolve Rate (64% &rarr; 87%)</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> The grounding critic escalated too many queries to human agents. Root causes: binary pass/escalate routing (no retry path), verbose critic prompts degrading scoring quality, and retrieval confidence miscalibration causing unnecessary Sonnet critic usage.</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Added a revise &rarr; retry path to the Haiku critic, recalibrated confidence thresholds to match the new embedding model&rsquo;s similarity scale (ceiling 0.80 &rarr; 0.68), lowered revise floors by 0.10 across all topics to widen the retry band, and added temperature=0.1 on all critics for near-deterministic scoring. Sonnet critic usage dropped from 41% to 6%.</div>
-    </div>
-    <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Role Confusion in AI Responses</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> The resolver LLM occasionally spoke as the customer (&ldquo;Thanks for the details&hellip;&rdquo;) instead of to the customer, leaking internal prompt structure into responses.</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Built a 3-step <code>filter_output()</code> post-processing defence: opener stripping (13 regex patterns), holistic customer-voice indicator check, and agent-voice detection safety net. Hardened the resolver prompt with explicit role context, information flow direction rules, and BAD/GOOD response examples.</div>
-    </div>
-    <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Account Opening Workflow Failures</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> A production conversation (ticket t_1145) exposed four issues: (a) the bot confused &ldquo;open account for my daughter&rdquo; with a data lookup, repeatedly asking for credentials; (b) contradicted itself on age eligibility; (c) ignored abusive language; and (d) ignored explicit refusal (&ldquo;I am not opening the account again&rdquo;), continuing to show the sign-up form.</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> (a) Separated the age gate into self-reference vs third-party regex &mdash; &ldquo;my daughter is 17&rdquo; now stays in the workflow and offers the parent an account instead. (b) Third-party age rejection preserves workflow state so follow-ups maintain context. (c) Added a P0b abuse/profanity interrupt that runs at every workflow step and escalates to a human agent. (d) Expanded cancel detection with negated-intent patterns (&ldquo;not opening&rdquo;, &ldquo;won&rsquo;t open&rdquo;, &ldquo;not going ahead&rdquo;).</div>
-    </div>
-    <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Multi-Turn Context Loss</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> Keyword-based fast-paths (account opening, retention, data query) fired on follow-up messages that naturally contained trigger words like &ldquo;wallet&rdquo;, &ldquo;open&rdquo;, or &ldquo;balance&rdquo;, breaking multi-turn conversations.</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Added a <code>has_history</code> flag &mdash; workflow-triggering fast-paths only fire on first messages. Follow-ups go through full LLM classification. Safety fast-paths (prompt injection, language detection) remain unconditional.</div>
-    </div>
-    <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Multi-Intent Detection</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Challenge:</strong> Customers making multiple requests in one message (&ldquo;check my balance and open an account&rdquo;) only had one request handled. The triage LLM collapsed same-type-but-separate intents into one.</div>
-      <div class="metric-desc" style="margin-top:8px;"><strong>Solution:</strong> Added critical rules with explicit examples to the triage prompt for counting distinct intents, conjunction detection (&ldquo;and&rdquo;, &ldquo;also&rdquo;, &ldquo;plus&rdquo;), and requirement vs action distinction. Added warm, conversational multi-intent acknowledgement with intelligent ordering advice.</div>
-    </div>
+  <!-- Model Strategy & Selection -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2rem;">Model Strategy &amp; Selection</h3>
+  <div class="detail-card reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+      <thead>
+        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Issue</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Example</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Solution</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Voice inversion &mdash; bot spoke as customer instead of agent</td>
+          <td style="padding:10px 12px; opacity:0.7;">&ldquo;I appreciate the details about my account&rdquo;</td>
+          <td style="padding:10px 12px;">Switched resolver from Haiku to Sonnet</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">0 voice inversions across 250+ executions</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;">Model pair mismatch &mdash; Haiku critic scored Sonnet responses at 0.50 systematically</td>
+          <td style="padding:10px 12px; opacity:0.7;">Every KB query grounded at 0.50 &rarr; clarification loop</td>
+          <td style="padding:10px 12px;">Matched critic to Sonnet (same model pair)</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">Grounding jumped from 0.70 &rarr; 1.00 on all KB queries</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Prompt Structure & Classification -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Prompt Structure &amp; Classification</h3>
+  <div class="detail-card reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+      <thead>
+        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Issue</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Example</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Solution</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Inquiry vs request confusion &mdash; questions escalated as action requests</td>
+          <td style="padding:10px 12px; opacity:0.7;">&ldquo;Can I get it back?&rdquo; routed to human_handoff instead of KB</td>
+          <td style="padding:10px 12px;">Added INQUIRY vs REQUEST distinction in triage prompt</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">Auto-resolved with grounding 1.00</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Ambiguous escalation signals &mdash; vague statements escalated unnecessarily</td>
+          <td style="padding:10px 12px; opacity:0.7;">&ldquo;People get scammed with pootwallet&rdquo; &rarr; human_handoff</td>
+          <td style="padding:10px 12px;">Universal definitiveness gate &mdash; ambiguous signals trigger clarification</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">Only definitive claims escalate; ambiguous ones get follow-up questions</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;">International transfer misrouting &mdash; asked for credentials before saying unsupported</td>
+          <td style="padding:10px 12px; opacity:0.7;">&ldquo;Send money to Nigeria&rdquo; &rarr; auth flow &rarr; &ldquo;we don&rsquo;t do that&rdquo;</td>
+          <td style="padding:10px 12px;">Added country/international patterns to unsupported service fast-path</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">Routes to KB answer directly, no auth needed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Context & Memory Management -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Context &amp; Memory Management</h3>
+  <div class="detail-card reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+      <thead>
+        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Issue</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Example</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Solution</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Conversation history not loading &mdash; follow-ups lost context</td>
+          <td style="padding:10px 12px; opacity:0.7;">Credentials provided &rarr; system asks &ldquo;what do you need help with?&rdquo;</td>
+          <td style="padding:10px 12px;">Orchestrator auto-loads history from DB when client doesn&rsquo;t send it</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">All multi-turn flows work regardless of client</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;">Transfer re-execution from history &mdash; follow-ups re-triggered prior transactions</td>
+          <td style="padding:10px 12px; opacity:0.7;">&ldquo;How much did I send?&rdquo; deducted another &pound;25</td>
+          <td style="padding:10px 12px;">Guarded history fallback to credentials-only messages</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">Follow-ups never re-execute write operations</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quality & Safety Gates -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Quality &amp; Safety Gates</h3>
+  <div class="detail-card reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+      <thead>
+        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Issue</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Example</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Solution</th>
+          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <td style="padding:10px 12px;">Binary critic routing &mdash; no revise path, only pass or escalate</td>
+          <td style="padding:10px 12px; opacity:0.7;">Grounding 0.50 &rarr; immediate escalation (no retry)</td>
+          <td style="padding:10px 12px;">Added revise &rarr; loop_back path to all critic routing functions</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">Near-miss scores get a retry before escalating</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;">JSON leak to customers &mdash; raw JSON shown when resolver parse failed</td>
+          <td style="padding:10px 12px; opacity:0.7;"><code>{"customer_reply": "Your balance is..."}</code> sent as-is</td>
+          <td style="padding:10px 12px;">Defence-in-depth: regex at resolver, guard at auto_resolve, safety net at orchestrator</td>
+          <td style="padding:10px 12px;"><span style="color:#4ade80;">Zero JSON leaks</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 

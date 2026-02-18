@@ -851,41 +851,40 @@
   <h2 class="section-heading reveal">What the system can do</h2>
   <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
     <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Intelligent Routing</div>
-      <div class="metric-desc" style="margin-top:8px;">Auto-classifies user requests into 13 routes with confidence scoring. Handles multi-intent detection, splitting complex messages into separate resolutions whilst maintaining multi-turn conversation context to prevent misrouting on follow-ups, and auto-escalates low-confidence queries to human agents.</div>
+      <div class="metric" style="font-size:1.2rem;">Autonomous Query Resolution</div>
+      <div class="metric-desc" style="margin-top:8px;">Resolves routine customer queries end-to-end across structured intent routes without human intervention.</div>
     </div>
     <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Account Opening</div>
-      <div class="metric-desc" style="margin-top:8px;">Guides customers through a full onboarding conversation, from choosing the right tier to collecting details, validating identity, and creating their account. It also understands when users want to upgrade (&ldquo;close my Basic, open Premium&rdquo;), catches corrections mid-flow, and handles edge cases like opening accounts for multiple people with age verification.</div>
+      <div class="metric" style="font-size:1.2rem;">Multi-Intent Handling</div>
+      <div class="metric-desc" style="margin-top:8px;">Detects and decomposes compound requests within a single message, processing them sequentially with intelligent ordering.</div>
     </div>
     <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Data Queries &amp; Transactions</div>
-      <div class="metric-desc" style="margin-top:8px;">Executes real account operations through a tool-calling agent with 16 data tools &mdash; checking balances, searching transactions, transferring funds between wallets, and processing bill payments. Authenticates customers with bcrypt-verified credentials and a 3-attempt limit. Transfers over &pound;250 automatically flag for human approval.</div>
+      <div class="metric" style="font-size:1.2rem;">Authenticated Transaction Execution</div>
+      <div class="metric-desc" style="margin-top:8px;">Performs real account actions such as balance checks, transaction history retrieval, wallet transfers, and account status updates with credential verification.</div>
     </div>
     <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Safety &amp; Security</div>
-      <div class="metric-desc" style="margin-top:8px;">PII masking, input sanitisation, prompt injection detection, and full audit logging on all interactions.</div>
+      <div class="metric" style="font-size:1.2rem;">Grounded Knowledge Responses</div>
+      <div class="metric-desc" style="margin-top:8px;">Generates answers strictly grounded in verified company policies, guides, and incident documentation.</div>
     </div>
     <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Grounding &amp; Critic Verification</div>
-      <div class="metric-desc" style="margin-top:8px;">Every AI response passes through critic verification before reaching the customer. Four critic tiers matched to query risk: general queries verified at 0.75, billing at 0.85, fraud at 0.90. Uses weakest-claim scoring &mdash; one fabricated claim fails the entire response. If below threshold, the system escalates rather than guessing.</div>
+      <div class="metric" style="font-size:1.2rem;">Risk-Aware Escalation</div>
+      <div class="metric-desc" style="margin-top:8px;">Applies calibrated confidence thresholds to determine when to clarify, resolve, or escalate complex or high-risk cases to human agents.</div>
     </div>
     <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Agent &amp; Admin Tools</div>
-      <div class="metric-desc" style="margin-top:8px;">Gives human agents an escalation queue with the AI&rsquo;s draft response, evidence sources, and confidence scores already attached. Includes an AI review queue for approving or rejecting auto-resolved answers and for responding in real time to user requests escalated for immediate approval.</div>
+      <div class="metric" style="font-size:1.2rem;">Context-Aware Multi-Turn Conversations</div>
+      <div class="metric-desc" style="margin-top:8px;">Maintains conversational state across multiple turns to preserve workflow continuity and intent consistency.</div>
     </div>
     <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">RAG &amp; Learning Loop</div>
-      <div class="metric-desc" style="margin-top:8px;">The system uses a three-stage retrieval pipeline consisting of query rewriting, vector search across the company&rsquo;s knowledge base using finance-domain embeddings, and LLM-based reranking to surface the most relevant evidence. Successfully resolved queries are stored as learned resolutions within a controlled learning loop. AI-generated answers begin with reduced weighting, human-approved responses are promoted, and three consecutive failures trigger automatic deactivation.</div>
-      <div class="metric-desc" style="margin-top:8px;">The system improves with use, while maintaining strict quality safeguards.</div>
+      <div class="metric" style="font-size:1.2rem;">Structured Workflow Automation</div>
+      <div class="metric-desc" style="margin-top:8px;">Executes multi-step processes such as account opening with eligibility checks, abuse detection, and cancellation handling.</div>
     </div>
     <div class="detail-card">
-      <div class="metric" style="font-size:1.2rem;">Knowledge Base</div>
-      <div class="metric-desc" style="margin-top:8px;">Document management system for uploading, updating, and deleting company policies, guides, and incident reports, with immediate embedding and indexing using finance-domain vectors.</div>
+      <div class="metric" style="font-size:1.2rem;">Controlled Learning &amp; Improvement</div>
+      <div class="metric-desc" style="margin-top:8px;">Improves accuracy over time through validated resolution promotion while automatically disabling unreliable responses.</div>
     </div>
     <div class="detail-card" style="grid-column: 1 / -1;">
-      <div class="metric" style="font-size:1.2rem;">Evaluation &amp; Tracing</div>
-      <div class="metric-desc" style="margin-top:8px;">Tracks live metrics with daily trend charts &mdash; grounding accuracy, auto-resolve rate, escalation rate, cost per query. Full pipeline trace board lets you inspect any conversation node by node: timing, evidence retrieved, LLM calls, and prompt text.</div>
+      <div class="metric" style="font-size:1.2rem;">End-to-End Decision Traceability</div>
+      <div class="metric-desc" style="margin-top:8px;">Provides full visibility into decision paths, evidence sources, and model reasoning for audit and compliance purposes.</div>
     </div>
   </div>
 </section>

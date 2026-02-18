@@ -1255,88 +1255,7 @@
     </table>
   </div>
 
-  <!-- Per-Node Cost Breakdown -->
-  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Per-Node Cost Breakdown <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">(Blended: $0.0156/query)</span></h3>
-  <div class="detail-card reveal" style="overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
-      <thead>
-        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
-          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Node</th>
-          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Dashboard Estimate</th>
-          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Actual</th>
-          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Model</th>
-          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Avg Input</th>
-          <th style="text-align:center; padding:10px 12px; opacity:0.7;">Avg Output</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">Triage</td>
-          <td style="text-align:center; padding:10px 12px;">$0.001 (Haiku)</td>
-          <td style="text-align:center; padding:10px 12px;"><strong>$0.0155</strong> (Sonnet)</td>
-          <td style="text-align:center; padding:10px 12px;">Sonnet 4</td>
-          <td style="text-align:center; padding:10px 12px;">3,887</td>
-          <td style="text-align:center; padding:10px 12px;">257</td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">Retriever</td>
-          <td style="text-align:center; padding:10px 12px;">$0.002</td>
-          <td style="text-align:center; padding:10px 12px;">~$0.002</td>
-          <td style="text-align:center; padding:10px 12px;">Haiku + Voyage</td>
-          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
-          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">Sonnet Resolver</td>
-          <td style="text-align:center; padding:10px 12px;">$0.018</td>
-          <td style="text-align:center; padding:10px 12px;"><strong>$0.0108</strong></td>
-          <td style="text-align:center; padding:10px 12px;">Sonnet 4</td>
-          <td style="text-align:center; padding:10px 12px;">1,923</td>
-          <td style="text-align:center; padding:10px 12px;">337</td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">Haiku Resolver</td>
-          <td style="text-align:center; padding:10px 12px;">$0.003</td>
-          <td style="text-align:center; padding:10px 12px;"><strong>$0.0008</strong></td>
-          <td style="text-align:center; padding:10px 12px;">Haiku 3</td>
-          <td style="text-align:center; padding:10px 12px;">1,910</td>
-          <td style="text-align:center; padding:10px 12px;">258</td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">Sonnet Critic</td>
-          <td style="text-align:center; padding:10px 12px;">$0.015</td>
-          <td style="text-align:center; padding:10px 12px;"><strong>$0.0055</strong></td>
-          <td style="text-align:center; padding:10px 12px;">Sonnet 4</td>
-          <td style="text-align:center; padding:10px 12px;">1,536</td>
-          <td style="text-align:center; padding:10px 12px;">60</td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">Haiku Critic</td>
-          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
-          <td style="text-align:center; padding:10px 12px;"><strong>$0.0006</strong></td>
-          <td style="text-align:center; padding:10px 12px;">Haiku 3</td>
-          <td style="text-align:center; padding:10px 12px;">1,387</td>
-          <td style="text-align:center; padding:10px 12px;">207</td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">Data Resolver</td>
-          <td style="text-align:center; padding:10px 12px; opacity:0.4;">&mdash;</td>
-          <td style="text-align:center; padding:10px 12px;"><strong>$0.0390</strong></td>
-          <td style="text-align:center; padding:10px 12px;">Sonnet 4</td>
-          <td style="text-align:center; padding:10px 12px;">11,429</td>
-          <td style="text-align:center; padding:10px 12px;">316</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 12px;"><strong>Blended</strong></td>
-          <td style="text-align:center; padding:10px 12px;">$0.005&ndash;$0.015</td>
-          <td style="text-align:center; padding:10px 12px;"><strong>$0.0156</strong></td>
-          <td style="text-align:center; padding:10px 12px;">Mix</td>
-          <td style="text-align:center; padding:10px 12px;">6,779</td>
-          <td style="text-align:center; padding:10px 12px;">685</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
 </section>
 
 <div class="divider"><hr></div>
@@ -1370,6 +1289,22 @@
     <div class="detail-card">
       <div class="metric" style="font-size:1.2rem;">Full Auditability</div>
       <div class="metric-desc" style="margin-top:8px;">Every node's input/output traceable. 20+ field audit trail per request for debugging and bottleneck identification.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Built-In Memory</div>
+      <div class="metric-desc" style="margin-top:8px;">Supports short-term, long-term, and entity memory out of the box, enabling agents to maintain context across interactions and recover from errors by revisiting previous states.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Time Travel &amp; Debugging</div>
+      <div class="metric-desc" style="margin-top:8px;">Rewind and replay any execution step to explore different scenarios. Provides a detailed history of every interaction, making it straightforward to diagnose failures and test fixes.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">LangChain Ecosystem</div>
+      <div class="metric-desc" style="margin-top:8px;">Deep integration with LangChain opens access to a wide array of tools, models, and connectors, including tool calling, human-in-the-loop, and retrieval components used across the pipeline.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Caching &amp; Persistence</div>
+      <div class="metric-desc" style="margin-top:8px;">Built-in persistence layer allows saving and resuming graph execution at any point. Prompts are cached to reduce latency and LLM calls, lowering both cost and response time.</div>
     </div>
   </div>
 </section>
@@ -1492,34 +1427,44 @@
   <p class="section-text reveal">Based on Anthropic API pricing: Haiku $0.80/1M input, $4.00/1M output; Sonnet $3.00/1M input, $15.00/1M output. Voyage AI embeddings ~$0.0001/query.</p>
   <div class="details-grid reveal" style="grid-template-columns: repeat(3, 1fr);">
     <div class="detail-card">
-      <div class="metric">$0.001</div>
-      <div class="metric-label">Triage (Haiku)</div>
-      <div class="metric-desc">700 input / 200 output tokens</div>
+      <div class="metric">$0.0155</div>
+      <div class="metric-label">Triage (Sonnet 4)</div>
+      <div class="metric-desc">3,887 input / 257 output tokens</div>
     </div>
     <div class="detail-card">
-      <div class="metric">$0.002</div>
+      <div class="metric">~$0.002</div>
       <div class="metric-label">Retriever</div>
       <div class="metric-desc">Haiku + Voyage AI embeddings</div>
     </div>
     <div class="detail-card">
-      <div class="metric">$0.003</div>
-      <div class="metric-label">Haiku Resolver</div>
-      <div class="metric-desc">1500 input / 500 output tokens</div>
-    </div>
-    <div class="detail-card">
-      <div class="metric">$0.018</div>
+      <div class="metric">$0.0108</div>
       <div class="metric-label">Sonnet Resolver</div>
-      <div class="metric-desc">2000 input / 800 output tokens</div>
+      <div class="metric-desc">1,923 input / 337 output tokens</div>
     </div>
     <div class="detail-card">
-      <div class="metric">$0.015</div>
+      <div class="metric">$0.0008</div>
+      <div class="metric-label">Haiku Resolver</div>
+      <div class="metric-desc">1,910 input / 258 output tokens</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.0055</div>
       <div class="metric-label">Sonnet Critic</div>
-      <div class="metric-desc">2500 input / 500 output tokens</div>
+      <div class="metric-desc">1,536 input / 60 output tokens</div>
     </div>
     <div class="detail-card">
-      <div class="metric">$0.005&ndash;$0.015</div>
-      <div class="metric-label">Blended Cost/Message</div>
-      <div class="metric-desc">Mix of fast-path and full pipeline</div>
+      <div class="metric">$0.0006</div>
+      <div class="metric-label">Haiku Critic</div>
+      <div class="metric-desc">1,387 input / 207 output tokens</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.0390</div>
+      <div class="metric-label">Data Resolver (Sonnet 4)</div>
+      <div class="metric-desc">11,429 input / 316 output tokens</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">$0.0156</div>
+      <div class="metric-label">Blended Cost/Query</div>
+      <div class="metric-desc">6,779 avg input / 685 avg output</div>
     </div>
   </div>
 </section>

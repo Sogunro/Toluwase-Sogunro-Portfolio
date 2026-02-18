@@ -1487,131 +1487,127 @@
   <div class="section-label reveal">Issues &amp; Resolutions</div>
   <h2 class="section-heading reveal">Product challenges, solutions &amp; improvements</h2>
 
-  <div class="detail-card reveal" style="padding:2rem 1.5rem;">
-
   <!-- Model Strategy & Selection -->
-  <h3 class="section-heading" style="font-size:1.4rem; margin-top:0;">Model Strategy &amp; Selection</h3>
-  <div style="overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid rgba(255,255,255,0.1);">
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:0;">Model Strategy &amp; Selection</h3>
+  <div class="reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid #333;">
       <thead>
-        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Issue</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Example</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Solution</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Result</th>
+        <tr style="background:rgba(0,0,0,0.06);">
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Issue</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Example</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Solution</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Result</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Voice inversion: bot spoke as customer instead of agent</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">I appreciate the details about my account</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Switched resolver from Haiku to Sonnet</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">0 voice inversions across 250+ executions</span></td>
+        <tr>
+          <td style="padding:12px 14px; border:1px solid #333;">Voice inversion: bot spoke as customer instead of agent</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;">I appreciate the details about my account</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Switched resolver from Haiku to Sonnet</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">0 voice inversions across 250+ executions</span></td>
         </tr>
         <tr>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Model pair mismatch: Haiku critic scored Sonnet responses at 0.50 systematically</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Every KB query grounded at 0.50 &rarr; clarification loop</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Matched critic to Sonnet (same model pair)</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">Grounding jumped from 0.70 &rarr; 1.00 on all KB queries</span></td>
+          <td style="padding:12px 14px; border:1px solid #333;">Model pair mismatch: Haiku critic scored Sonnet responses at 0.50 systematically</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;">Every KB query grounded at 0.50 &rarr; clarification loop</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Matched critic to Sonnet (same model pair)</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">Grounding jumped from 0.70 &rarr; 1.00 on all KB queries</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <!-- Prompt Structure & Classification -->
-  <h3 class="section-heading" style="font-size:1.4rem; margin-top:2.5rem;">Prompt Structure &amp; Classification</h3>
-  <div style="overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid rgba(255,255,255,0.1);">
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Prompt Structure &amp; Classification</h3>
+  <div class="reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid #333;">
       <thead>
-        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Issue</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Example</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Solution</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Result</th>
+        <tr style="background:rgba(0,0,0,0.06);">
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Issue</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Example</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Solution</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Result</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Inquiry vs request confusion: questions escalated as action requests</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Can I get it back? routed to human_handoff instead of KB</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Added INQUIRY vs REQUEST distinction in triage prompt</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">Auto-resolved with grounding 1.00</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Ambiguous escalation signals: vague statements escalated unnecessarily</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">People get scammed with pootwallet &rarr; human_handoff</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Universal definitiveness gate: ambiguous signals trigger clarification</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">Only definitive claims escalate; ambiguous ones get follow-up questions</span></td>
+        <tr>
+          <td style="padding:12px 14px; border:1px solid #333;">Inquiry vs request confusion: questions escalated as action requests</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;">Can I get it back? routed to human_handoff instead of KB</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Added INQUIRY vs REQUEST distinction in triage prompt</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">Auto-resolved with grounding 1.00</span></td>
         </tr>
         <tr>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">International transfer misrouting: asked for credentials before saying unsupported</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Send money to Nigeria &rarr; auth flow &rarr; we don&rsquo;t do that</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Added country/international patterns to unsupported service fast-path</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">Routes to KB answer directly, no auth needed</span></td>
+          <td style="padding:12px 14px; border:1px solid #333;">Ambiguous escalation signals: vague statements escalated unnecessarily</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;">People get scammed with pootwallet &rarr; human_handoff</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Universal definitiveness gate: ambiguous signals trigger clarification</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">Only definitive claims escalate; ambiguous ones get follow-up questions</span></td>
+        </tr>
+        <tr>
+          <td style="padding:12px 14px; border:1px solid #333;">International transfer misrouting: asked for credentials before saying unsupported</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;">Send money to Nigeria &rarr; auth flow &rarr; we don&rsquo;t do that</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Added country/international patterns to unsupported service fast-path</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">Routes to KB answer directly, no auth needed</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <!-- Context & Memory Management -->
-  <h3 class="section-heading" style="font-size:1.4rem; margin-top:2.5rem;">Context &amp; Memory Management</h3>
-  <div style="overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid rgba(255,255,255,0.1);">
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Context &amp; Memory Management</h3>
+  <div class="reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid #333;">
       <thead>
-        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Issue</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Example</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Solution</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Result</th>
+        <tr style="background:rgba(0,0,0,0.06);">
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Issue</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Example</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Solution</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Result</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Conversation history not loading: follow-ups lost context</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Credentials provided &rarr; system asks what do you need help with?</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Orchestrator auto-loads history from DB when client doesn&rsquo;t send it</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">All multi-turn flows work regardless of client</span></td>
+        <tr>
+          <td style="padding:12px 14px; border:1px solid #333;">Conversation history not loading: follow-ups lost context</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;">Credentials provided &rarr; system asks what do you need help with?</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Orchestrator auto-loads history from DB when client doesn&rsquo;t send it</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">All multi-turn flows work regardless of client</span></td>
         </tr>
         <tr>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Transfer re-execution from history: follow-ups re-triggered prior transactions</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">How much did I send? deducted another &pound;25</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Guarded history fallback to credentials-only messages</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">Follow-ups never re-execute write operations</span></td>
+          <td style="padding:12px 14px; border:1px solid #333;">Transfer re-execution from history: follow-ups re-triggered prior transactions</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;">How much did I send? deducted another &pound;25</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Guarded history fallback to credentials-only messages</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">Follow-ups never re-execute write operations</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <!-- Quality & Safety Gates -->
-  <h3 class="section-heading" style="font-size:1.4rem; margin-top:2.5rem;">Quality &amp; Safety Gates</h3>
-  <div style="overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid rgba(255,255,255,0.1);">
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Quality &amp; Safety Gates</h3>
+  <div class="reveal" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid #333;">
       <thead>
-        <tr style="border-bottom:2px solid rgba(255,255,255,0.15);">
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Issue</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Example</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Solution</th>
-          <th style="text-align:left; padding:10px 12px; opacity:0.7;">Result</th>
+        <tr style="background:rgba(0,0,0,0.06);">
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Issue</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Example</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Solution</th>
+          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Result</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Binary critic routing: no revise path, only pass or escalate</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);">Grounding 0.50 &rarr; immediate escalation (no retry)</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Added revise &rarr; loop_back path to all critic routing functions</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">Near-miss scores get a retry before escalating</span></td>
+        <tr>
+          <td style="padding:12px 14px; border:1px solid #333;">Binary critic routing: no revise path, only pass or escalate</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;">Grounding 0.50 &rarr; immediate escalation (no retry)</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Added revise &rarr; loop_back path to all critic routing functions</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">Near-miss scores get a retry before escalating</span></td>
         </tr>
         <tr>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">JSON leak to customers: raw JSON shown when resolver parse failed</td>
-          <td style="padding:10px 12px; opacity:0.7; border-right:1px solid rgba(255,255,255,0.08);"><code>{"customer_reply": "Your balance is..."}</code> sent as-is</td>
-          <td style="padding:10px 12px; border-right:1px solid rgba(255,255,255,0.08);">Defence-in-depth: regex at resolver, guard at auto_resolve, safety net at orchestrator</td>
-          <td style="padding:10px 12px;"><span style="color:#4ade80;">Zero JSON leaks</span></td>
+          <td style="padding:12px 14px; border:1px solid #333;">JSON leak to customers: raw JSON shown when resolver parse failed</td>
+          <td style="padding:12px 14px; border:1px solid #333; opacity:0.7;"><code>{"customer_reply": "Your balance is..."}</code> sent as-is</td>
+          <td style="padding:12px 14px; border:1px solid #333;">Defence-in-depth: regex at resolver, guard at auto_resolve, safety net at orchestrator</td>
+          <td style="padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">Zero JSON leaks</span></td>
         </tr>
       </tbody>
     </table>
   </div>
-
-  </div><!-- end outer box -->
 </section>
 
 <div class="divider"><hr></div>

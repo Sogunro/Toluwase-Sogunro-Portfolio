@@ -1255,6 +1255,30 @@
     </table>
   </div>
 
+  <!-- Which Metrics Matter Most -->
+  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Which metrics matter most</h3>
+
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr 1fr; margin-top:1rem;">
+
+    <div class="detail-card">
+      <div class="metric" style="font-size:1rem; color:#f87171;">Tier 1: Safety &amp; Trust</div>
+      <div class="metric-desc" style="margin-top:10px;"><strong>Escalation Accuracy (100%)</strong><br>When the system escalates, is it justified? A missed escalation on fraud or a locked account leaves a vulnerable customer without help. 100% means every escalation was warranted.</div>
+      <div class="metric-desc" style="margin-top:10px;"><strong>Grounding Accuracy (0.95)</strong><br>Does the answer match the evidence? This is the hallucination guard. In fintech, a wrong fee or fabricated policy could be a regulatory violation.</div>
+    </div>
+
+    <div class="detail-card">
+      <div class="metric" style="font-size:1rem; color:#facc15;">Tier 2: Business Impact</div>
+      <div class="metric-desc" style="margin-top:10px;"><strong>Auto-Resolve Rate (87%)</strong><br>Every auto-resolved query is one a human agent doesn&rsquo;t handle. At scale, the gap between 80% and 90% is thousands of tickets per month.</div>
+      <div class="metric-desc" style="margin-top:10px;"><strong>Routing Accuracy (98%)</strong><br>Does the message reach the right pipeline? Misrouting wastes processing and can produce wrong answers, such as sending a balance check through RAG instead of tool-calling.</div>
+    </div>
+
+    <div class="detail-card">
+      <div class="metric" style="font-size:1rem; color:#4ade80;">Tier 3: Retrieval Quality</div>
+      <div class="metric-desc" style="margin-top:10px;"><strong>Precision@K (0.93)</strong><br>Of the chunks retrieved, how many were relevant? High precision means the resolver gets clean evidence. 0.93 means the retriever almost never pulls irrelevant chunks.</div>
+      <div class="metric-desc" style="margin-top:10px;"><strong>Recall (0.42 live / 0.85 golden)</strong><br>Of all relevant chunks, how many did we find? The weakest live metric, but least impactful for a support bot where one strong source is often enough to ground a correct answer.</div>
+    </div>
+
+  </div>
 
 </section>
 

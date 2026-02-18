@@ -1024,62 +1024,60 @@
 <section>
   <div class="section-label reveal">Evaluation</div>
   <h2 class="section-heading reveal">System targets vs current metrics</h2>
-  <p class="section-text reveal" style="font-size:0.95rem; opacity:0.7;">Targets: Precision@K &ge;75% | Recall &ge;70% | F1 &ge;70% | Routing &ge;85% | Answer Rate &ge;80% | Grounding &ge;90% | Auto-Resolve &ge;80% | Escalation &ge;90%</p>
-
   <!-- Eval Results v2 -->
   <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2rem;">Eval Results: 43/50 (86%) <span style="font-size:0.85rem; opacity:0.6; font-weight:400;">&mdash; up from 34/50 (68%)</span></h3>
   <div class="reveal" style="overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid #333;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.85rem; border:1px solid #333;">
       <thead>
         <tr style="background:rgba(0,0,0,0.06);">
-          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Metric</th>
-          <th style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">Previous</th>
-          <th style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">Now (post-fix)</th>
-          <th style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">Target</th>
+          <th style="text-align:left; padding:8px 10px; border:1px solid #333; font-weight:600;">Metric</th>
+          <th style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">Previous</th>
+          <th style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">Now (post-fix)</th>
+          <th style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">Target</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333;">Pass rate</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.5;">68% (34/50)</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">86% (43/50)</span></td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">70%</td>
+          <td style="padding:8px 10px; border:1px solid #333;">Pass rate</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.5;">68% (34/50)</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;"><span style="color:#16a34a;">86% (43/50)</span></td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">70%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333;">Routing accuracy</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.5;">100%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">98%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">85%</td>
+          <td style="padding:8px 10px; border:1px solid #333;">Routing accuracy</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.5;">100%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">98%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">85%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333;">Retrieval precision</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.5;">~48%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">74.7%</span></td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">60%</td>
+          <td style="padding:8px 10px; border:1px solid #333;">Retrieval precision</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.5;">~48%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;"><span style="color:#16a34a;">74.7%</span></td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">60%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333;">Retrieval recall</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.5;">~48%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">85.3%</span></td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">70%</td>
+          <td style="padding:8px 10px; border:1px solid #333;">Retrieval recall</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.5;">~48%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;"><span style="color:#16a34a;">85.3%</span></td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">70%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333;">Grounding accuracy</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.5;">81%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;"><span style="color:#b45309;">80%</span></td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">85%</td>
+          <td style="padding:8px 10px; border:1px solid #333;">Grounding accuracy</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.5;">81%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;"><span style="color:#b45309;">80%</span></td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">85%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333;">Auto-resolve rate</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.5;">90.2%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">85.4%</span></td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">80%</td>
+          <td style="padding:8px 10px; border:1px solid #333;">Auto-resolve rate</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.5;">90.2%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;"><span style="color:#16a34a;">85.4%</span></td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">80%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333;">Escalation accuracy</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.5;">100%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;"><span style="color:#16a34a;">100%</span></td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">90%</td>
+          <td style="padding:8px 10px; border:1px solid #333;">Escalation accuracy</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.5;">100%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;"><span style="color:#16a34a;">100%</span></td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">90%</td>
         </tr>
       </tbody>
     </table>
@@ -1088,100 +1086,100 @@
   <!-- All-Time Metrics Comparison -->
   <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">All-Time Metrics Comparison</h3>
   <div class="reveal" style="overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem; border:1px solid #333;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.85rem; border:1px solid #333;">
       <thead>
         <tr style="background:rgba(0,0,0,0.06);">
-          <th style="text-align:left; padding:12px 14px; border:1px solid #333; font-weight:600;">Metric</th>
-          <th style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">Before Feb 17</th>
-          <th style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">Feb 17</th>
-          <th style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">Feb 18</th>
-          <th style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">Trend</th>
+          <th style="text-align:left; padding:8px 10px; border:1px solid #333; font-weight:600;">Metric</th>
+          <th style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">Before Feb 17</th>
+          <th style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">Feb 17</th>
+          <th style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">Feb 18</th>
+          <th style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">Trend</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Queries</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">1,491</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">377</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">84</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.4;">&mdash;</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Queries</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">1,491</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">377</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">84</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.4;">&mdash;</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Auto-Resolve</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">82.9%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">72.1%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">86.9%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; color:#16a34a;">recovered</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Auto-Resolve</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">82.9%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">72.1%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">86.9%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; color:#16a34a;">recovered</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Precision@K</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.563</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.587</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">0.934</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; color:#16a34a;">+66%</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Precision@K</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.563</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.587</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">0.934</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; color:#16a34a;">+66%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Recall</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.453</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.582</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.424</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">stable</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Recall</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.453</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.582</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.424</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">stable</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">F1</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.428</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.492</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.506</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; color:#16a34a;">+18%</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">F1</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.428</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.492</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.506</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; color:#16a34a;">+18%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Grounding</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.643</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.808</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.653</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">see below</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Grounding</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.643</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.808</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.653</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">see below</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Routing Confidence</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.875</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.907</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">0.927</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; color:#16a34a;">+6%</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Routing Confidence</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.875</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.907</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">0.927</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; color:#16a34a;">+6%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Hedge Rate</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">1.7%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">7.7%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">2.4%</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; color:#16a34a;">recovered</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Hedge Rate</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">1.7%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">7.7%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">2.4%</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; color:#16a34a;">recovered</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Avg Cost/Query</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">$0.0157</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">$0.0157</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; font-weight:600;">$0.0148</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; color:#16a34a;">-5.7%</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Avg Cost/Query</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">$0.0157</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">$0.0157</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; font-weight:600;">$0.0148</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; color:#16a34a;">-5.7%</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Total Spend</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">$23.39</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">$5.90</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">$1.25</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; opacity:0.4;">&mdash;</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Total Spend</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">$23.39</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">$5.90</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">$1.25</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; opacity:0.4;">&mdash;</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Avg Input Tokens</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">6,816</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">6,779</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">6,955</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">stable</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Avg Input Tokens</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">6,816</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">6,779</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">6,955</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">stable</td>
         </tr>
         <tr>
-          <td style="padding:12px 14px; border:1px solid #333; font-weight:600;">Avg Output Tokens</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">682</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">685</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333;">549</td>
-          <td style="text-align:center; padding:12px 14px; border:1px solid #333; color:#16a34a;">-19.5%</td>
+          <td style="padding:8px 10px; border:1px solid #333; font-weight:600;">Avg Output Tokens</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">682</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">685</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333;">549</td>
+          <td style="text-align:center; padding:8px 10px; border:1px solid #333; color:#16a34a;">-19.5%</td>
         </tr>
       </tbody>
     </table>

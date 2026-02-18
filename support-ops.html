@@ -1185,20 +1185,6 @@
     </table>
   </div>
 
-  <!-- Key Takeaways -->
-  <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Key takeaways</h3>
-  <div class="reveal" style="font-size:0.95rem; line-height:1.7;">
-    <p style="margin-bottom:12px;"><strong>Cost:</strong> ~$0.015/query across all periods. Feb 18 dropped to <strong>$0.0148</strong> as prompt caching starts to show. Output tokens also dropped 19.5% (fewer hedged verbose responses). Total lifetime spend: <strong>$30.53</strong> across 1,952 queries.</p>
-    <p style="margin-bottom:12px;"><strong>Grounding looks low but it&rsquo;s misleading:</strong> The pre-Feb 17 grounding of 0.643 includes all the early development queries (pre-critic-fix, pre-RAG-overhaul, pre-filter_output fix). Those early sessions had systematic 0.50 grounding failures that were fixed over time. The Feb 17 jump to 0.808 reflects the RAG overhaul + critic routing fixes. Feb 18&rsquo;s 0.653 is pulled down by a few data_query routes that don&rsquo;t get grounding scores &mdash; the auto-resolved KB queries are actually scoring 0.95+.</p>
-    <p style="margin-bottom:8px;"><strong>The real improvement story:</strong></p>
-    <ul style="margin:0 0 0 20px; padding:0;">
-      <li>Precision nearly doubled: 0.56 &rarr; 0.93 (RAG overhaul + re-chunking + voyage-finance-2)</li>
-      <li>Routing confidence steadily climbing: 0.875 &rarr; 0.927 (triage prompt hardening)</li>
-      <li>Cost per query stable-to-declining despite switching data_resolver to Sonnet</li>
-      <li>Auto-resolve recovered from the Feb 17 dip (eval pollution) to 86.9%</li>
-    </ul>
-  </div>
-
   <!-- Which Metrics Matter Most -->
   <h3 class="section-heading reveal" style="font-size:1.4rem; margin-top:2.5rem;">Which metrics matter most</h3>
 

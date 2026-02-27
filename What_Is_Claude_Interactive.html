@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Claude & How It Differs From Other AI Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0D1117;--bg2:#161B22;--bg3:#1C2333;--accent:#DA7756;--accent-l:#F4A582;--teal:#2DD4A8;--blue:#58A6FF;--red:#FF6B6B;--txt:#E6EDF3;--muted:#8B949E;--dim:#484F58;--border:#21262D;--ga:rgba(218,119,86,.15);--gt:rgba(45,212,168,.12)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;overflow-x:hidden}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}.rv.v{opacity:1;transform:translateY(0)}
+.rl{opacity:0;transform:translateX(-60px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}.rl.v{opacity:1;transform:translateX(0)}
+.rr{opacity:0;transform:translateX(60px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}.rr.v{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,17,23,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;align-items:center;gap:2rem}
+nav .logo{font-family:'Fraunces',serif;font-weight:900;font-size:1.1rem;color:var(--accent)}
+nav a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .3s}nav a:hover{color:var(--accent)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 50%,var(--ga) 0%,transparent 50%),radial-gradient(ellipse at 70% 30%,var(--gt) 0%,transparent 50%);animation:hp 8s ease-in-out infinite alternate}
+@keyframes hp{0%{transform:scale(1) rotate(0)}100%{transform:scale(1.1) rotate(3deg)}}
+.hero-badge{position:relative;display:inline-block;padding:.4rem 1.2rem;border:1px solid var(--accent);border-radius:50px;font-size:.8rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:2rem;animation:fid .8s ease-out}
+@keyframes fid{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{position:relative;font-family:'Fraunces',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem;animation:fi 1s ease-out .2s both}
+.hl{color:var(--accent)}.ht{color:var(--teal)}
+.hero .sub{position:relative;max-width:620px;color:var(--muted);font-size:1.15rem;margin-bottom:3rem;animation:fi 1s ease-out .5s both}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.hero .sc{position:relative;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--dim);font-size:.8rem;animation:bn 2s infinite}
+@keyframes bn{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+section{max-width:1100px;margin:0 auto;padding:5rem 2rem}
+.sl{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+.st{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:1rem;line-height:1.2}
+.ss{color:var(--muted);font-size:1.05rem;max-width:650px;margin-bottom:3rem}
+.h2c{font-family:'Fraunces',serif;font-size:1.6rem;margin-bottom:1rem}
+.an{background:linear-gradient(135deg,rgba(218,119,86,.08),rgba(45,212,168,.06));border:1px solid rgba(218,119,86,.2);border-radius:16px;padding:2rem 2.5rem;margin-bottom:3rem;position:relative;overflow:hidden}
+.an::before{content:'💡';position:absolute;top:-10px;right:20px;font-size:3rem;opacity:.15}
+.an-l{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:.5rem}
+.an p{font-size:1.1rem;line-height:1.8}.an strong{color:var(--teal)}
+.ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin:2rem 0}
+.ic{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:2rem;transition:all .4s cubic-bezier(.22,1,.36,1)}
+.ic:hover{background:var(--bg3);transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 30px var(--ga)}
+.ic .icon{font-size:2.2rem;margin-bottom:1rem;display:block}
+.ic h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;margin-bottom:.6rem}
+.ic p{color:var(--muted);font-size:.93rem}
+.formula{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;padding:2.5rem 2rem;background:linear-gradient(135deg,rgba(45,212,168,.08),rgba(88,166,255,.06));border:1px solid rgba(45,212,168,.2);border-radius:16px;margin:2rem 0 3rem;text-align:center}
+.formula .part{display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.formula .part .big{font-family:'Fraunces',serif;font-size:2rem;font-weight:900}
+.formula .part .lab{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.formula .op{font-size:2rem;color:var(--dim);font-weight:300}
+.formula .a .big{color:var(--accent)}.formula .t .big{color:var(--teal)}.formula .b .big{color:var(--blue)}
+.pc{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin:2.5rem 0}
+.pcard{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .4s ease}
+.pcard:hover{background:var(--bg3);transform:translateY(-4px)}
+.pcard .pi{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+.pcard.chat .pi{background:rgba(218,119,86,.15)}.pcard.code .pi{background:rgba(45,212,168,.15)}.pcard.cowork .pi{background:rgba(88,166,255,.15)}
+.pcard h3{font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.4rem}
+.pcard .pf{font-size:.8rem;color:var(--teal);margin-bottom:1rem;font-weight:500}
+.pcard p{color:var(--muted);font-size:.92rem;margin-bottom:1.2rem}
+.pcg{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.pcg .cl{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:.3rem}.pcg .cl.g{color:var(--teal)}.pcg .cl.r{color:var(--red)}
+.pcg ul{list-style:none;padding:0}.pcg li{font-size:.82rem;color:var(--muted);padding:.2rem 0 .2rem 1.2rem;position:relative}
+.pcg .str li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:700}
+.pcg .wk li::before{content:'✗';position:absolute;left:0;color:var(--red);font-weight:700}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2.5rem 0}
+@media(max-width:768px){.mg{grid-template-columns:1fr}}
+.mc{border-radius:16px;padding:2rem;border:1px solid var(--border);background:var(--bg2);transition:all .4s ease;position:relative;overflow:hidden}
+.mc::after{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.mc.gpt::after{background:linear-gradient(90deg,#10A37F,#1BD79D)}.mc.cl::after{background:linear-gradient(90deg,var(--accent),var(--accent-l))}.mc.gem::after{background:linear-gradient(90deg,#4285F4,#EA4335)}
+.mc:hover{transform:translateY(-6px)}.mc.gpt:hover{box-shadow:0 12px 40px rgba(16,163,127,.15);border-color:#10A37F}.mc.cl:hover{box-shadow:0 12px 40px var(--ga);border-color:var(--accent)}.mc.gem:hover{box-shadow:0 12px 40px rgba(66,133,244,.15);border-color:#4285F4}
+.mc .ml{font-size:2rem;margin-bottom:1rem}.mc h3{font-family:'Fraunces',serif;font-size:1.4rem;margin-bottom:.3rem}.mc .mk{font-size:.8rem;color:var(--dim);margin-bottom:1rem}
+.mc .tg{font-size:.95rem;color:var(--teal);font-style:italic;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.mc .sl2{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--dim);margin-bottom:.5rem}
+.mc ul{list-style:none;padding:0}.mc li{font-size:.9rem;color:var(--muted);padding:.3rem 0 .3rem 1.4rem;position:relative}.mc li::before{content:'→';position:absolute;left:0;color:var(--accent)}
+.tw{overflow-x:auto;border-radius:16px;border:1px solid var(--border);margin:2.5rem 0}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+thead th{background:var(--bg2);padding:1rem 1.2rem;text-align:left;font-family:'Fraunces',serif;font-weight:700;font-size:1rem;border-bottom:2px solid var(--border)}
+thead th:nth-child(2){color:#10A37F}thead th:nth-child(3){color:var(--accent)}thead th:nth-child(4){color:#4285F4}
+tbody td{padding:.9rem 1.2rem;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top}
+tbody td:first-child{font-weight:600;color:var(--txt);white-space:nowrap}tbody tr:hover{background:rgba(255,255,255,.02)}tbody tr:last-child td{border-bottom:none}
+.badge{display:inline-block;font-size:.7rem;padding:.15rem .5rem;border-radius:4px;font-weight:600;margin-left:.3rem;background:rgba(45,212,168,.15);color:var(--teal)}
+.sources{margin-top:4rem;padding:2rem;border-top:1px solid var(--border)}.sources h3{font-family:'Fraunces',serif;font-size:1.1rem;margin-bottom:1rem;color:var(--dim)}
+.sources ul{list-style:none;padding:0}.sources li{font-size:.8rem;color:var(--dim);padding:.3rem 0}.sources a{color:var(--blue);text-decoration:none}.sources a:hover{text-decoration:underline}
+footer{text-align:center;padding:3rem 2rem;color:var(--dim);font-size:.8rem;border-top:1px solid var(--border)}
+@media(max-width:768px){nav{padding:.6rem 1rem;gap:1rem;flex-wrap:wrap}section{padding:3rem 1.2rem}.mg{grid-template-columns:1fr}.pcg{grid-template-columns:1fr}.an{padding:1.5rem}.formula{gap:.8rem;padding:1.5rem}.formula .part .big{font-size:1.4rem}.agent-compare{grid-template-columns:1fr !important}}
+</style>
+</head>
+<body>
+<nav><span class="logo">AI for Business</span><a href="#intro">Intro</a><a href="#claude-products">Claude Products</a><a href="#the-big-three">The Big Three</a><a href="#comparison">Comparison</a><a href="#demo">Demo</a></nav>
+
+<div class="hero">
+  <div class="hero-badge">Lesson 01 | The Basics</div>
+  <h1>What Is <span class="hl">Claude</span><br>& How Does It Differ From<br>Other <span class="ht">AI Tools</span>?</h1>
+  <p class="sub">A plain-English guide. No jargon, no coding. Just clear explanations with real-world analogies so you actually get it.</p>
+  <div class="sc"><span>Scroll to explore</span><span style="font-size:1.5rem">↓</span></div>
+</div>
+
+<!-- ====== SECTION 1: INTRO ====== -->
+<section id="intro">
+  <div class="rv"><div class="sl">Section 01</div><div class="st">What Is Claude?</div><div class="ss">Let's cut through the noise and explain this in words that actually make sense.</div></div>
+
+  <div class="an rv d1">
+    <div class="an-l">Think of it like this</div>
+    <p>Claude is like a <strong>super-smart assistant that has read millions of books, reports, and websites</strong>, learned various things, and can instantly apply what it knows to help you with almost any task. It can write, research, analyse, summarise, generate images, write code, and more, all based on what you ask it. So apparently, these are <strong>super machines that can learn to do anything.</strong></p>
+  </div>
+
+  <div class="rv d2"><h2 class="h2c" style="color:var(--accent)">What Makes Claude Different?</h2></div>
+  <div class="ig">
+    <div class="ic rv d1"><span class="icon">📧</span><h3>It Connects to Your Business Tools</h3><p>Claude doesn't just chat. Through Cowork, it plugs into <strong style="color:var(--teal)">Gmail, Slack, Google Drive, DocuSign</strong> and more. It can read your emails, reply to Slack messages, pull files from Drive, and run these tasks on a schedule. No other AI chatbot does this as seamlessly.</p></div>
+    <div class="ic rv d2"><span class="icon">📊</span><h3>It Actually Does the Work</h3><p>Other AI tools give you answers. Claude gives you <strong style="color:var(--teal)">finished deliverables</strong>. Tell it to create a competitor analysis and it will research, compare pricing, build the spreadsheet, and save it to your desktop. You come back to completed work, not a chat response.</p></div>
+    <div class="ic rv d3"><span class="icon">🔁</span><h3>It Runs Without You</h3><p>Set up a task once and Claude runs it <strong style="color:var(--teal)">daily, weekly, or monthly on autopilot</strong>. Morning email briefings, weekly competitor reports, monthly expense summaries. Your business keeps moving even when you're not at your desk.</p></div>
+    <div class="ic rv d1"><span class="icon">📚</span><h3>It Reads Entire Contracts in Seconds</h3><p>Claude can process <strong style="color:var(--teal)">200,000+ words in one go</strong>. Upload a 100 page contract, a full business plan, or a year's worth of meeting notes and ask it to summarise, flag risks, or pull out key actions. Other tools choke on documents this large.</p></div>
+    <div class="ic rv d2"><span class="icon">🎯</span><h3>It Gets Things Right</h3><p>Claude is built to <strong style="color:var(--teal)">hallucinate less</strong> than competitors. That means fewer made up facts, fewer wrong numbers, fewer embarrassing mistakes in client-facing documents. When your reputation is on the line, accuracy is everything.</p></div>
+    <div class="ic rv d3"><span class="icon">🧩</span><h3>Skills and Plugins Give It Superpowers</h3><p>Claude comes with <strong style="color:var(--teal)">pre-built Skills</strong> for creating documents, presentations, spreadsheets and more. Businesses can also build <strong style="color:var(--teal)">custom Plugins</strong> tailored to their specific workflows, turning Claude into a specialist for any department.</p></div>
+  </div>
+
+  <div class="rv d2" style="margin-top:2rem"><h2 class="h2c" style="color:var(--teal)">How Does It Put Your Business in a Better Position?</h2>
+  <p style="color:var(--muted);font-size:1rem;max-width:700px;margin-bottom:2rem">AI isn't just a tech toy. It's a <strong style="color:var(--txt)">competitive advantage</strong>. Companies using AI agents report 66% increased productivity, 57% cost savings, and 55% faster decision-making <span style="color:var(--dim)">(Kellton, 2026)</span>.</p></div>
+  <div class="ig">
+    <div class="ic rv d1"><span class="icon">⏱️</span><h3>Save 10+ Hours/Week</h3><p>Automate research, report writing, email drafting, data analysis. What took 3 hours now takes 5 minutes.</p></div>
+    <div class="ic rv d2"><span class="icon">📈</span><h3>Scale Without Hiring</h3><p>AI agents handle enquiries, generate proposals, manage workflows. Like having 5 extra employees without the payroll.</p></div>
+    <div class="ic rv d3"><span class="icon">🧠</span><h3>Make Smarter Decisions</h3><p>Claude analyses market trends, summarises competitor data, and gives insights that would take a consultant days.</p></div>
+  </div>
+
+  <div class="rv" style="margin-top:3rem"><h2 class="h2c" style="color:var(--accent)">AI Agents & Agentic Systems</h2>
+  <p style="color:var(--muted);font-size:1rem;max-width:700px;margin-bottom:1.5rem">The easiest way to understand an AI agent? Think about a <strong style="color:var(--txt)">human customer service agent</strong> you'd hire for your business. Then look at what the AI version looks like.</p></div>
+
+  <!-- HUMAN vs AI AGENT SIDE BY SIDE -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0" class="rv d1 agent-compare">
+    <!-- HUMAN AGENT -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent-l))"></div>
+      <div style="font-size:2rem;margin-bottom:.8rem">👤</div>
+      <h3 style="font-family:'Fraunces',serif;font-size:1.4rem;margin-bottom:.3rem;color:var(--accent)">Human Customer Service Agent</h3>
+      <p style="font-size:.8rem;color:var(--dim);margin-bottom:1.2rem">The person you'd hire</p>
+      <div style="display:flex;flex-direction:column;gap:.9rem">
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">🧠</span><div><strong style="font-size:.85rem;color:var(--txt)">Has a Mind</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Their brain. Thinks, reasons, makes judgements based on experience and training.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">🔧</span><div><strong style="font-size:.85rem;color:var(--txt)">Has Tools</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Computer, phone, CRM software, email, spreadsheets. Uses these to get the job done.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">📖</span><div><strong style="font-size:.85rem;color:var(--txt)">Has a Knowledge Base</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Company handbook, FAQs, product docs, pricing sheets. The information they reference.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">💾</span><div><strong style="font-size:.85rem;color:var(--txt)">Has Memory</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Remembers past conversations, customer history, previous issues and resolutions.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">⚡</span><div><strong style="font-size:.85rem;color:var(--txt)">Has Autonomy</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Can make decisions on their own. Issue a refund, escalate a complaint, offer a discount.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">🎯</span><div><strong style="font-size:.85rem;color:var(--txt)">Has Roles & Objectives</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Job description, KPIs, targets. "Resolve 90% of tickets within 24 hours."</p></div></div>
+      </div>
+    </div>
+
+    <!-- AI AGENT -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--blue))"></div>
+      <div style="font-size:2rem;margin-bottom:.8rem">🤖</div>
+      <h3 style="font-family:'Fraunces',serif;font-size:1.4rem;margin-bottom:.3rem;color:var(--teal)">AI Customer Service Agent</h3>
+      <p style="font-size:.8rem;color:var(--dim);margin-bottom:1.2rem">The machine equivalent</p>
+      <div style="display:flex;flex-direction:column;gap:.9rem">
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">🧠</span><div><strong style="font-size:.85rem;color:var(--txt)">Has a Mind (The Model)</strong><p style="font-size:.82rem;color:var(--muted);margin:0">The AI model (Claude, GPT, Gemini). Thinks, reasons, and generates responses based on training data.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">🔧</span><div><strong style="font-size:.85rem;color:var(--txt)">Has Tools</strong><p style="font-size:.82rem;color:var(--muted);margin:0">APIs, web search, Gmail, Slack, databases, file systems. Connects to the same tools, just digitally.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">📖</span><div><strong style="font-size:.85rem;color:var(--txt)">Has a Knowledge Base</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Company docs, product info, FAQs uploaded or connected. The agent retrieves what it needs in milliseconds.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">💾</span><div><strong style="font-size:.85rem;color:var(--txt)">Has Memory</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Stores conversation history, customer preferences, past interactions. Picks up where it left off.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">⚡</span><div><strong style="font-size:.85rem;color:var(--txt)">Has Autonomy</strong><p style="font-size:.82rem;color:var(--muted);margin:0">Can make decisions within set rules. Process a refund, route a ticket, send a follow up. All without asking you.</p></div></div>
+        <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="font-size:1.2rem">🎯</span><div><strong style="font-size:.85rem;color:var(--txt)">Has Roles & Objectives</strong><p style="font-size:.82rem;color:var(--muted);margin:0">System prompt, guardrails, success metrics. "Resolve customer issues, escalate if unsure, never promise what we can't deliver."</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="an rv d2" style="margin-top:1.5rem">
+    <div class="an-l">So what's the difference?</div>
+    <p>They do the same job. The AI version is just a <strong>machine</strong>. It's faster (handles 1,000 conversations at once), tends to be more accurate at repetitive tasks (never has a bad day), works 24/7 (no holidays, no sick leave), and costs a fraction of a salary. The human brings empathy, nuance, and creativity that AI is still catching up on. The smartest businesses <strong>use both together</strong>.</p>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="formula rv d1" style="margin-top:2rem">
+    <div class="part a"><span class="big">Little Effort</span><span class="lab">Your input</span></div>
+    <div class="op">×</div>
+    <div class="part t"><span class="big">AI Agents</span><span class="lab">The multiplier</span></div>
+    <div class="op">=</div>
+    <div class="part b"><span class="big">100× Output</span><span class="lab">Growth & Productivity</span></div>
+  </div>
+
+  <div class="an rv d2">
+    <div class="an-l">What does this mean in practice?</div>
+    <p>Instead of <em>you</em> doing 20 tasks manually, you give an AI agent a goal. Something like <strong>"research 5 competitors, compare their pricing, and create a summary presentation"</strong>. The agent then does all 20 steps by itself. By 2026, <strong>80% of enterprise apps are expected to embed AI agents</strong> (IDC). Telus saved <strong>40 minutes per AI interaction</strong> across 57,000 employees. This isn't future tech. It's happening now.</p>
+  </div>
+</section>
+
+<!-- ====== SECTION 2: CLAUDE PRODUCTS ====== -->
+<section id="claude-products">
+  <div class="rv"><div class="sl">Section 02</div><div class="st">Anthropic Owns Claude</div><div class="ss">Three products, three purposes, each built for different people and use cases.</div></div>
+  <div class="pc">
+    <div class="pcard chat rv d1"><div class="pi">💬</div><h3>Claude AI</h3><div class="pf">Web & Mobile | More for Personal Use</div><p>The main chatbot on <strong>claude.ai</strong> and the mobile app. Type a question, get an answer. Great for writing, research, analysis, brainstorming, and daily tasks.</p>
+      <div class="pcg"><div class="str"><div class="cl g">Strengths</div><ul><li>Easy to use, just type and chat</li><li>Web search, file uploads, memory</li><li>Available on web, desktop & mobile</li></ul></div><div class="wk"><div class="cl r">Limitations</div><ul><li>Free tier has usage limits</li><li>Can't run code on your computer</li><li>No local file access</li></ul></div></div></div>
+    <div class="pcard cowork rv d2"><div class="pi">🤝</div><h3>Claude Cowork</h3><div class="pf">Desktop Based | More for Business Purposes</div><p>Launched Jan 2026. <strong>Automates workflows, increases productivity</strong>. Accesses your local files, creates docs, organises folders, runs scheduled tasks. Connects to Gmail, Google Drive, DocuSign.</p>
+      <div class="pcg"><div class="str"><div class="cl g">Strengths</div><ul><li>No coding required</li><li>Creates Excel, PowerPoint, docs</li><li>Automates recurring tasks</li><li>Connects Gmail, Drive, DocuSign</li></ul></div><div class="wk"><div class="cl r">Limitations</div><ul><li>Still in research preview</li><li>Desktop app required</li><li>Computer must stay awake</li></ul></div></div></div>
+    <div class="pcard code rv d3"><div class="pi">⌨️</div><h3>Claude Code</h3><div class="pf">Operates in the Terminal | For Software Development</div><p>A command-line tool for developers. Reads codebases, writes features, fixes bugs, reviews code. Grew to a <strong>billion-dollar product in 6 months</strong>.</p>
+      <div class="pcg"><div class="str"><div class="cl g">Strengths</div><ul><li>Best-in-class code generation</li><li>Reads entire codebases</li><li>Finds & fixes bugs autonomously</li></ul></div><div class="wk"><div class="cl r">Limitations</div><ul><li>Requires technical knowledge</li><li>Command-line only</li><li>Not for non-coding tasks</li></ul></div></div></div>
+  </div>
+  <div class="an rv"><div class="an-l">In plain English</div><p><strong>Claude AI</strong> = texting a smart friend (web/phone). <strong>Claude Cowork</strong> = a virtual employee on your desktop who does actual work. <strong>Claude Code</strong> = a coding partner for devs in the terminal.</p></div>
+</section>
+
+<!-- ====== COWORK IMPACT SECTION ====== -->
+<section id="cowork-impact" style="padding-top:3rem;padding-bottom:4rem">
+  <div class="rv">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <div class="sl" style="text-align:center">Claude Cowork in Action</div>
+      <div class="st" style="text-align:center">What Can Cowork Actually Do for Your Business?</div>
+      <p style="color:var(--muted);font-size:1rem;max-width:550px;margin:0 auto">Connect it. Tell it what you need. Walk away. Come back to finished work.</p>
+    </div>
+  </div>
+
+  <!-- Tools it connects to -->
+  <div class="rv d1" style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:2.5rem">
+    <span style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.85rem;color:var(--txt)">📧 Gmail</span>
+    <span style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.85rem;color:var(--txt)">📁 Google Drive</span>
+    <span style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.85rem;color:var(--txt)">💬 Slack</span>
+    <span style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.85rem;color:var(--txt)">✍️ DocuSign</span>
+    <span style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.85rem;color:var(--txt)">📊 FactSet</span>
+    <span style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.85rem;color:var(--txt)">📂 Your Local Files</span>
+    <span style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.85rem;color:var(--txt)">🌐 Web Browser</span>
+    <span style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;background:rgba(218,119,86,.1);border:1px solid rgba(218,119,86,.3);font-size:.85rem;color:var(--accent)">+ Custom Plugins</span>
+  </div>
+
+  <!-- Impact grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:0 auto;max-width:1100px">
+    <div class="ic rv d1" style="text-align:center;padding:1.5rem">
+      <span class="icon" style="font-size:1.8rem">📧</span>
+      <h3 style="font-size:1rem">Read & Send Emails</h3>
+      <p style="font-size:.85rem">Reads your inbox, drafts replies, sends after your approval. Morning briefings on autopilot.</p>
+    </div>
+    <div class="ic rv d2" style="text-align:center;padding:1.5rem">
+      <span class="icon" style="font-size:1.8rem">💬</span>
+      <h3 style="font-size:1rem">Respond on Slack</h3>
+      <p style="font-size:.85rem">Reads channels, summarises conversations, replies to messages. Never miss an update.</p>
+    </div>
+    <div class="ic rv d3" style="text-align:center;padding:1.5rem">
+      <span class="icon" style="font-size:1.8rem">📊</span>
+      <h3 style="font-size:1rem">Create Reports & Decks</h3>
+      <p style="font-size:.85rem">Builds polished Excel spreadsheets, PowerPoint presentations, and formatted documents.</p>
+    </div>
+    <div class="ic rv d4" style="text-align:center;padding:1.5rem">
+      <span class="icon" style="font-size:1.8rem">🔍</span>
+      <h3 style="font-size:1rem">Research Competitors</h3>
+      <p style="font-size:.85rem">Scans the web, compares pricing, analyses markets, and delivers a summary. All while you sleep.</p>
+    </div>
+    <div class="ic rv d1" style="text-align:center;padding:1.5rem">
+      <span class="icon" style="font-size:1.8rem">📂</span>
+      <h3 style="font-size:1rem">Organise Your Files</h3>
+      <p style="font-size:.85rem">Sorts Downloads, renames files, creates folder structures. Months of clutter gone in minutes.</p>
+    </div>
+    <div class="ic rv d2" style="text-align:center;padding:1.5rem">
+      <span class="icon" style="font-size:1.8rem">🔄</span>
+      <h3 style="font-size:1rem">Run Tasks on Schedule</h3>
+      <p style="font-size:.85rem">Set it once: daily, weekly, or monthly. Cowork runs it automatically without you lifting a finger.</p>
+    </div>
+  </div>
+
+  <div class="an rv" style="margin-top:2rem;text-align:center">
+    <div class="an-l">The business owner takeaway</div>
+    <p style="font-size:1.05rem">Imagine waking up to your <strong>emails already triaged</strong>, your <strong>Slack summarised</strong>, a <strong>competitor report on your desktop</strong>, and your <strong>weekly presentation already built</strong>, all before your first coffee. That's Cowork.</p>
+  </div>
+</section>
+
+<!-- ====== SECTION 3: THE BIG THREE ====== -->
+<section id="the-big-three">
+  <div class="rv"><div class="sl">Section 03</div><div class="st">ChatGPT, Gemini & Claude: The Big Three</div>
+  <div class="ss">All three are super-intelligent chatbots with similarities and exceptional capabilities, built by different companies. They can all create/generate text, images, summarise and analyse things. They're built on machine learning models that can learn, think, and do tasks. Like three brilliant minds with similar skills but different strengths.</div></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2.5rem 0" class="mg">
+    <div class="mc gpt rv d1">
+      <div class="ml">🟢</div><h3>ChatGPT</h3><div class="mk">by OpenAI · launched Nov 2022</div>
+      <div class="tg">"The Popular All-Rounder"</div>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem">The most widely used AI chatbot. Best known for creative content, brainstorming, and general-purpose tasks. Has the largest user community and plugin ecosystem. Think of it as the <strong style="color:var(--txt)">Swiss Army knife</strong>, good at many things.</p>
+      <div class="sl2">Key Strengths</div>
+      <ul><li>Huge community & plugin store (GPTs)</li><li>Strong creative writing & brainstorming</li><li>Image generation (DALL-E)</li><li>Memory across conversations</li><li>Versatile all-rounder</li></ul>
+    </div>
+    <div class="mc cl rv d2">
+      <div class="ml">🟠</div><h3>Claude</h3><div class="mk">by Anthropic · launched Mar 2023</div>
+      <div class="tg">"The Careful, Deep Thinker"</div>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem">The most accurate and careful of the three. Excels at long analysis, polished writing, and coding. <strong style="color:var(--teal)">Key differentiator:</strong> Skills, Plugins, and external tool connections (Gmail, Slack, Drive, DocuSign) via Cowork, making it the most <strong style="color:var(--txt)">business-action-ready</strong> AI.</p>
+      <div class="sl2">Key Strengths</div>
+      <ul><li>Best writing quality & analysis</li><li>Fewest hallucinations (most accurate)</li><li>Skills: pre-built abilities for specific tasks</li><li>Plugins & connectors (Gmail, Slack, Drive+)</li><li>Cowork: acts on your files & workflows</li><li>Top coding benchmarks</li></ul>
+    </div>
+    <div class="mc gem rv d3">
+      <div class="ml">🔵</div><h3>Gemini</h3><div class="mk">by Google · launched Dec 2023</div>
+      <div class="tg">"The Fast, Connected Researcher"</div>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem">Google's AI, deeply tied into their ecosystem. Best for quick research, real-time web info, and if your business already runs on Google Workspace. Think of it as the <strong style="color:var(--txt)">researcher with a direct line to the internet</strong>.</p>
+      <div class="sl2">Key Strengths</div>
+      <ul><li>Real-time web access built in</li><li>Seamless Google Workspace integration</li><li>Excellent multimodal (text+image+video)</li><li>Fastest response times</li><li>Best free tier of the three</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 4: COMPARISON TABLE ====== -->
+<section id="comparison">
+  <div class="rv"><div class="sl">Section 04</div><div class="st">Head-to-Head Comparison</div><div class="ss">Similarities, differences, strengths and weaknesses, all in one table.</div></div>
+  <div class="tw rv"><table><thead><tr><th>Feature</th><th>🟢 ChatGPT</th><th>🟠 Claude</th><th>🔵 Gemini</th></tr></thead><tbody>
+    <tr><td>Company</td><td>OpenAI</td><td>Anthropic</td><td>Google</td></tr>
+    <tr><td>Best For</td><td>Creative content, brainstorming</td><td>Analysis, writing, coding <span class="badge">Best</span></td><td>Research, Google integration</td></tr>
+    <tr><td>Writing</td><td>Good, versatile</td><td>Excellent, nuanced <span class="badge">Best</span></td><td>Good, can be verbose</td></tr>
+    <tr><td>Coding</td><td>Strong, broad ecosystem</td><td>Strongest benchmarks <span class="badge">Best</span></td><td>Good, improving</td></tr>
+    <tr><td>Accuracy</td><td>Moderate</td><td>Highest, fewest errors <span class="badge">Best</span></td><td>Good</td></tr>
+    <tr><td>Context Window</td><td>128K tokens</td><td>200K–500K+ <span class="badge">Best</span></td><td>1M+ tokens <span class="badge">Largest</span></td></tr>
+    <tr><td>Web Access</td><td>Yes (browsing)</td><td>Yes (web search)</td><td>Always on <span class="badge">Best</span></td></tr>
+    <tr><td>Image Gen</td><td>Yes (DALL-E) <span class="badge">Best</span></td><td>Limited</td><td>Yes (Imagen)</td></tr>
+    <tr><td>Free Tier</td><td>Limited</td><td>Available</td><td>Best free tier <span class="badge">Best</span></td></tr>
+    <tr><td>Price</td><td>$20/mo</td><td>$20/mo</td><td>$20/mo</td></tr>
+    <tr><td>Safety</td><td>Good</td><td>Strongest <span class="badge">Best</span></td><td>Good</td></tr>
+    <tr><td>Skills & Plugins</td><td>GPT Store: user-made apps, broad but quality varies</td><td>Skills (pre-built abilities) + Plugins + Connectors (Gmail, Slack, Drive, DocuSign, FactSet) <span class="badge">Best</span></td><td>Google extensions, tied to Google ecosystem only</td></tr>
+    <tr><td>External Tool Access</td><td>Limited: browsing, DALL-E, code interpreter</td><td>Cowork connects to local files, email, Slack, Drive & runs scheduled tasks <span class="badge">Best</span></td><td>Deep Google Workspace only</td></tr>
+    <tr><td>Weakness</td><td>Vague on complex tasks, hallucinates</td><td>Smaller ecosystem, conservative at times</td><td>Less consistent reasoning</td></tr>
+  </tbody></table></div>
+  <div class="an rv"><div class="an-l">The Bottom Line</div><p><strong>ChatGPT</strong> = versatile generalist for quick creative tasks. <strong>Claude</strong> = the deep thinker for accuracy, analysis, and polished writing. <strong>Gemini</strong> = the connected researcher, fastest and best in Google's world. Most power users <strong>use 2–3 of them</strong> depending on the task.</p></div>
+</section>
+
+<!-- ====== VIDEO DEMO SECTION ====== -->
+<section id="demo" style="padding-top:3rem;padding-bottom:4rem">
+  <div class="rv" style="text-align:center;margin-bottom:2.5rem">
+    <div class="sl" style="text-align:center">See It In Action</div>
+    <div class="st" style="text-align:center">Watch Claude Work</div>
+    <p style="color:var(--muted);font-size:1rem;max-width:550px;margin:0 auto">A real demonstration of Claude's capabilities — no scripts, no edits, just raw AI in action.</p>
+  </div>
+  <div class="rv d1" style="max-width:900px;margin:0 auto">
+    <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--bg2);box-shadow:0 12px 40px rgba(0,0,0,.3)">
+      <video controls playsinline preload="metadata" style="width:100%;display:block;border-radius:16px" poster="">
+        <source src="claude-demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <p style="text-align:center;color:var(--dim);font-size:.8rem;margin-top:1rem">Live demo recorded Feb 2026</p>
+  </div>
+</section>
+
+<section class="sources rv"><h3>Sources & Further Reading</h3><ul>
+  <li>Anthropic · "Introducing Cowork" (Jan 2026) · <a href="https://claude.com/blog/cowork-research-preview">claude.com</a></li>
+  <li>VentureBeat · "Claude Cowork for Enterprise" (Feb 2026) · <a href="https://venturebeat.com/orchestration/anthropic-says-claude-code-transformed-programming-now-claude-cowork-is">venturebeat.com</a></li>
+  <li>CNBC · "Anthropic Claude Cowork Update" (Feb 2026) · <a href="https://www.cnbc.com/2026/02/24/anthropic-claude-cowork-office-worker.html">cnbc.com</a></li>
+  <li>Kellton · "Agentic AI Trends 2026" · <a href="https://www.kellton.com/kellton-tech-blog/agentic-ai-trends-2026">kellton.com</a></li>
+  <li>Google Cloud · "5 Ways AI Agents Transform Work 2026" · <a href="https://blog.google/products/google-cloud/ai-business-trends-report-2026/">blog.google</a></li>
+  <li>Deloitte · "Agentic AI Strategy" · <a href="https://www.deloitte.com/us/en/insights/topics/technology-management/tech-trends/2026/agentic-ai-strategy.html">deloitte.com</a></li>
+  <li>IDC · "80% of enterprise apps to embed AI agents by 2026" via Salesmate · <a href="https://www.salesmate.io/blog/future-of-ai-agents/">salesmate.io</a></li>
+  <li>FreeAcademy · "ChatGPT vs Claude vs Gemini 2026" · <a href="https://freeacademy.ai/blog/chatgpt-vs-claude-vs-gemini-comparison-2026">freeacademy.ai</a></li>
+</ul></section>
+<footer>AI for Business · Lesson 01 | Prepared for non-technical learners</footer>
+<script>
+const els=document.querySelectorAll('.rv,.rl,.rr');
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+els.forEach(e=>obs.observe(e));
+const secs=document.querySelectorAll('section[id]'),navs=document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(scrollY>=s.offsetTop-200)c=s.id});navs.forEach(l=>{l.style.color=l.getAttribute('href')==='#'+c?'#DA7756':''})});
+</script>
+</body>
+</html>

@@ -1340,6 +1340,198 @@
 
 <div class="divider"><hr></div>
 
+<!-- RAG STRATEGY -->
+<section>
+  <div class="section-label reveal">RAG Strategy</div>
+  <h2 class="section-heading reveal">How the system ensures accuracy &amp; prevents hallucination</h2>
+  <p class="section-text reveal" style="margin-bottom:0;">The retrieval pipeline follows a 10-step modular RAG architecture designed to maximise precision and eliminate fabricated answers. Every response is grounded against verified company knowledge before it reaches the customer.</p>
+
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr; margin-top:20px;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Hybrid Retrieval</div>
+      <div class="metric-desc" style="margin-top:8px;">Dense vector search (Voyage Finance-2) combined with BM25 keyword search, merged via Reciprocal Rank Fusion (RRF). Captures both semantic meaning and exact terminology.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">LLM Reranking</div>
+      <div class="metric-desc" style="margin-top:8px;">Retrieved chunks scored 0&ndash;10 by an LLM reranker with a fintech-specific rubric. Only chunks scoring 7+ survive. Eliminates noise before the resolver sees the evidence.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Agentic Tool Calls</div>
+      <div class="metric-desc" style="margin-top:8px;">When the resolver has partial evidence, it calls <code>retrieve_kb</code> for targeted follow-up retrieval (max 2 calls). This closes evidence gaps that a single retrieval pass would miss.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Query Rewriting</div>
+      <div class="metric-desc" style="margin-top:8px;">A fintech synonym table maps customer language (&ldquo;send money&rdquo;) to KB vocabulary (&ldquo;transfer, P2P, wallet-to-wallet&rdquo;), plus abbreviation expansion (&ldquo;txn &rarr; transaction&rdquo;).</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Chunking Strategy</div>
+      <div class="metric-desc" style="margin-top:8px;">300-token chunks with 50-token overlap using tiktoken (cl100k_base). FAQ detection splits on question-answer boundaries to keep QA pairs intact.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Similarity Floor</div>
+      <div class="metric-desc" style="margin-top:8px;">Chunks below a cosine similarity threshold are discarded before reranking. Prevents low-relevance results from competing with strong matches.</div>
+    </div>
+  </div>
+
+  <h3 class="section-heading reveal" style="font-size:1.3rem; margin-top:2rem;">Three layers of hallucination prevention</h3>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1rem; color:#f87171;">Layer 1: Retrieval Grounding</div>
+      <div class="metric-desc" style="margin-top:8px;">The resolver can only use evidence retrieved from the KB. If no evidence exists, it must hedge or escalate &mdash; never fabricate. Rule 2: &ldquo;You MUST NEVER guess or invent an answer.&rdquo;</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1rem; color:#facc15;">Layer 2: Critic Verification</div>
+      <div class="metric-desc" style="margin-top:8px;">Every response is scored by a topic-aware critic using weakest-claim scoring. One fabricated claim fails the entire check. Responses below threshold are revised or escalated.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1rem; color:#4ade80;">Layer 3: Hedge Detection</div>
+      <div class="metric-desc" style="margin-top:8px;">Outputs are scanned for hedging patterns (&ldquo;you may want to&rdquo;, &ldquo;it&rsquo;s possible that&rdquo;). Excessive hedging signals weak evidence &mdash; the system escalates rather than delivering a vague answer.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- AGENT INTELLIGENCE & MEMORY -->
+<section>
+  <div class="section-label reveal">Intelligence &amp; Memory</div>
+  <h2 class="section-heading reveal">How the agent learns &amp; remembers</h2>
+  <p class="section-text reveal">The system maintains a Learning Store &mdash; a self-improving memory layer where successful resolutions are stored, ranked, and reused. It competes alongside KB chunks during retrieval, so the best available answer wins regardless of source.</p>
+
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr; margin-top:20px;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Weighted Scoring</div>
+      <div class="metric-desc" style="margin-top:8px;">Each stored resolution is scored based on three signals: <strong>freshness decay</strong> (30-day half-life), <strong>source boost</strong> (human-verified answers rank 1.3x higher), and <strong>success rate</strong> (usage vs failure ratio). Bad answers naturally sink; strong answers rise.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Auto-Deactivation</div>
+      <div class="metric-desc" style="margin-top:8px;">If a learning store entry causes 3 customer escalations or complaints, it auto-deactivates (<code>is_active = false</code>). Bad answers kill themselves &mdash; no manual cleanup needed.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Deduplication</div>
+      <div class="metric-desc" style="margin-top:8px;">Before inserting a new resolution, embeddings are compared against existing entries. Cosine distance &lt; 0.05 triggers a merge &mdash; bumping the existing entry&rsquo;s success count instead of creating duplicates.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Human Spot-Check Queue</div>
+      <div class="metric-desc" style="margin-top:8px;">Unverified AI resolutions surface in the Agent Dashboard for human review. Approved answers get a 1.2x search boost. Rejected answers are deactivated immediately. No AI answer is blindly trusted.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Conversation Summary</div>
+      <div class="metric-desc" style="margin-top:8px;">When history exceeds 8 messages, older messages are compressed into a summary via Haiku. Agents receive <code>[summary] + last 6 messages</code>, preventing token bloat in long conversations.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Cross-Session Memory</div>
+      <div class="metric-desc" style="margin-top:8px;">Customer context persists across sessions via a memory section injected into prompts (&ldquo;Known facts: lives in Bristol, has 2 children&rdquo;). The agent remembers who you are across conversations.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- COST & SPEED OPTIMISATION -->
+<section>
+  <div class="section-label reveal">Cost &amp; Speed</div>
+  <h2 class="section-heading reveal">Eight strategies for cost &amp; speed optimisation</h2>
+  <p class="section-text reveal">The system averages $0.005&ndash;$0.015 per query with ~90% prompt cache hit rate. Here&rsquo;s how.</p>
+
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr; margin-top:20px;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Prompt Caching</div>
+      <div class="metric-desc" style="margin-top:8px;">Every major LLM call wraps its system prompt in <code>cache_control: ephemeral</code>. Subsequent calls within 5 minutes reuse the cached prefill. Turns 2+ in tool-use loops are ~90% cheaper on input tokens.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Strategic Model Selection</div>
+      <div class="metric-desc" style="margin-top:8px;">Sonnet handles heavy reasoning (triage, resolver, critic). Haiku handles simple tasks (greetings, micro-critic, query rewrite, conversation summary). Haiku costs ~5x less and returns 2&ndash;3x faster.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Fast-Path Routing</div>
+      <div class="metric-desc" style="margin-top:8px;">Regex-based fast-paths catch ~15&ndash;20% of queries before LLM triage (&ldquo;Hi&rdquo; &rarr; greeting, &ldquo;balance&rdquo; &rarr; data_query). Each skip saves ~$0.003 and ~3 seconds. Multi-intent matches force LLM triage as a safety guard.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Deterministic Critic Bypasses</div>
+      <div class="metric-desc" style="margin-top:8px;">Regex patterns bypass the LLM critic entirely for predictable responses: credential requests (auto-pass 0.95), verified data responses (0.90), tool errors (0.88). Saves ~30&ndash;40% of critic Haiku calls at zero cost.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Speculative Retrieval</div>
+      <div class="metric-desc" style="margin-top:8px;">RAG retrieval spawns in a background thread before triage completes. By the time routing finishes (~3s), retrieval results are already cached. Saves ~5 seconds on ~70% of queries.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Tight Token Budgets</div>
+      <div class="metric-desc" style="margin-top:8px;">Every call has a max_tokens ceiling matched to its purpose: greetings (200), micro-critic (150), query rewrite (300), triage (500), resolver/critic (1500). No paying for hallucinated padding.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Query Rewrite Cache</div>
+      <div class="metric-desc" style="margin-top:8px;">RAG query rewrites are cached in a 500-entry LRU dictionary. Repeat questions reuse the cached rewrite, skipping both the Haiku call and embedding computation.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Conversation Compression</div>
+      <div class="metric-desc" style="margin-top:8px;">History beyond 8 messages is compressed to a single paragraph via Haiku (~$0.001). Prevents token bloat where a 20-message conversation would multiply tokens across every node.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- PROMPTING TECHNIQUES -->
+<section>
+  <div class="section-label reveal">Prompting</div>
+  <h2 class="section-heading reveal">Prompting techniques used across the system</h2>
+  <p class="section-text reveal">The system uses 14 distinct prompting techniques across 9+ prompts. Each technique serves a specific purpose in controlling LLM behaviour.</p>
+
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr 1fr; margin-top:20px;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Role Prompting</div>
+      <div class="metric-desc" style="margin-top:8px;">Every agent opens with a clear identity (&ldquo;You are a grounding verification agent&rdquo;). Constrains what the LLM thinks it&rsquo;s allowed to do &mdash; the resolver never classifies, the critic never answers.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Structured JSON Output</div>
+      <div class="metric-desc" style="margin-top:8px;">9 prompts demand specific JSON schemas with mandatory fields. Triage returns route, topic, sensitivity, confidence. Critic returns grounding_score, verdict, flagged_claims. No free-text parsing needed.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Few-Shot (BAD/GOOD Pairs)</div>
+      <div class="metric-desc" style="margin-top:8px;">Shows what wrong looks like next to right. BAD: &ldquo;I&rsquo;d like to check my balance&rdquo; (customer voice). GOOD: &ldquo;Your current balance is &pound;2,500&rdquo; (agent voice). Teaches boundaries through contrast.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Negative Prompting</div>
+      <div class="metric-desc" style="margin-top:8px;">Explicit prohibitions targeting common failure modes: &ldquo;NEVER write as the customer&rdquo;, &ldquo;NEVER say &lsquo;various fees&rsquo; when evidence has specific numbers&rdquo;, &ldquo;NEVER recommend crypto.&rdquo;</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Rubric-Based Evaluation</div>
+      <div class="metric-desc" style="margin-top:8px;">Instead of &ldquo;score how good this is&rdquo;, explicit scales are provided. Critic: 0.9&ndash;1.0 = every claim supported, &lt;0.5 = major fabrication. Reranker: 8&ndash;10 = directly answers, 0 = irrelevant.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Task Decomposition</div>
+      <div class="metric-desc" style="margin-top:8px;">Complex decisions broken into sequential steps. Triage has 7 sub-steps (escalation triggers, sentiment, sensitivity, priority). Data resolver follows a 5-step write flow. The LLM processes each step in order.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Conditional Logic</div>
+      <div class="metric-desc" style="margin-top:8px;">Explicit IF/THEN decision trees in prompts: IF ambiguous claim &rarr; clarification. IF frustrated customer &rarr; lead with empathy. IF individual stocks requested &rarr; confirm consent first.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Precedence Rules</div>
+      <div class="metric-desc" style="margin-top:8px;">When signals conflict, explicit precedence prevents ambiguity. &ldquo;Never downgrade priority once set to urgent.&rdquo; Critic uses weakest-claim scoring, not averages. Rules are numbered and ordered.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Tool-Use Instructions</div>
+      <div class="metric-desc" style="margin-top:8px;">Detailed tool-calling guidance per agent. Resolver: &ldquo;Use retrieve_kb when confidence &lt; 0.85, max 2 calls.&rdquo; Data resolver: full tool-intent matching table with forbidden patterns.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Persona &amp; Voice Constraints</div>
+      <div class="metric-desc" style="margin-top:8px;">Tone rules with sentiment adaptation: empathetic when frustrated, informative when neutral. FCA vulnerability detection triggers gentle tone for bereavement, mental health, and hardship.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Context Injection</div>
+      <div class="metric-desc" style="margin-top:8px;">Template variables filled at runtime: <code>{evidence}</code> for KB chunks, <code>{memory_section}</code> for cross-session facts, <code>{emotion}</code> and <code>{topic}</code> from triage outputs passed downstream.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.1rem;">Guardrails &amp; Safety</div>
+      <div class="metric-desc" style="margin-top:8px;">Every agent has explicit boundaries: never mention passwords, strip PII, FCA vulnerability detection, &ldquo;educational guidance only&rdquo; disclaimers, and scope constraints to prevent hallucination about nonexistent features.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
 <!-- TECH STACK -->
 <section>
   <div class="section-label reveal">Tech Stack</div>

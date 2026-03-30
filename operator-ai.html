@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OperatorAI — Toluwase Sogunro</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0f1a;
+    --paper: #f5f2ed;
+    --cream: #ebe7e0;
+    --accent: #c44b2b;
+    --accent-glow: #e8654a;
+    --steel: #4a5568;
+    --mist: #8896a7;
+    --ice: #dde4ec;
+    --white: #ffffff;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(245, 242, 237, 0.85);
+    border-bottom: 1px solid rgba(10, 15, 26, 0.06);
+    padding: 0 48px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .brand { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+  nav .brand span { color: var(--accent); }
+  .back-link {
+    font-size: 0.78rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--steel); text-decoration: none;
+    display: flex; align-items: center; gap: 6px; transition: color 0.25s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 120px 48px 20px; max-width: 1200px; margin: 0 auto;
+  }
+  .page-header .project-tag {
+    display: inline-block; font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    background: rgba(196, 75, 43, 0.07); padding: 4px 12px;
+    border-radius: 100px; margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .page-header .subtitle {
+    font-size: 1.05rem; color: var(--steel); font-weight: 300; max-width: 700px;
+  }
+
+  /* CONTENT SECTIONS */
+  section { padding: 48px 48px; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1.5px; background: var(--accent); }
+  .section-heading {
+    font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1.15; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .section-text {
+    font-size: 0.92rem; line-height: 1.7; color: var(--steel); font-weight: 300;
+    max-width: 800px; margin-bottom: 24px;
+  }
+
+  .divider { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .divider hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--ice), transparent); }
+
+  /* KEY DETAILS GRID */
+  .details-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .detail-card { background: var(--paper); padding: 28px 24px; transition: background 0.3s; }
+  .detail-card:hover { background: var(--white); }
+  .detail-card .metric {
+    font-family: var(--serif); font-size: 1.8rem; color: var(--accent);
+    line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em;
+  }
+  .detail-card .metric-label {
+    font-size: 0.82rem; font-weight: 600; color: var(--ink);
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;
+  }
+  .detail-card .metric-desc {
+    font-size: 0.82rem; line-height: 1.5; color: var(--steel); font-weight: 300;
+  }
+
+  /* BACK TO TOP */
+  .back-to-portfolio {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    background: var(--accent); color: var(--white); transition: all 0.3s;
+    margin-top: 16px;
+  }
+  .back-to-portfolio:hover {
+    background: var(--accent-glow); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196, 75, 43, 0.3);
+  }
+
+  @media (max-width: 900px) {
+    nav, .page-header, section { padding-left: 24px; padding-right: 24px; }
+    .divider { padding: 0 24px; }
+    .details-grid { grid-template-columns: 1fr !important; }
+    .details-grid .detail-card { grid-column: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Toluwase<span>.</span></a>
+  <a class="back-link" href="projects.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Projects
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header reveal">
+  <span class="project-tag">Agentic AI &middot; LangGraph &middot; n8n &middot; HubSpot</span>
+  <h1>OperatorAI</h1>
+  <p class="subtitle">Crestline Plumbing &amp; Heating &mdash; SMB Operations Assistant (POC)</p>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- EXECUTIVE SUMMARY -->
+<section>
+  <div class="section-label reveal">Executive Summary</div>
+  <h2 class="section-heading reveal">What this project is</h2>
+  <p class="section-text reveal" style="margin-bottom:0;">OperatorAI is a multi-agent AI operations assistant that acts as a 24/7 intelligent front office for SMBs. It captures every customer enquiry across all channels, qualifies leads with real pricing, books appointments directly into Google Calendar, handles complaints with empathy, and syncs everything to HubSpot CRM &mdash; all without human intervention.</p>
+  <p class="section-text reveal">The first vertical is plumbing &amp; heating. The architecture is built to scale across trades, restaurants, estate agents, and professional services.</p>
+
+  <div class="details-grid reveal" style="grid-template-columns:1fr 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric">15</div>
+      <div class="metric-label">LangGraph Nodes</div>
+      <div class="metric-desc">End-to-end agentic pipeline</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">8</div>
+      <div class="metric-label">Specialised Agents</div>
+      <div class="metric-desc">Each with distinct prompts &amp; responsibilities</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">5</div>
+      <div class="metric-label">Channels</div>
+      <div class="metric-desc">Web chat, Telegram, email, dashboard, API</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">8</div>
+      <div class="metric-label">Intent Types</div>
+      <div class="metric-desc">Classified with urgency &amp; lead scoring</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">26+</div>
+      <div class="metric-label">Constraint Rules</div>
+      <div class="metric-desc">Per agent prompt to prevent hallucination</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">6</div>
+      <div class="metric-label">Output Filters</div>
+      <div class="metric-desc">JSON leak prevention layers</div>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:2rem;">
+    <video controls style="width:100%; border-radius:12px;" preload="metadata">
+      <source src="plumbing-demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- THE PROBLEM -->
+<section>
+  <div class="section-label reveal">The Problem</div>
+  <h2 class="section-heading reveal">SMBs lose 40&ndash;60% of leads to inaction</h2>
+  <p class="section-text reveal" style="margin-bottom:0;">A plumber on a job can&rsquo;t answer the phone. An email sits in the inbox for 3 days. A website enquiry gets forgotten. By the time someone responds, the customer has moved on.</p>
+  <p class="section-text reveal">For a business like Crestline Plumbing &amp; Heating (Manchester, UK, 6 staff, ~&pound;400k/year turnover), every missed lead is real revenue lost.</p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="section-label reveal">Capabilities</div>
+  <h2 class="section-heading reveal">What the system does</h2>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Instant Lead Capture</div>
+      <div class="metric-desc" style="margin-top:8px;">Answers customers instantly across web chat, Telegram, and email &mdash; no missed leads, 24/7.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Intelligent Lead Qualification</div>
+      <div class="metric-desc" style="margin-top:8px;">Extracts service needs, property details, location, timeline, and provides accurate pricing. Gates booking behind 4 required details.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Real Appointment Booking</div>
+      <div class="metric-desc" style="margin-top:8px;">Checks live Google Calendar availability and confirms slots directly in the conversation &mdash; no back-and-forth.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Complaint Handling</div>
+      <div class="metric-desc" style="margin-top:8px;">Acknowledges frustration, gathers details, escalates to the business owner when appropriate. Empathy-first approach.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Emergency Detection</div>
+      <div class="metric-desc" style="margin-top:8px;">Gas leaks, burst pipes, and vulnerable persons trigger immediate safety protocols with emergency numbers.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Cross-Session Memory</div>
+      <div class="metric-desc" style="margin-top:8px;">Recognises returning customers across channels and sessions by phone, email, or Telegram ID. Loads full history automatically.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">CRM Auto-Sync</div>
+      <div class="metric-desc" style="margin-top:8px;">Creates contacts, deals, tickets, and quotes in HubSpot automatically &mdash; zero manual data entry.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Response Verification</div>
+      <div class="metric-desc" style="margin-top:8px;">A critic agent checks all draft responses against evidence before they reach the customer. Weakest-claim scoring.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ARCHITECTURE -->
+<section>
+  <div class="section-label reveal">Architecture</div>
+  <h2 class="section-heading reveal">8 specialised agents</h2>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Gateway</div>
+      <div class="metric-desc" style="margin-top:8px;">Entry point &mdash; loads history, detects greetings/continuations/workflows, builds customer profile. No LLM.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Supervisor</div>
+      <div class="metric-desc" style="margin-top:8px;">Orchestrator &mdash; builds the LangGraph state graph, routes between agents. No LLM.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Intent Classifier</div>
+      <div class="metric-desc" style="margin-top:8px;">Gate-based pipeline with LLM fallback. Classifies into 8 intent types with urgency and lead scoring.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Contact Collector</div>
+      <div class="metric-desc" style="margin-top:8px;">Extracts phone/email via regex, appends natural contact requests when details are missing.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Lead Qualification</div>
+      <div class="metric-desc" style="margin-top:8px;">Sales agent &mdash; extracts lead data, provides pricing, gates booking behind 4 required details, has booking tools.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Customer Support</div>
+      <div class="metric-desc" style="margin-top:8px;">Answers FAQs from knowledge base, handles bookings/cancellations via tools, manages complaints.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Critic</div>
+      <div class="metric-desc" style="margin-top:8px;">Quality gate &mdash; verifies every draft response against RAG evidence, conversation history, and tool results before sending.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Multi-Intent</div>
+      <div class="metric-desc" style="margin-top:8px;">Splits compound messages like &ldquo;Fix my tap and how much for a new bathroom?&rdquo; into sub-intents, processes each, stitches responses.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- KEY DECISIONS -->
+<section>
+  <div class="section-label reveal">Design Rationale</div>
+  <h2 class="section-heading reveal">Key technical decisions</h2>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Single DB for State + Vectors</div>
+      <div class="metric-desc" style="margin-top:8px;">Neon PostgreSQL with pgvector handles both conversation state and RAG vector search. No separate vector database &mdash; simpler infra, lower cost, one connection pool.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Deterministic Gates Before LLM</div>
+      <div class="metric-desc" style="margin-top:8px;">6 regex-based gates (safety signals, ticket lookup, resume detection, continuity, multi-intent hints) run before LLM fallback. Catches emergencies in milliseconds.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Critic for Hallucination Prevention</div>
+      <div class="metric-desc" style="margin-top:8px;">Every response passes through verification against 5 evidence sources. Verdict determined by weakest claim, not average &mdash; one fabricated detail means &ldquo;revise.&rdquo;</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Backend = Brain, n8n = Hands</div>
+      <div class="metric-desc" style="margin-top:8px;">The backend thinks, decides, validates, and stores. n8n receives messages, sends replies, and syncs to external tools. Neither does the other&rsquo;s job. No overlap.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Conversation Compression</div>
+      <div class="metric-desc" style="margin-top:8px;">When conversations exceed 8 turns, older messages are summarised into 2&ndash;3 sentences while the last 6 are kept verbatim. Preserves context without exhausting the context window.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Cross-Session Recognition</div>
+      <div class="metric-desc" style="margin-top:8px;">Returning customers recognised across channels by phone, email, or Telegram ID. Name, address, service history, deal status, and past interactions loaded automatically.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- TECH STACK -->
+<section>
+  <div class="section-label reveal">Tech Stack</div>
+  <p class="section-text reveal">Python 3.12 &middot; FastAPI &middot; LangGraph &middot; Claude Sonnet 4.5 &middot; Claude Haiku 4.5 &middot; Google Gemini Embedding 2 &middot; Neon PostgreSQL (pgvector) &middot; HubSpot CRM &middot; Google Calendar API &middot; Telegram Bot API &middot; n8n &middot; Next.js &middot; React &middot; TypeScript &middot; Tailwind CSS &middot; Railway</p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- WHAT I BUILT -->
+<section>
+  <div class="section-label reveal">What I Built</div>
+  <h2 class="section-heading reveal">End-to-end, from strategy to deployment</h2>
+  <div class="details-grid reveal" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Product Strategy</div>
+      <div class="metric-desc" style="margin-top:8px;">Identified the SMB lead-loss problem, defined the multi-vertical approach, chose plumbing &amp; heating as first target.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Architecture Design</div>
+      <div class="metric-desc" style="margin-top:8px;">Three-layer architecture (intake, intelligence, voice), agent separation of concerns, state machine design.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Prompt Engineering</div>
+      <div class="metric-desc" style="margin-top:8px;">Wrote all 8 agent prompts with structured XML formatting, few-shot examples, negative examples, and constraint rules.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Backend Development</div>
+      <div class="metric-desc" style="margin-top:8px;">FastAPI server, LangGraph pipeline, all agent logic, tool integrations (Google Calendar, HubSpot, Telegram), state management, RAG retrieval.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Frontend Development</div>
+      <div class="metric-desc" style="margin-top:8px;">Next.js customer website with embedded chat widget, admin dashboard with 7 pages.</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric" style="font-size:1.2rem;">Testing &amp; Iteration</div>
+      <div class="metric-desc" style="margin-top:8px;">Fixed production misclassifications, prompt injection vulnerabilities, JSON leaks, CRM sync bugs, and critic over-aggression through real conversation testing.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- NOTE -->
+<section>
+  <div class="section-label reveal">Note</div>
+  <p class="section-text reveal" style="font-style:italic; color: var(--mist); font-size:1.15rem;">Crestline Plumbing &amp; Heating is a fictional company created for the purpose of this portfolio project. The architecture is designed to be vertical-agnostic and deployable across SMB service businesses.</p>
+  <a class="back-to-portfolio" href="projects.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Projects
+  </a>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.04}s`;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

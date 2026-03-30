@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Projects — Toluwase Sogunro</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0f1a;
+    --paper: #f5f2ed;
+    --cream: #ebe7e0;
+    --accent: #c44b2b;
+    --accent-glow: #e8654a;
+    --steel: #4a5568;
+    --mist: #8896a7;
+    --ice: #dde4ec;
+    --white: #ffffff;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(245, 242, 237, 0.85);
+    border-bottom: 1px solid rgba(10, 15, 26, 0.06);
+    padding: 0 48px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .brand { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+  nav .brand span { color: var(--accent); }
+  .back-link {
+    font-size: 0.78rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--steel); text-decoration: none;
+    display: flex; align-items: center; gap: 6px; transition: color 0.25s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 120px 48px 20px; max-width: 1200px; margin: 0 auto;
+  }
+  .page-header .project-tag {
+    display: inline-block; font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    background: rgba(196, 75, 43, 0.07); padding: 4px 12px;
+    border-radius: 100px; margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .page-header .subtitle {
+    font-size: 1.05rem; color: var(--steel); font-weight: 300; max-width: 700px;
+  }
+
+  section { padding: 48px 48px; max-width: 1200px; margin: 0 auto; }
+
+  .divider { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .divider hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--ice), transparent); }
+
+  /* PROJECT CARDS */
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--ice);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 32px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .project-card:hover {
+    border-color: rgba(196, 75, 43, 0.2);
+    box-shadow: 0 8px 40px rgba(10, 15, 26, 0.06);
+  }
+  .project-card .card-tag {
+    display: inline-block; font-family: var(--mono);
+    font-size: 0.62rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    background: rgba(196, 75, 43, 0.07); padding: 4px 12px;
+    border-radius: 100px; margin-bottom: 14px;
+  }
+  .project-card h2 {
+    font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2rem);
+    line-height: 1.15; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .project-card .card-org {
+    font-size: 0.82rem; color: var(--mist); font-weight: 500; margin-bottom: 16px;
+  }
+  .project-card .card-desc {
+    font-size: 0.92rem; line-height: 1.7; color: var(--steel); font-weight: 300;
+    max-width: 800px; margin-bottom: 24px;
+  }
+  .card-metrics {
+    display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 24px;
+  }
+  .card-metric {
+    display: flex; flex-direction: column;
+  }
+  .card-metric .num {
+    font-family: var(--serif); font-size: 1.8rem; line-height: 1;
+    color: var(--accent); letter-spacing: -0.02em;
+  }
+  .card-metric .lbl {
+    font-size: 0.72rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--mist); margin-top: 4px;
+  }
+  .card-highlights {
+    display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px;
+  }
+  .card-highlights .row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 6px 0; border-bottom: 1px solid rgba(221, 228, 236, 0.6);
+  }
+  .card-highlights .row:last-child { border-bottom: none; }
+  .card-highlights .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); margin-top: 6px; flex-shrink: 0;
+  }
+  .card-highlights span { font-size: 0.86rem; line-height: 1.5; color: var(--ink); font-weight: 400; }
+  .card-highlights strong { font-weight: 600; }
+  .card-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 1rem; font-weight: 800; color: var(--white);
+    background: var(--accent); padding: 12px 28px;
+    border-radius: 100px; text-decoration: none;
+    letter-spacing: 0.02em; transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(196, 75, 43, 0.25);
+  }
+  .card-btn:hover {
+    background: var(--accent-glow); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196, 75, 43, 0.35);
+  }
+
+  @media (max-width: 900px) {
+    nav, .page-header, section { padding-left: 24px; padding-right: 24px; }
+    .divider { padding: 0 24px; }
+    .project-card { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Toluwase<span>.</span></a>
+  <a class="back-link" href="index.html#portfolio">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Portfolio
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header reveal">
+  <span class="project-tag">AI Portfolio</span>
+  <h1>AI Projects</h1>
+  <p class="subtitle">Agentic AI systems I&rsquo;ve designed and built end-to-end &mdash; from product strategy to production deployment.</p>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- SUPPORT OPS -->
+<section>
+  <div class="project-card reveal">
+    <span class="card-tag">Agentic AI &middot; LangGraph &middot; RAG</span>
+    <h2>Support Ops</h2>
+    <div class="card-org">Pootman Payments &mdash; B2C Digital Wallet (POC)</div>
+    <p class="card-desc">An agentic AI customer service system that autonomously resolves users&rsquo; issues end-to-end across multi-intent, multi-turn conversations. Built on LangGraph with six specialised agents, RAG grounding, 16 data tools for live transaction execution, and a critic system that validates every response before delivery.</p>
+
+    <div class="card-metrics">
+      <div class="card-metric"><div class="num">86%</div><div class="lbl">Resolution Rate</div></div>
+      <div class="card-metric"><div class="num">$0.015</div><div class="lbl">Cost Per Query</div></div>
+      <div class="card-metric"><div class="num">100%</div><div class="lbl">Escalation Accuracy</div></div>
+      <div class="card-metric"><div class="num">80%</div><div class="lbl">Grounding Accuracy</div></div>
+    </div>
+
+    <div class="card-highlights">
+      <div class="row"><div class="dot"></div><span><strong>22-node LangGraph pipeline</strong> with 13 routing paths and 50+ state fields</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Topic-aware grounding</strong> &mdash; fraud/legal at 0.90, billing at 0.85, general at 0.75</span></div>
+      <div class="row"><div class="dot"></div><span><strong>5 interfaces</strong> &mdash; Customer chat, Agent dashboard, Pipeline trace, Evals dashboard, Knowledge base</span></div>
+      <div class="row"><div class="dot"></div><span><strong>3-layer hallucination prevention</strong> &mdash; retrieval grounding, critic verification, hedge detection</span></div>
+    </div>
+
+    <a href="support-ops.html" class="card-btn">View Full Case Study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<!-- OPERATOR AI -->
+<section style="padding-top:0;">
+  <div class="project-card reveal">
+    <span class="card-tag">Agentic AI &middot; LangGraph &middot; n8n &middot; HubSpot</span>
+    <h2>OperatorAI</h2>
+    <div class="card-org">Crestline Plumbing &amp; Heating &mdash; SMB Operations Assistant (POC)</div>
+    <p class="card-desc">A multi-agent AI operations assistant that acts as a 24/7 intelligent front office for SMBs. Captures every customer enquiry across all channels, qualifies leads with real pricing, books appointments into Google Calendar, handles complaints with empathy, and syncs everything to HubSpot CRM &mdash; all without human intervention.</p>
+
+    <div class="card-metrics">
+      <div class="card-metric"><div class="num">8</div><div class="lbl">Specialised Agents</div></div>
+      <div class="card-metric"><div class="num">5</div><div class="lbl">Channels</div></div>
+      <div class="card-metric"><div class="num">15</div><div class="lbl">LangGraph Nodes</div></div>
+      <div class="card-metric"><div class="num">8</div><div class="lbl">Intent Types</div></div>
+    </div>
+
+    <div class="card-highlights">
+      <div class="row"><div class="dot"></div><span><strong>Lead qualification &amp; booking</strong> &mdash; extracts service needs, provides pricing, books Google Calendar slots in-conversation</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Emergency detection</strong> &mdash; gas leaks, burst pipes, vulnerable persons trigger immediate safety protocols</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Cross-session memory</strong> &mdash; recognises returning customers by phone, email, or Telegram ID across channels</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Backend = Brain, n8n = Hands</strong> &mdash; clean separation between intelligence layer and integration layer</span></div>
+    </div>
+
+    <a href="operator-ai.html" class="card-btn">View Full Case Study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.04}s`;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

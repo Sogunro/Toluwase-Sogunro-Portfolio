@@ -190,8 +190,36 @@
 
 <div class="divider"><hr></div>
 
-<!-- SUPPORT OPS -->
+<!-- AI OPERATIONS SYSTEM (LIVE) -->
 <section>
+  <div class="project-card reveal">
+    <span class="card-tag">Live in Production &middot; Voice AI &middot; Agentic Email &middot; Next.js</span>
+    <h2>AI Operations System</h2>
+    <div class="card-org">UK Patient Transport Company &mdash; Live with a real business</div>
+    <p class="card-desc">A production, multi-channel agentic AI system that answers every inbound call, handles the inbox, books appointments, runs consent-gated outbound campaigns, and reports to the owner daily. Designed sole-handed end to end &mdash; product, architecture, engineering, UI and deployment &mdash; for a domain where accuracy and safety are non-negotiable: elderly, disabled, SEND and hospital passengers.</p>
+
+    <div class="card-metrics">
+      <div class="card-metric"><div class="num">Live</div><div class="lbl">In Production</div></div>
+      <div class="card-metric"><div class="num">4</div><div class="lbl">Channels Handled</div></div>
+      <div class="card-metric"><div class="num">3</div><div class="lbl">Verification Stages</div></div>
+      <div class="card-metric"><div class="num">1</div><div class="lbl">Deployment, One Bill</div></div>
+    </div>
+
+    <div class="card-highlights">
+      <div class="row"><div class="dot"></div><span><strong>Voice receptionist with real human handoff</strong> &mdash; answers from a live knowledge base, warm-transfers with a spoken summary, and falls back to taking a message when a transfer rings out to voicemail</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Anti-hallucination pipeline</strong> &mdash; a deterministic high-risk keyword check runs <em>before</em> the LLM; replies are cite-or-don&rsquo;t-say and scored on their weakest claim, never the average</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Human-in-the-loop by design</strong> &mdash; routine and fully-grounded auto-sends; pricing, complaints and safeguarding escalate to the owner; low-confidence queues for one-click approval</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Booking that cannot double-book</strong> &mdash; availability re-checked at write time, only ever touches agent-created events, degrades to a message if the calendar is unreachable</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Resilient under real-world constraints</strong> &mdash; host throttled IMAP and blocked outbound SMTP, so transport was re-architected to IMAP read + HTTPS send with SPF/DKIM; the worker self-heals from a health check</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Transparency as a feature</strong> &mdash; every action carries a timestamp, the AI&rsquo;s reasoning, and its exact cost</span></div>
+    </div>
+
+    <a href="ai-operations.html" class="card-btn">View Full Case Study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<!-- SUPPORT OPS -->
+<section style="padding-top:0;">
   <div class="project-card reveal">
     <span class="card-tag">Agentic AI &middot; LangGraph &middot; RAG</span>
     <h2>Support Ops</h2>
@@ -199,10 +227,10 @@
     <p class="card-desc">An agentic AI customer service system that autonomously resolves users&rsquo; issues end-to-end across multi-intent, multi-turn conversations. Built on LangGraph with six specialised agents, RAG grounding, 16 data tools for live transaction execution, and a critic system that validates every response before delivery.</p>
 
     <div class="card-metrics">
-      <div class="card-metric"><div class="num">86%</div><div class="lbl">Resolution Rate</div></div>
+      <div class="card-metric"><div class="num">85%</div><div class="lbl">Auto-Resolution</div></div>
       <div class="card-metric"><div class="num">$0.015</div><div class="lbl">Cost Per Query</div></div>
-      <div class="card-metric"><div class="num">100%</div><div class="lbl">Escalation Accuracy</div></div>
-      <div class="card-metric"><div class="num">80%</div><div class="lbl">Grounding Accuracy</div></div>
+      <div class="card-metric"><div class="num">100%</div><div class="lbl">Routing Accuracy</div></div>
+      <div class="card-metric"><div class="num">81%</div><div class="lbl">Grounding Accuracy</div></div>
     </div>
 
     <div class="card-highlights">

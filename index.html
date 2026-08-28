@@ -379,28 +379,37 @@
 </head>
 <body>
 
+<script>
+  // The shared "AI projects" link (index.html#portfolio) should lead to the
+  // AI-only projects page. Every other entry to index.html shows the general CV.
+  if (window.location.hash === '#portfolio') {
+    window.location.replace('projects.html');
+  }
+</script>
+
 <nav>
   <div class="brand">Toluwase Sogunro<span>.</span></div>
   <ul class="nav-links">
     <li><a href="#value">Value</a></li>
     <li><a href="#track">Track Record</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#portfolio">AI Projects</a></li>
+    <li><a href="projects.html">AI Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="Toluwase_Sogunro_CV_2026_v6.pdf" download style="color:var(--accent);">CV ↓</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="hero-label reveal">Product Manager</div>
+  <div class="hero-label reveal">AI Product Manager &amp; Automation Engineer</div>
   <h1 class="reveal">I build <em>intelligent systems</em> that solve real business problems</h1>
   <p class="hero-sub reveal">
-    Senior Product Manager with 5+ years shipping products across mobile apps, web platforms, B2B SaaS, and AI systems. From scaling a retail banking app to 1M+ users, to building multi-agent AI pipelines — I bridge product strategy, technical architecture, and delivery.
+    Senior Product Manager with 6+ years shipping products across mobile, web, B2B SaaS, and AI-enabled platforms. From scaling a retail banking app to 1M+ users, to designing and deploying agentic AI systems now running live in production for UK businesses — I bridge product strategy, technical architecture, and delivery.
   </p>
   <div class="hero-stats reveal">
     <div class="hero-stat">
-      <div class="num">5+</div>
+      <div class="num">6+</div>
       <div class="label">Years in Product</div>
     </div>
     <div class="hero-stat">
@@ -416,8 +425,8 @@
       <div class="label">Corporate Clients</div>
     </div>
     <div class="hero-stat">
-      <div class="num">3</div>
-      <div class="label">AI Systems Built</div>
+      <div class="num">4</div>
+      <div class="label">Client AI Systems Shipped</div>
     </div>
   </div>
 </header>
@@ -431,8 +440,8 @@
   <div class="value-grid reveal">
     <div class="value-card">
       <div class="icon">⚡</div>
-      <h3>AI Systems Expertise</h3>
-      <p>Designed and built production-grade agentic AI systems using LangGraph, RAG pipelines, multi-agent orchestration, and grounding verification. Working code with real architecture decisions.</p>
+      <h3>AI Systems in Production</h3>
+      <p>Designed, built and deployed agentic AI systems that are live with real UK businesses &mdash; voice AI, multi-channel agents, LangGraph pipelines, RAG retrieval, and critic-based grounding verification. Working systems, not prototypes.</p>
     </div>
     <div class="value-card">
       <div class="icon">📊</div>
@@ -441,8 +450,8 @@
     </div>
     <div class="value-card">
       <div class="icon">🔬</div>
-      <h3>Strategic Research & Analysis</h3>
-      <p>Conducted market sizing, competitive analysis, and cost modelling for AI-powered customer service — with cited sources, TAM/SAM breakdowns, and investor-grade positioning.</p>
+      <h3>AI Strategy, Adoption & Enablement</h3>
+      <p>Lead end-to-end AI engagements &mdash; strategy, solution design, integration, and organisational adoption &mdash; and deliver practical AI training for businesses, professionals, and students. Backed by market sizing and cost modelling with cited sources.</p>
     </div>
   </div>
 </section>
@@ -493,7 +502,7 @@
 <section id="experience">
   <div class="section-label reveal">Experience</div>
   <h2 class="section-heading reveal">Where I've shipped</h2>
-  <p style="font-size:0.92rem; line-height:1.7; color:var(--steel); font-weight:300; max-width:800px; margin-bottom:32px;" class="reveal">Five years across mobile, web, B2B SaaS, platform engineering, AI automation, and agentic AI systems — each role deepening my ability to bridge product strategy with technical delivery.</p>
+  <p style="font-size:0.92rem; line-height:1.7; color:var(--steel); font-weight:300; max-width:800px; margin-bottom:32px;" class="reveal">Six years across mobile, web, B2B SaaS, platform engineering, AI automation, and agentic AI systems — each role deepening my ability to bridge product strategy with technical delivery.</p>
 
   <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:32px;" class="reveal">
     <span style="font-family:var(--mono); font-size:0.62rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; padding:5px 14px; border-radius:100px; background:rgba(196,75,43,0.08); color:var(--accent);">Mobile</span>
@@ -515,8 +524,8 @@
         </div>
       </div>
       <div>
-        <div class="metric-label">AI Product Manager (Independent)</div>
-        <div class="metric-desc">Designed and built a multi-agent AI support copilot for a fintech using LangGraph, RAG, tool-calling, and human-in-the-loop escalation. 86% auto-resolution, $0.015/query, 100% escalation accuracy. Built full eval pipeline, pipeline trace, and agent dashboard.</div>
+        <div class="metric-label">OperatorAI — AI Product Manager & Automation Engineer (Independent)</div>
+        <div class="metric-desc">Lead end-to-end AI engagements for SMBs &mdash; strategy, agent architecture, prompt engineering, RAG retrieval, memory, integration, and adoption. Delivered a <strong>live production Voice AI receptionist and AI operations dashboard for a UK patient transport company</strong> (calls, email, booking, outbound campaigns); a multi-channel AI customer engagement platform for a plumbing &amp; heating business (WhatsApp, email, web chat; sub-10s responses, zero missed leads); an AI-enabled CRM for 200+ church members with verified SMS delivery and full audit logging; and a multi-agent fintech support platform on LangGraph &mdash; 85% auto-resolution, 100% routing accuracy, 81% grounding accuracy, $0.015/query across 15 structured eval runs. Also deliver practical AI training programmes for businesses, professionals, and students.</div>
       </div>
     </div>
 
@@ -575,7 +584,25 @@
   <div class="projects-carousel-wrapper reveal">
     <div class="projects-carousel" id="projectsCarousel">
 
-      <!-- 1. Support Ops Copilot -->
+      <!-- 1. AI Operations System (LIVE) -->
+      <div class="project-card">
+        <div class="project-meta">
+          <span class="project-tag">Live in Production · Voice AI · Agentic Email</span>
+          <h3>AI Operations System</h3>
+          <div class="project-org">UK Patient Transport Company — Live with a real business</div>
+          <p>A production, multi-channel AI system that answers every inbound call, handles the inbox, books appointments, runs consent-gated outbound campaigns, and reports to the owner daily. Built end to end and running live in a domain where accuracy is non-negotiable — elderly, disabled and SEND passengers.</p>
+        </div>
+        <div class="project-details">
+          <div class="detail-row"><div class="dot"></div><span><strong>Voice receptionist</strong> — answers calls from a live knowledge base, warm-transfers with a spoken summary, takes a message on voicemail fallback</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Triage → Resolve → Critic pipeline</strong> — deterministic high-risk check before the LLM, weakest-claim scoring, nothing auto-sent unverified</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Booking that cannot double-book</strong> — availability re-checked at write time, degrades to taking a message</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Human-in-the-loop by design</strong> — pricing and safeguarding escalate to the owner; low-confidence queues for one-click approval</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Stack:</strong> Next.js 14, Claude (tiered models), Vapi + Twilio, Resend, Google Calendar, Railway</span></div>
+          <a href="ai-operations.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:1rem;font-weight:800;color:var(--white);background:var(--accent);padding:12px 28px;border-radius:100px;text-decoration:none;letter-spacing:0.02em;transition:all 0.3s;box-shadow:0 4px 12px rgba(196,75,43,0.25);" onmouseover="this.style.background='var(--accent-glow)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(196,75,43,0.35)'" onmouseout="this.style.background='var(--accent)';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 12px rgba(196,75,43,0.25)'">View Full Case Study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- 2. Support Ops Copilot -->
       <div class="project-card">
         <div class="project-meta">
           <span class="project-tag">Agentic AI · LangGraph · RAG</span>
@@ -584,7 +611,8 @@
           <p>An agentic, RAG-based AI support system for a B2C digital wallet, designed to autonomously resolve routine customer queries while routing complex or high-risk cases to human agents — with a grounding verification layer that ensures every AI response is factually accurate before reaching the customer.</p>
         </div>
         <div class="project-details">
-          <div class="detail-row"><div class="dot"></div><span><strong>20-node, 6-layer</strong> LangGraph pipeline with 13 routing paths and 50+ state fields</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>85% auto-resolution</strong>, 100% routing accuracy, 81% grounding accuracy across 15 eval runs</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Multi-layer LangGraph pipeline</strong> with BM25 + vector retrieval and RRF fusion</span></div>
           <div class="detail-row"><div class="dot"></div><span><strong>Topic-aware grounding</strong> — fraud/legal at 0.90, billing at 0.85, general at 0.75</span></div>
           <div class="detail-row"><div class="dot"></div><span><strong>$0.005–$0.015</strong> blended cost per message vs $6–$16 human agent</span></div>
           <div class="detail-row"><div class="dot"></div><span><strong>5 interfaces</strong> — Customer chat, Agent dashboard, Pipeline trace, Evals dashboard, Knowledge base</span></div>
@@ -593,7 +621,7 @@
         </div>
       </div>
 
-      <!-- 2. Money Buddy -->
+      <!-- 3. Money Buddy -->
       <div class="project-card">
         <div class="project-meta">
           <span class="project-tag">AI Fintech · Supabase · Vertex AI</span>
@@ -608,7 +636,7 @@
         </div>
       </div>
 
-      <!-- 3. Discovery OS -->
+      <!-- 4. Discovery OS -->
       <div class="project-card">
         <div class="project-meta">
           <span class="project-tag">AI Product Discovery · n8n · Claude</span>
@@ -631,6 +659,7 @@
       <button class="carousel-dot active" data-index="0"></button>
       <button class="carousel-dot" data-index="1"></button>
       <button class="carousel-dot" data-index="2"></button>
+      <button class="carousel-dot" data-index="3"></button>
       <button class="carousel-arrow" id="carouselNext">&#8594;</button>
     </div>
     <div class="swipe-hint">Swipe or click arrows to browse projects</div>
@@ -645,16 +674,16 @@
   <h2 class="section-heading reveal">How I operate</h2>
   <div class="toolbox-layout reveal">
     <div class="tool-group">
-      <h4>AI & Technical</h4>
+      <h4>AI &amp; Agentic Systems</h4>
       <ul>
-        <li>LangGraph / LangChain</li>
-        <li>RAG Pipeline Design</li>
-        <li>Multi-Agent Orchestration</li>
-        <li>Claude API / Vertex AI</li>
-        <li>n8n Workflow Automation</li>
-        <li>Supabase / PostgreSQL</li>
-        <li>Prompt Engineering</li>
-        <li>AI Safety & Evaluation</li>
+        <li>LangGraph / Multi-Agent Orchestration</li>
+        <li>RAG Design (BM25 + Vector, RRF)</li>
+        <li>Critic Agents &amp; Grounding Checks</li>
+        <li>Evaluation Frameworks &amp; Tracing</li>
+        <li>Voice AI (Vapi / Twilio)</li>
+        <li>Claude API / Vertex AI / Pinecone</li>
+        <li>Prompt Architecture &amp; Caching</li>
+        <li>n8n / Zapier Automation</li>
       </ul>
     </div>
     <div class="tool-group">
@@ -667,7 +696,8 @@
         <li>Stakeholder Management</li>
         <li>Data Analytics & KPIs</li>
         <li>0→1 Product Development</li>
-        <li>API Design & Integration</li>
+        <li>Go-to-Market &amp; OKRs</li>
+        <li>API Design &amp; Integration</li>
       </ul>
     </div>
     <div class="tool-group">
@@ -680,7 +710,9 @@
         <li>Power BI / Postman</li>
         <li>Notion / Documentation</li>
         <li>Claude Code / VS Code</li>
-        <li>Lovable / Vercel</li>
+        <li>Python / SQL / Postman</li>
+        <li>Next.js / TypeScript / Supabase</li>
+        <li>Lovable / Vercel / Railway</li>
       </ul>
     </div>
   </div>
@@ -731,6 +763,10 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
     <a class="cta-btn secondary" href="https://www.linkedin.com/in/toluwasesogunro" target="_blank">LinkedIn Profile</a>
+    <a class="cta-btn secondary" href="Toluwase_Sogunro_CV_2026_v6.pdf" download>
+      <span>Download CV</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+    </a>
   </div>
 </footer>
 

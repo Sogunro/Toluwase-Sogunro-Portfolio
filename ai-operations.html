@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Operations System — Toluwase Sogunro</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0f1a;
+    --paper: #f5f2ed;
+    --cream: #ebe7e0;
+    --accent: #c44b2b;
+    --accent-glow: #e8654a;
+    --steel: #4a5568;
+    --mist: #8896a7;
+    --ice: #dde4ec;
+    --white: #ffffff;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(245, 242, 237, 0.85);
+    border-bottom: 1px solid rgba(10, 15, 26, 0.06);
+    padding: 0 48px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .brand { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+  nav .brand span { color: var(--accent); }
+  .back-link {
+    font-size: 0.78rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--steel); text-decoration: none;
+    display: flex; align-items: center; gap: 6px; transition: color 0.25s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 120px 48px 20px; max-width: 1200px; margin: 0 auto;
+  }
+  .page-header .project-tag {
+    display: inline-block; font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    background: rgba(196, 75, 43, 0.07); padding: 4px 12px;
+    border-radius: 100px; margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .page-header .subtitle {
+    font-size: 1.05rem; color: var(--steel); font-weight: 300; max-width: 700px;
+  }
+
+  /* CONTENT SECTIONS */
+  section { padding: 48px 48px; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1.5px; background: var(--accent); }
+  .section-heading {
+    font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1.15; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .section-text {
+    font-size: 0.92rem; line-height: 1.7; color: var(--steel); font-weight: 300;
+    max-width: 800px; margin-bottom: 24px;
+  }
+
+  .divider { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .divider hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--ice), transparent); }
+
+  /* KEY DETAILS GRID */
+  .details-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .detail-card { background: var(--paper); padding: 28px 24px; transition: background 0.3s; }
+  .detail-card:hover { background: var(--white); }
+  .detail-card .metric {
+    font-family: var(--serif); font-size: 1.8rem; color: var(--accent);
+    line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em;
+  }
+  .detail-card .metric-label {
+    font-size: 0.82rem; font-weight: 600; color: var(--ink);
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;
+  }
+  .detail-card .metric-desc {
+    font-size: 0.82rem; line-height: 1.5; color: var(--steel); font-weight: 300;
+  }
+
+  /* BACK TO TOP */
+  .back-to-portfolio {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    background: var(--accent); color: var(--white); transition: all 0.3s;
+    margin-top: 16px;
+  }
+  .back-to-portfolio:hover {
+    background: var(--accent-glow); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196, 75, 43, 0.3);
+  }
+
+  @media (max-width: 900px) {
+    nav, .page-header, section { padding-left: 24px; padding-right: 24px; }
+    .divider { padding: 0 24px; }
+    .details-grid { grid-template-columns: 1fr !important; }
+    .details-grid .detail-card { grid-column: auto !important; }
+  }
+
+  /* PIPELINE STAGES */
+  .pipeline { display: grid; gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+  .stage { background: var(--paper); padding: 24px 26px; display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; transition: background 0.3s; }
+  .stage:hover { background: var(--white); }
+  .stage .step {
+    font-family: var(--serif); font-size: 1.6rem; color: var(--accent);
+    line-height: 1; min-width: 34px;
+  }
+  .stage h4 { font-size: 0.85rem; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .stage h4 em { font-family: var(--mono); font-style: normal; font-size: 0.62rem; color: var(--mist); text-transform: none; letter-spacing: 0.04em; margin-left: 8px; }
+  .stage p { font-size: 0.86rem; line-height: 1.6; color: var(--steel); font-weight: 300; }
+  .stage p strong { font-weight: 600; color: var(--ink); }
+
+  /* HIGHLIGHT LIST */
+  .hl-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 8px; }
+  .hl { padding: 18px 0; border-bottom: 1px solid rgba(221,228,236,0.7); }
+  .hl:last-child { border-bottom: none; }
+  .hl h4 { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .hl p { font-size: 0.86rem; line-height: 1.65; color: var(--steel); font-weight: 300; max-width: 860px; }
+  .hl p strong { font-weight: 600; color: var(--ink); }
+  .hl p em { font-style: italic; color: var(--mist); }
+
+  /* ARCHITECTURE DIAGRAM */
+  .arch { background: var(--white); border: 1px solid var(--ice); border-radius: 16px; padding: 28px; overflow-x: auto; }
+  .arch pre {
+    font-family: var(--mono); font-size: 0.7rem; line-height: 1.55;
+    color: var(--steel); white-space: pre; margin: 0;
+  }
+
+  /* STACK TABLE */
+  .stack { width: 100%; border-collapse: collapse; }
+  .stack tr { border-bottom: 1px solid var(--ice); }
+  .stack tr:last-child { border-bottom: none; }
+  .stack td { padding: 14px 8px; font-size: 0.86rem; vertical-align: top; }
+  .stack td:first-child {
+    font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--accent); white-space: nowrap;
+    width: 150px; padding-top: 17px;
+  }
+  .stack td:last-child { color: var(--steel); font-weight: 300; line-height: 1.6; }
+
+  /* CAPABILITY GRID */
+  .cap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden; }
+  .cap { background: var(--paper); padding: 26px 24px; transition: background 0.3s; }
+  .cap:hover { background: var(--white); }
+  .cap .ico { font-size: 1.3rem; margin-bottom: 10px; display: block; }
+  .cap h4 { font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+  .cap p { font-size: 0.84rem; line-height: 1.6; color: var(--steel); font-weight: 300; }
+
+  @media (max-width: 900px) {
+    .cap-grid { grid-template-columns: 1fr; }
+    .stage { grid-template-columns: 1fr; gap: 8px; }
+    .stack td:first-child { width: auto; display: block; padding-bottom: 2px; }
+    .stack td:last-child { display: block; padding-top: 0; }
+    .arch pre { font-size: 0.55rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Toluwase<span>.</span></a>
+  <a class="back-link" href="projects.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Projects
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header reveal">
+  <span class="project-tag">Live in Production &middot; Voice AI &middot; Agentic Email &middot; Next.js</span>
+  <h1>AI Operations System</h1>
+  <p class="subtitle">UK Healthcare &amp; Patient Transport Company &mdash; live with a real business</p>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- EXECUTIVE SUMMARY -->
+<section>
+  <div class="section-label reveal">Executive Summary</div>
+  <h2 class="section-heading reveal">What this project is</h2>
+  <p class="section-text reveal">A production, multi-channel agentic AI system that answers calls, handles email, books appointments, runs campaigns, and reports to the owner &mdash; built end to end and live for a real UK healthcare and patient transport business.</p>
+  <p class="section-text reveal">The domain is non-emergency patient transport, serving elderly, disabled and SEND passengers and hospital patients. These are vulnerable people, so accuracy and safety are non-negotiable: the system must never invent a price, a policy, or availability, and must escalate anything sensitive to a human.</p>
+
+  <div class="details-grid reveal" style="grid-template-columns:1fr 1fr 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric">Live</div>
+      <div class="metric-label">In Production</div>
+      <div class="metric-desc">Handling real calls and real emails</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">4</div>
+      <div class="metric-label">Channels</div>
+      <div class="metric-desc">Voice, email, calendar, outbound</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">3</div>
+      <div class="metric-label">Verification Stages</div>
+      <div class="metric-desc">Triage &rarr; resolve &rarr; critic</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">1</div>
+      <div class="metric-label">Deployment</div>
+      <div class="metric-desc">One app, one process, one bill</div>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:2rem;">
+    <video controls style="width:100%; border-radius:12px;" preload="metadata">
+      <source src="AI Executive Assistant - Full Demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p style="font-family:var(--mono); font-size:0.68rem; color:var(--mist); text-align:center; margin-top:12px; letter-spacing:0.04em;">Full demo &mdash; voice receptionist, email agent, booking, campaigns and executive reporting</p>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- THE PROBLEM -->
+<section>
+  <div class="section-label reveal">The Problem</div>
+  <h2 class="section-heading reveal">Losing customers to missed calls, unable to justify the payroll</h2>
+  <p class="section-text reveal">A growing UK patient-transport business was losing customers to missed calls and slow email replies, but could not justify hiring a receptionist, an admin, a support rep, and someone to chase leads &mdash; thousands per month in payroll before serving one extra customer.</p>
+  <p class="section-text reveal">The requirement was not &ldquo;a chatbot.&rdquo; It was one reliable system to run the front and back office, that was:</p>
+
+  <div class="hl-list reveal">
+    <div class="hl">
+      <h4>Safe to put in front of vulnerable customers</h4>
+      <p>Never invents a price, a policy, or availability. Escalates anything sensitive to a human.</p>
+    </div>
+    <div class="hl">
+      <h4>Cheap to run, and easy for a non-technical owner to operate and trust</h4>
+      <p>One deployment, one bill, and an interface an owner can actually read &mdash; not a developer tool.</p>
+    </div>
+    <div class="hl">
+      <h4>Multi-channel, sharing one brain</h4>
+      <p>Phone, email, calendar and outbound all grounded in the same knowledge base, so facts never diverge between channels.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="section-label reveal">Capabilities</div>
+  <h2 class="section-heading reveal">One AI system that behaves like an operations team member</h2>
+
+  <div class="cap-grid reveal">
+    <div class="cap">
+      <span class="ico">&#128222;</span>
+      <h4>Voice receptionist</h4>
+      <p>Answers every inbound call, handles enquiries from a live knowledge base, warm-transfers to a human with a spoken summary, or takes a message if no one is free.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#128231;</span>
+      <h4>Autonomous email agent</h4>
+      <p>Reads the inbox, auto-replies to routine mail, and acknowledges then escalates anything sensitive &mdash; pricing, complaints, safeguarding, named passengers &mdash; to the owner.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#128197;</span>
+      <h4>Appointment booking</h4>
+      <p>On a call the AI checks the real calendar for free slots, books a callback, and can cancel &mdash; with a hard guarantee against double-booking.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#127919;</span>
+      <h4>Outbound campaigns</h4>
+      <p>Consent-gated outbound calling, including per-person messages and name templates.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#9200;</span>
+      <h4>Scheduling</h4>
+      <p>Schedule an email or a call for a specific future time. A campaign window prevents calls at unsociable hours.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#129333;</span>
+      <h4>Executive reporting</h4>
+      <p>A daily briefing of everything the assistant did, plus a live dashboard with per-action logs, the AI&rsquo;s reasoning, and the exact cost of each action.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#128172;</span>
+      <h4>Plain-English control</h4>
+      <p>The owner commands the assistant conversationally &mdash; &ldquo;read the last 3 emails&rdquo;, &ldquo;what callbacks are booked?&rdquo;</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#128218;</span>
+      <h4>Shared knowledge base</h4>
+      <p>One editable source of truth grounding both the email agent and the voice assistant, so business facts change without a redeploy.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ARCHITECTURE -->
+<section>
+  <div class="section-label reveal">System Architecture</div>
+  <h2 class="section-heading reveal">One app, one deployment, one bill</h2>
+  <p class="section-text reveal">One Next.js application running both the AI worker and the staff portal in a single process &mdash; chosen deliberately so a non-technical owner deploys and runs it as one unit, with one bill.</p>
+
+  <div class="arch reveal">
+<pre>                       &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+  Customer email  &#9472;&#9472;&#9654;  &#9474; Gmail inbox (forwarded from real mailbox) &#9474;
+                       &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+                                        &#9474; IMAP (read)
+                                        &#9660;
+  &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+  &#9474;  NEXT.JS APP  (Railway, 24/7)                                    &#9474;
+  &#9474;                                                                  &#9474;
+  &#9474;  Background worker (poll loop)     Staff portal (web UI)         &#9474;
+  &#9474;  &#8226; fetch new email                &#8226; activity feed &amp; audit log    &#9474;
+  &#9474;  &#8226; AGENT PIPELINE:                &#8226; one-click approvals         &#9474;
+  &#9474;      triage &#8594; resolve &#8594; critic    &#8226; compose / campaigns         &#9474;
+  &#9474;      &#8594; tiered decision             &#8226; calls, transcripts          &#9474;
+  &#9474;  &#8226; fire scheduled tasks            &#8226; appointments, leads         &#9474;
+  &#9474;  &#8226; approval digest + briefing      &#8226; knowledge editor, costs     &#9474;
+  &#9474;                                                                  &#9474;
+  &#9474;  Shared knowledge base &#9472;&#9472;&#9654; grounds BOTH email and voice        &#9474;
+  &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+             &#9474; HTTPS (send)      &#9474; webhook (tools + events)
+             &#9660;                   &#9660;
+     &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+     &#9474; Resend (email API)&#9474;    &#9474; Vapi + Twilio (voice)       &#9474;
+     &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;    &#9474; lookupKnowledge / transfer &#9474;
+                              &#9474; takeMessage / book / cancel&#9474;
+     &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;    &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+     &#9474; Google Calendar  &#9474;&#9664;&#9472;&#9472; service account (headless booking)
+     &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</pre>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- AGENT PIPELINE -->
+<section>
+  <div class="section-label reveal">The Agent Pipeline</div>
+  <h2 class="section-heading reveal">Each stage does one job</h2>
+  <p class="section-text reveal">Every inbound email flows through a multi-stage pipeline where each stage has a single responsibility &mdash; the pattern that makes the AI safe rather than a black box.</p>
+
+  <div class="pipeline reveal">
+    <div class="stage">
+      <div class="step">01</div>
+      <div>
+        <h4>Triage <em>fast, cheap model</em></h4>
+        <p>Classifies route and sensitivity, with a <strong>deterministic high-risk keyword check that runs BEFORE the LLM</strong>, so safety never depends on the model getting it right.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="step">02</div>
+      <div>
+        <h4>Resolve <em>strong model</em></h4>
+        <p>Drafts a reply grounded <strong>only</strong> in the knowledge base, citing the source of every factual claim. Hedges instead of guessing.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="step">03</div>
+      <div>
+        <h4>Critic <em>same tier as resolve</em></h4>
+        <p>Verifies each claim against the knowledge base using <strong>weakest-claim scoring</strong> &mdash; the reply&rsquo;s score is its <em>lowest</em> claim, not the average &mdash; and checks it speaks in the right voice. Nothing is auto-sent unverified.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="step">04</div>
+      <div>
+        <h4>Tiered decision</h4>
+        <p>Routine and fully-grounded &rarr; <strong>auto-send</strong>. Pricing or sensitive &rarr; <strong>warm acknowledgement to the customer plus immediate escalation to the owner</strong>. Low-confidence &rarr; <strong>queued for one-click approval</strong>, batched into a periodic digest. Spam &rarr; ignored.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-text reveal">This is what makes it deployable in a careful, vulnerable-person context: it is grounded, verified, and human-in-the-loop by design &mdash; it knows what it does not know.</p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ENGINEERING HIGHLIGHTS -->
+<section>
+  <div class="section-label reveal">Engineering Highlights</div>
+  <h2 class="section-heading reveal">The hard parts</h2>
+  <p class="section-text reveal">Real systems are defined by the problems solved, not the happy path.</p>
+
+  <div class="hl-list reveal">
+    <div class="hl">
+      <h4>Grounded, anti-hallucination generation</h4>
+      <p>A triage &rarr; draft &rarr; <strong>critic</strong> pipeline with cite-or-don&rsquo;t-say rules and weakest-claim scoring, so the assistant never fabricates a price or policy &mdash; essential for a regulated, vulnerable-customer domain.</p>
+    </div>
+    <div class="hl">
+      <h4>Resilient email transport across a hostile network</h4>
+      <p>The host provider throttled the cloud&rsquo;s IP on IMAP <strong>and</strong> the platform blocked all outbound SMTP ports. Diagnosed with a purpose-built connection-test endpoint, then re-architected: <strong>read via Gmail IMAP (forwarded), send via an HTTPS email API</strong>, with domain SPF/DKIM so mail still sends from the branded address &mdash; and forced IPv4 to dodge a missing-IPv6 route.</p>
+    </div>
+    <div class="hl">
+      <h4>Self-healing background worker</h4>
+      <p>The framework&rsquo;s startup hook proved unreliable in production, so the worker <strong>self-heals from a health-check request</strong>, and the health endpoint surfaces poll count and last error &mdash; turning silent failures into a 30-second diagnosis. <em>Instrument first, hypothesise second.</em></p>
+    </div>
+    <div class="hl">
+      <h4>Voice with a real human handoff</h4>
+      <p>A <strong>hybrid</strong> voice architecture &mdash; assistant in the voice platform, live facts served from the app via a tool &mdash; so business facts stay editable without redeploys. Warm transfer with a spoken summary, and a <strong>voicemail-detection fallback</strong> so a ring-out to voicemail is treated as a failed transfer and the AI takes a message instead of stranding the caller.</p>
+    </div>
+    <div class="hl">
+      <h4>Booking that cannot double-book</h4>
+      <p>Calendar tools re-check availability at write time and only ever touch events the agent created (tagged), never the owner&rsquo;s own diary &mdash; and degrade gracefully to taking a message if the calendar is unreachable.</p>
+    </div>
+    <div class="hl">
+      <h4>Cost-aware reporting for free</h4>
+      <p>Daily briefings and call summaries reuse work already paid for &mdash; provider-generated summaries, database counts &mdash; so rich reporting adds effectively nothing to running cost. A deliberate architectural choice.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- DESIGN & PRODUCT -->
+<section>
+  <div class="section-label reveal">Design &amp; Product</div>
+  <h2 class="section-heading reveal">Transparency as a feature</h2>
+  <p class="section-text reveal">The staff portal is intentionally premium and restrained &mdash; editorial serif headings, a mostly-neutral surface with a single muted-gold accent, hairline borders, generous whitespace, hierarchy from type not colour. It is a product a non-technical owner <em>trusts</em>, not a developer tool.</p>
+  <p class="section-text reveal">Every action carries a timestamp, the AI&rsquo;s reasoning, and its cost. That transparency is also the answer to the owner&rsquo;s core fear: <em>&ldquo;will AI embarrass me in front of my customers?&rdquo;</em></p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- TECH STACK -->
+<section>
+  <div class="section-label reveal">Tech Stack</div>
+  <h2 class="section-heading reveal">What it runs on</h2>
+  <table class="stack reveal">
+    <tr><td>App &amp; UI</td><td>Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS</td></tr>
+    <tr><td>AI</td><td>Anthropic Claude &mdash; tiered models (fast for triage, strong for resolve and critic)</td></tr>
+    <tr><td>Voice</td><td>Vapi (voice orchestration) + Twilio (telephony)</td></tr>
+    <tr><td>Email</td><td>IMAP read (Gmail relay) + Resend HTTPS send (SPF/DKIM-verified domain)</td></tr>
+    <tr><td>Calendar</td><td>Google Calendar via a service account (headless)</td></tr>
+    <tr><td>Storage</td><td>SQLite on a persistent volume (survives redeploys; one bill)</td></tr>
+    <tr><td>Hosting</td><td>Railway (deploy-from-GitHub, 24/7)</td></tr>
+    <tr><td>Auth</td><td>Shared-password gate with an HMAC-signed HttpOnly cookie (edge middleware)</td></tr>
+  </table>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- OUTCOME -->
+<section>
+  <div class="section-label reveal">Outcome</div>
+  <h2 class="section-heading reveal">Live, and running the front office</h2>
+  <p class="section-text reveal">A live, production AI operations system running for a real UK business &mdash; handling real calls and real emails, booking real appointments &mdash; at a small fraction of the cost of hiring for each of those roles.</p>
+  <p class="section-text reveal">It demonstrates that AI can be made safe, grounded, and transparent enough to put in front of vulnerable customers, with a human always in control of what matters.</p>
+
+  <div class="hl-list reveal" style="margin-top:8px;">
+    <div class="hl">
+      <h4>End-to-end ownership</h4>
+      <p>Product thinking, architecture, engineering, UI, and deployment &mdash; sole designer and engineer.</p>
+    </div>
+    <div class="hl">
+      <h4>Agentic AI done responsibly</h4>
+      <p>Multi-stage pipelines, grounding, verification, and human-in-the-loop escalation &mdash; not a thin wrapper over a model.</p>
+    </div>
+    <div class="hl">
+      <h4>Systems judgment under real constraints</h4>
+      <p>Network limits, provider quirks, a non-technical operator and a regulated domain &mdash; plus the instinct to make failures observable before solving them.</p>
+    </div>
+  </div>
+
+  <a class="back-to-portfolio" href="projects.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Projects
+  </a>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.04}s`;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

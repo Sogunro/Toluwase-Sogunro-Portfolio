@@ -190,8 +190,34 @@
 
 <div class="divider"><hr></div>
 
-<!-- AI OPERATIONS SYSTEM (LIVE) -->
+<!-- CAREPATH AI -->
 <section>
+  <div class="project-card reveal">
+    <span class="card-tag">AWS Bedrock &middot; Voice AI &middot; Telegram &middot; Lambda</span>
+    <h2>CarePath AI</h2>
+    <div class="card-org">An AI front office for a one-person patient transport business</div>
+    <p class="card-desc">Non-emergency patient transport in the West Midlands is a single-operator business: one person driving, who cannot answer the phone while at the wheel. Every missed call is a booking lost to whoever picks up first. CarePath answers the phone, the email and the chat &mdash; quoting from a real coverage and pricing model, booking the journey, and escalating to the owner only when a human genuinely needs to decide.</p>
+
+    <div class="card-metrics">
+      <div class="card-metric"><div class="num">3</div><div class="lbl">Channels</div></div>
+      <div class="card-metric"><div class="num">0.59</div><div class="lbl">Confidence Floor</div></div>
+      <div class="card-metric"><div class="num">670</div><div class="lbl">Offline Tests</div></div>
+    </div>
+
+    <div class="card-highlights">
+      <div class="row"><div class="dot"></div><span><strong>The safety gate is code, not a prompt</strong> &mdash; it runs before any model call and can only raise risk, never lower it</span></div>
+      <div class="row"><div class="dot"></div><span><strong>A measured confidence floor</strong> &mdash; calibrated over 22 queries and sited in the gap between legitimate and irrelevant results</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Fix the corpus, not the threshold</strong> &mdash; a genuine question scoring below the floor meant a missing document, never a lower floor</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Honest self-reporting</strong> &mdash; it must not claim work it didn&rsquo;t do, and must not be punished for reporting a real limitation</span></div>
+      <div class="row"><div class="dot"></div><span><strong>Owner control from a Telegram thread</strong> &mdash; ask what happened today, chase a customer, have it ring someone back</span></div>
+    </div>
+
+    <a href="carepath-ai.html" class="card-btn">View Full Case Study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<!-- AI OPERATIONS SYSTEM (LIVE) -->
+<section style="padding-top:0;">
   <div class="project-card reveal">
     <span class="card-tag">Live in Production &middot; Voice AI &middot; Agentic Email &middot; Next.js</span>
     <h2>AI Operations System</h2>

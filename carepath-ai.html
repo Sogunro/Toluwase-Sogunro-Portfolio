@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarePath AI — Toluwase Sogunro</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0f1a;
+    --paper: #f5f2ed;
+    --cream: #ebe7e0;
+    --accent: #c44b2b;
+    --accent-glow: #e8654a;
+    --steel: #4a5568;
+    --mist: #8896a7;
+    --ice: #dde4ec;
+    --white: #ffffff;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(245, 242, 237, 0.85);
+    border-bottom: 1px solid rgba(10, 15, 26, 0.06);
+    padding: 0 48px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .brand { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+  nav .brand span { color: var(--accent); }
+  .back-link {
+    font-size: 0.78rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--steel); text-decoration: none;
+    display: flex; align-items: center; gap: 6px; transition: color 0.25s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 120px 48px 20px; max-width: 1200px; margin: 0 auto;
+  }
+  .page-header .project-tag {
+    display: inline-block; font-family: var(--mono);
+    font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    background: rgba(196, 75, 43, 0.07); padding: 4px 12px;
+    border-radius: 100px; margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .page-header .subtitle {
+    font-size: 1.05rem; color: var(--steel); font-weight: 300; max-width: 700px;
+  }
+
+  /* CONTENT SECTIONS */
+  section { padding: 48px 48px; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1.5px; background: var(--accent); }
+  .section-heading {
+    font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1.15; letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .section-text {
+    font-size: 0.92rem; line-height: 1.7; color: var(--steel); font-weight: 300;
+    max-width: 800px; margin-bottom: 24px;
+  }
+
+  .divider { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .divider hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--ice), transparent); }
+
+  /* KEY DETAILS GRID */
+  .details-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .detail-card { background: var(--paper); padding: 28px 24px; transition: background 0.3s; }
+  .detail-card:hover { background: var(--white); }
+  .detail-card .metric {
+    font-family: var(--serif); font-size: 1.8rem; color: var(--accent);
+    line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em;
+  }
+  .detail-card .metric-label {
+    font-size: 0.82rem; font-weight: 600; color: var(--ink);
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;
+  }
+  .detail-card .metric-desc {
+    font-size: 0.82rem; line-height: 1.5; color: var(--steel); font-weight: 300;
+  }
+
+  /* BACK TO TOP */
+  .back-to-portfolio {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    background: var(--accent); color: var(--white); transition: all 0.3s;
+    margin-top: 16px;
+  }
+  .back-to-portfolio:hover {
+    background: var(--accent-glow); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196, 75, 43, 0.3);
+  }
+
+  @media (max-width: 900px) {
+    nav, .page-header, section { padding-left: 24px; padding-right: 24px; }
+    .divider { padding: 0 24px; }
+    .details-grid { grid-template-columns: 1fr !important; }
+    .details-grid .detail-card { grid-column: auto !important; }
+  }
+
+  /* PIPELINE STAGES */
+  .pipeline { display: grid; gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+  .stage { background: var(--paper); padding: 24px 26px; display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; transition: background 0.3s; }
+  .stage:hover { background: var(--white); }
+  .stage .step {
+    font-family: var(--serif); font-size: 1.6rem; color: var(--accent);
+    line-height: 1; min-width: 34px;
+  }
+  .stage h4 { font-size: 0.85rem; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .stage h4 em { font-family: var(--mono); font-style: normal; font-size: 0.62rem; color: var(--mist); text-transform: none; letter-spacing: 0.04em; margin-left: 8px; }
+  .stage p { font-size: 0.86rem; line-height: 1.6; color: var(--steel); font-weight: 300; }
+  .stage p strong { font-weight: 600; color: var(--ink); }
+
+  /* HIGHLIGHT LIST */
+  .hl-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 8px; }
+  .hl { padding: 18px 0; border-bottom: 1px solid rgba(221,228,236,0.7); }
+  .hl:last-child { border-bottom: none; }
+  .hl h4 { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .hl p { font-size: 0.86rem; line-height: 1.65; color: var(--steel); font-weight: 300; max-width: 860px; }
+  .hl p strong { font-weight: 600; color: var(--ink); }
+  .hl p em { font-style: italic; color: var(--mist); }
+
+  /* ARCHITECTURE DIAGRAM */
+  .arch { background: var(--white); border: 1px solid var(--ice); border-radius: 16px; padding: 28px; overflow-x: auto; }
+  .arch pre {
+    font-family: var(--mono); font-size: 0.7rem; line-height: 1.55;
+    color: var(--steel); white-space: pre; margin: 0;
+  }
+
+  /* STACK TABLE */
+  .stack { width: 100%; border-collapse: collapse; }
+  .stack tr { border-bottom: 1px solid var(--ice); }
+  .stack tr:last-child { border-bottom: none; }
+  .stack td { padding: 14px 8px; font-size: 0.86rem; vertical-align: top; }
+  .stack td:first-child {
+    font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--accent); white-space: nowrap;
+    width: 150px; padding-top: 17px;
+  }
+  .stack td:last-child { color: var(--steel); font-weight: 300; line-height: 1.6; }
+
+  /* CAPABILITY GRID */
+  .cap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--ice); border-radius: 16px; overflow: hidden; }
+  .cap { background: var(--paper); padding: 26px 24px; transition: background 0.3s; }
+  .cap:hover { background: var(--white); }
+  .cap .ico { font-size: 1.3rem; margin-bottom: 10px; display: block; }
+  .cap h4 { font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+  .cap p { font-size: 0.84rem; line-height: 1.6; color: var(--steel); font-weight: 300; }
+
+  @media (max-width: 900px) {
+    .cap-grid { grid-template-columns: 1fr; }
+    .stage { grid-template-columns: 1fr; gap: 8px; }
+    .stack td:first-child { width: auto; display: block; padding-bottom: 2px; }
+    .stack td:last-child { display: block; padding-top: 0; }
+    .arch pre { font-size: 0.55rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Toluwase<span>.</span></a>
+  <a class="back-link" href="projects.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Projects
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header reveal">
+  <span class="project-tag">AWS Bedrock &middot; Voice AI &middot; Telegram &middot; Lambda</span>
+  <h1>CarePath AI</h1>
+  <p class="subtitle">An AI front office for a one-person patient transport business.</p>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- EXECUTIVE SUMMARY -->
+<section>
+  <div class="section-label reveal">Executive Summary</div>
+  <h2 class="section-heading reveal">The driver cannot answer the phone</h2>
+  <p class="section-text reveal">Non-emergency patient transport in the West Midlands is a single-operator business: one person driving, who cannot answer the phone while at the wheel. Every missed call is a booking lost to whoever picks up first.</p>
+  <p class="section-text reveal">CarePath answers the phone, the email and the chat. It quotes from a real coverage and pricing model, books the journey, sends the confirmation, puts it in the diary, and escalates to the owner only when a human genuinely needs to decide.</p>
+  <p class="section-text reveal">The owner runs the whole business from a phone call or a Telegram thread &mdash; asking what happened today, chasing a customer, having it ring someone back on their behalf.</p>
+
+  <div class="details-grid reveal" style="grid-template-columns:1fr 1fr 1fr;">
+    <div class="detail-card">
+      <div class="metric">3</div>
+      <div class="metric-label">Channels</div>
+      <div class="metric-desc">Phone, email and chat, one front office</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">0.59</div>
+      <div class="metric-label">Confidence Floor</div>
+      <div class="metric-desc">Calibrated over 22 queries, sited in the gap</div>
+    </div>
+    <div class="detail-card">
+      <div class="metric">670</div>
+      <div class="metric-label">Tests</div>
+      <div class="metric-desc">All running offline</div>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:2rem;">
+    <video controls style="width:100%; border-radius:12px;" preload="metadata">
+      <source src="carepath-telegram-demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p style="font-family:var(--mono); font-size:0.68rem; color:var(--mist); text-align:center; margin-top:12px; letter-spacing:0.04em;">Owner-side control &mdash; running the business from a Telegram thread</p>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="section-label reveal">What It Does</div>
+  <h2 class="section-heading reveal">The whole front office, end to end</h2>
+
+  <div class="cap-grid reveal">
+    <div class="cap">
+      <span class="ico">&#128222;</span>
+      <h4>Answers every channel</h4>
+      <p>The phone, the email and the chat, handled by one system rather than three disconnected ones.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#128181;</span>
+      <h4>Quotes from a real model</h4>
+      <p>Pricing comes from an actual coverage and pricing model &mdash; not a number the assistant improvised to be helpful.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#128197;</span>
+      <h4>Books and confirms</h4>
+      <p>Books the journey, sends the confirmation, and puts it in the diary.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#129333;</span>
+      <h4>Escalates on judgement</h4>
+      <p>Goes to the owner only when a human genuinely needs to decide &mdash; not on every edge case.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#128172;</span>
+      <h4>Owner control from a thread</h4>
+      <p>Ask what happened today, chase a customer, or have it ring someone back &mdash; from a phone call or a Telegram thread.</p>
+    </div>
+    <div class="cap">
+      <span class="ico">&#128269;</span>
+      <h4>Grounded retrieval</h4>
+      <p>Answers are retrieved against a knowledge base with a measured confidence floor, not generated from memory.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- THE SAFETY GATE -->
+<section>
+  <div class="section-label reveal">Design Decision</div>
+  <h2 class="section-heading reveal">The safety gate is code, not a prompt</h2>
+  <p class="section-text reveal">This is the decision I would defend first. The gate runs before any model call, and it can only raise risk &mdash; never lower it.</p>
+  <p class="section-text reveal">So <em>&ldquo;never quote a price for an ad-hoc journey&rdquo;</em> is a property of the system, not a hope about how a model behaves when a caller pushes.</p>
+
+  <div class="pipeline reveal">
+    <div class="stage">
+      <div class="step">01</div>
+      <div>
+        <h4>Gate runs first</h4>
+        <p>Risk is assessed in code <strong>before any model call</strong>, so the safety decision never depends on the model&rsquo;s cooperation.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="step">02</div>
+      <div>
+        <h4>One-way ratchet</h4>
+        <p>The gate can <strong>only raise risk, never lower it</strong>. Nothing downstream &mdash; including the model &mdash; can talk the system into being less careful than the gate decided.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="step">03</div>
+      <div>
+        <h4>Retrieval with a measured floor</h4>
+        <p>Calibrated over <strong>22 queries</strong>: legitimate questions scored <strong>0.61&ndash;0.86</strong>, irrelevant ones <strong>0.53&ndash;0.56</strong>. The floor sits at <strong>0.59</strong>, in the gap between them.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="step">04</div>
+      <div>
+        <h4>Fix the corpus, not the threshold</h4>
+        <p>When a genuine question fell below the floor, the fix was to <strong>add the missing document</strong> &mdash; never to lower the floor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- THE HARDEST PROBLEM -->
+<section>
+  <div class="section-label reveal">The Hardest Problem</div>
+  <h2 class="section-heading reveal">Honesty, not capability</h2>
+  <p class="section-text reveal">An agent that claims it sent an email it didn&rsquo;t send is worse than one that fails loudly, because it costs the owner a check they didn&rsquo;t know they needed.</p>
+  <p class="section-text reveal">Most of the engineering went into making the system&rsquo;s account of its own work trustworthy in <strong>both</strong> directions.</p>
+
+  <div class="hl-list reveal">
+    <div class="hl">
+      <h4>It must not claim work it didn&rsquo;t do</h4>
+      <p>A false report of success is the expensive failure &mdash; it removes the owner&rsquo;s reason to check, and the error surfaces later as a lost customer rather than an alert.</p>
+    </div>
+    <div class="hl">
+      <h4>It must not be punished for reporting a real limitation</h4>
+      <p>The other half of the problem, and the easier one to get wrong: a system tuned only against overclaiming learns to hedge everything. Accurately reporting a genuine limit has to be a safe thing to do.</p>
+    </div>
+    <div class="hl">
+      <h4>670 tests, all running offline</h4>
+      <p>The suite runs with no network and no model calls, so the behaviour above is verified deterministically rather than sampled from a live system.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ARCHITECTURE -->
+<section>
+  <div class="section-label reveal">Architecture</div>
+  <h2 class="section-heading reveal">Built on AWS</h2>
+  <table class="stack reveal">
+    <tr><td>Models</td><td>Amazon Bedrock &mdash; Claude Haiku 4.5 for triage, Sonnet 4.6 for answering and self-critique</td></tr>
+    <tr><td>Retrieval</td><td>Bedrock Knowledge Bases on S3 Vectors</td></tr>
+    <tr><td>Runtime</td><td>AWS Lambda &mdash; runtime and dashboard</td></tr>
+    <tr><td>Scheduling</td><td>Amazon EventBridge &mdash; scheduled email</td></tr>
+    <tr><td>Voice</td><td>Vapi</td></tr>
+    <tr><td>Chat</td><td>Telegram</td></tr>
+  </table>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- WHAT THIS DEMONSTRATES -->
+<section>
+  <div class="section-label reveal">What This Demonstrates</div>
+  <h2 class="section-heading reveal">Safety as a system property</h2>
+
+  <div class="hl-list reveal">
+    <div class="hl">
+      <h4>Constraints enforced in code, not prompts</h4>
+      <p>A rule that matters is written where a persuasive caller cannot reach it. The model is asked to be useful; it is not asked to be the last line of defence.</p>
+    </div>
+    <div class="hl">
+      <h4>Thresholds earned from measurement</h4>
+      <p>The confidence floor sits in an observed gap between legitimate and irrelevant queries &mdash; a number derived from data, then held to when it became inconvenient.</p>
+    </div>
+    <div class="hl">
+      <h4>Self-reporting treated as an engineering problem</h4>
+      <p>Trustworthiness in both directions &mdash; neither overclaiming nor over-hedging &mdash; designed for deliberately and verified offline.</p>
+    </div>
+  </div>
+
+  <a class="back-to-portfolio" href="projects.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Projects
+  </a>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.04}s`;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

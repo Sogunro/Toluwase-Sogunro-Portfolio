@@ -594,7 +594,25 @@
   <div class="projects-carousel-wrapper reveal">
     <div class="projects-carousel" id="projectsCarousel">
 
-      <!-- 1. AI Operations System (LIVE) -->
+      <!-- 1. CarePath AI -->
+      <div class="project-card">
+        <div class="project-meta">
+          <span class="project-tag">AWS Bedrock &middot; Voice AI &middot; Telegram</span>
+          <h3>CarePath AI</h3>
+          <div class="project-org">An AI front office for a one-person patient transport business</div>
+          <p>One person driving, who cannot answer the phone while at the wheel &mdash; every missed call is a booking lost to whoever picks up first. CarePath answers the phone, the email and the chat, quotes from a real pricing model, books the journey, and escalates only when a human genuinely needs to decide.</p>
+        </div>
+        <div class="project-details">
+          <div class="detail-row"><div class="dot"></div><span><strong>The safety gate is code, not a prompt</strong> &mdash; runs before any model call, and can only raise risk, never lower it</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Confidence floor at 0.59</strong> &mdash; calibrated over 22 queries, sited in the gap between legitimate and irrelevant</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Fix the corpus, not the threshold</strong> &mdash; a genuine question below the floor meant a missing document</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>670 tests, all running offline</strong> &mdash; behaviour verified deterministically, not sampled live</span></div>
+          <div class="detail-row"><div class="dot"></div><span><strong>Stack:</strong> Amazon Bedrock (Haiku 4.5 / Sonnet 4.6), S3 Vectors, Lambda, EventBridge, Vapi, Telegram</span></div>
+          <a href="carepath-ai.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:1rem;font-weight:800;color:var(--white);background:var(--accent);padding:12px 28px;border-radius:100px;text-decoration:none;letter-spacing:0.02em;transition:all 0.3s;box-shadow:0 4px 12px rgba(196,75,43,0.25);" onmouseover="this.style.background='var(--accent-glow)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(196,75,43,0.35)'" onmouseout="this.style.background='var(--accent)';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 12px rgba(196,75,43,0.25)'">View Full Case Study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- 2. AI Operations System (LIVE) -->
       <div class="project-card">
         <div class="project-meta">
           <span class="project-tag">Live in Production · Voice AI · Agentic Email</span>
@@ -612,7 +630,7 @@
         </div>
       </div>
 
-      <!-- 2. Support Ops Copilot -->
+      <!-- 3. Support Ops Copilot -->
       <div class="project-card">
         <div class="project-meta">
           <span class="project-tag">Agentic AI · LangGraph · RAG</span>
@@ -631,7 +649,7 @@
         </div>
       </div>
 
-      <!-- 3. Money Buddy -->
+      <!-- 4. Money Buddy -->
       <div class="project-card">
         <div class="project-meta">
           <span class="project-tag">AI Fintech · Supabase · Vertex AI</span>
@@ -646,7 +664,7 @@
         </div>
       </div>
 
-      <!-- 4. Discovery OS -->
+      <!-- 5. Discovery OS -->
       <div class="project-card">
         <div class="project-meta">
           <span class="project-tag">AI Product Discovery · n8n · Claude</span>
@@ -670,6 +688,7 @@
       <button class="carousel-dot" data-index="1"></button>
       <button class="carousel-dot" data-index="2"></button>
       <button class="carousel-dot" data-index="3"></button>
+      <button class="carousel-dot" data-index="4"></button>
       <button class="carousel-arrow" id="carouselNext">&#8594;</button>
     </div>
     <div class="swipe-hint">Swipe or click arrows to browse projects</div>
@@ -735,8 +754,13 @@
 
 <!-- EDUCATION -->
 <section>
-  <div class="section-label reveal">Education & Certification</div>
+  <div class="section-label reveal">Credentials &amp; Published Work</div>
   <div class="edu-strip reveal">
+    <div class="edu-item">
+      <div class="edu-degree"><a href="https://selar.com/tg1j8g1k88" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(196,75,43,0.3);">The Guide I Wish I&rsquo;d Had</a></div>
+      <div class="edu-school">Understanding Product Management &middot; Author</div>
+      <div class="edu-year">2026</div>
+    </div>
     <div class="edu-item">
       <div class="edu-degree">AI Security & Governance</div>
       <div class="edu-school">Securiti</div>

@@ -416,6 +416,23 @@
     .details-grid .detail-card { grid-column: auto !important; }
     .ms-grid { grid-template-columns: 1fr; }
   }
+
+  /* LANDSCAPE DEMO VIDEO */
+  .demo-video {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 900px;
+    max-height: 75vh;
+    border-radius: 16px;
+    background: var(--ink);
+    box-shadow: 0 12px 48px rgba(10, 15, 26, 0.18);
+  }
+  @media (max-width: 900px) {
+    /* Full bleed on phones: a 16:9 demo is already short here,
+       so give it every pixel of width available. */
+    .demo-video { border-radius: 12px; max-height: none; }
+  }
 </style>
 </head>
 <body>
@@ -479,7 +496,7 @@
   </div>
 
   <div class="reveal" style="margin-top:2rem;">
-    <video controls style="width:100%; border-radius:12px;" preload="metadata">
+    <video class="demo-video" controls preload="metadata">
       <source src="combined-demo.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>

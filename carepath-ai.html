@@ -203,6 +203,21 @@
     .stack td:last-child { display: block; padding-top: 0; }
     .arch pre { font-size: 0.55rem; }
   }
+
+  /* PORTRAIT (PHONE) DEMO VIDEO */
+  .portrait-demo {
+    display: block;
+    margin: 0 auto;
+    max-height: 70vh;
+    max-width: 100%;
+    width: auto;
+    border-radius: 16px;
+    background: var(--ink);
+    box-shadow: 0 12px 48px rgba(10, 15, 26, 0.18);
+  }
+  @media (max-width: 900px) {
+    .portrait-demo { max-height: 65vh; }
+  }
 </style>
 </head>
 <body>
@@ -251,7 +266,7 @@
   </div>
 
   <div class="reveal" style="margin-top:2rem;">
-    <video controls style="width:100%; border-radius:12px;" preload="metadata">
+    <video class="portrait-demo" controls preload="metadata">
       <source src="carepath-telegram-demo.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>

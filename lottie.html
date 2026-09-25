@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lottie — Senior Product Manager Application — Toluwase Sogunro</title>
+<title>Toluwase Sogunro — Senior Product Manager Application, Lottie</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -278,15 +278,15 @@
 
 <!-- PAGE HEADER -->
 <div class="page-header reveal">
-  <span class="project-tag">Application &middot; Senior Product Manager</span>
-  <h1>Lottie</h1>
-  <p class="subtitle">Application for Senior Product Manager at Lottie &mdash; a walkthrough of the product thinking behind it, followed by two AI systems I built and shipped for healthcare transport operators.</p>
+  <span class="project-tag">Senior Product Manager &middot; Eliza, AI Agents</span>
+  <h1>Toluwase Sogunro</h1>
+  <p class="subtitle">Application for Senior Product Manager at Lottie &mdash; my introduction, followed by two conversational AI systems I have shipped for care and patient transport operators: voice and chat enquiry handling, AI-to-human handoff, and safety gates that hold under pressure.</p>
 </div>
 
 <section style="padding-top:28px; padding-bottom:8px;">
   <a class="jump-link reveal" href="#lottie-application">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    Watch the Lottie application
+    Watch my introduction
   </a>
 </section>
 
@@ -295,15 +295,15 @@
 <!-- 1. LOTTIE APPLICATION -->
 <section id="lottie-application">
   <div class="video-block reveal">
-    <div class="vid-label">Application</div>
-    <h3>Senior Product Manager at Lottie</h3>
-    <div class="vid-org">Application walkthrough</div>
-    <p class="vid-desc">My application for the Senior Product Manager role at Lottie.</p>
+    <div class="vid-label">Introduction</div>
+    <h3>Why Lottie, and why me</h3>
+    <div class="vid-org">Senior Product Manager &mdash; Eliza, AI Agents</div>
+    <p class="vid-desc">An introduction to who I am, why Lottie&rsquo;s mission resonates, and why I think I am a good fit for this role. The two case studies below are the work behind it.</p>
     <video class="demo-video" controls preload="metadata">
       <source src="lottie-app-demo.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <p class="vid-caption">Lottie &mdash; Senior Product Manager application</p>
+    <p class="vid-caption">Introduction &mdash; Toluwase Sogunro</p>
   </div>
 </section>
 
@@ -312,10 +312,10 @@
 <!-- 2. CAREPATH AI -->
 <section>
   <div class="video-block reveal">
-    <div class="vid-label">Healthcare Transport &middot; 01</div>
+    <div class="vid-label">Case Study &middot; 01</div>
     <h3>CarePath AI</h3>
-    <div class="vid-org">An AI front office for a one-person patient transport business</div>
-    <p class="vid-desc">One person driving, who cannot answer the phone while at the wheel &mdash; every missed call is a booking lost to whoever picks up first. CarePath answers the phone, the email and the chat, quotes from a real coverage and pricing model, books the journey, and escalates to the owner only when a human genuinely needs to decide. Built on AWS Bedrock, with the safety gate written in code rather than a prompt. <a href="carepath-ai.html" style="color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(196,75,43,0.3);">Read the full case study &rarr;</a></p>
+    <div class="vid-org">Voice and chat enquiry handling for a single-operator transport business</div>
+    <p class="vid-desc">The same problem Eliza solves: the person who should answer the phone cannot, and every unanswered enquiry goes to whoever picks up first. CarePath handles the call, the email and the chat, quotes from a real coverage and pricing model, books the journey, and hands off to the owner only when a human genuinely needs to decide. Two decisions I would bring to this role: the <strong>safety gate is code, not a prompt</strong> &mdash; it runs before any model call and can only raise risk, never lower it &mdash; and the retrieval confidence floor sits at <strong>0.59</strong>, measured in the gap between legitimate queries (0.61&ndash;0.86) and irrelevant ones (0.53&ndash;0.56). When a genuine question fell below it, I added the missing document rather than lowering the floor. 670 tests, all running offline. <a href="carepath-ai.html" style="color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(196,75,43,0.3);">Read the full case study &rarr;</a></p>
     <video class="portrait-demo" controls preload="metadata">
       <source src="carepath-telegram-demo.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -329,10 +329,10 @@
 <!-- 3. AI OPERATIONS SYSTEM -->
 <section>
   <div class="video-block reveal">
-    <div class="vid-label">Healthcare Transport &middot; 02</div>
+    <div class="vid-label">Case Study &middot; 02</div>
     <h3>AI Operations System</h3>
-    <div class="vid-org">UK healthcare &amp; patient transport company &mdash; live in production</div>
-    <p class="vid-desc">A production, multi-channel agentic AI system that answers calls, handles the inbox, books appointments, runs consent-gated outbound campaigns, and reports to the owner daily. Built end to end for a domain where accuracy is non-negotiable &mdash; elderly, disabled and SEND passengers. <a href="ai-operations.html" style="color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(196,75,43,0.3);">Read the full case study &rarr;</a></p>
+    <div class="vid-org">UK healthcare &amp; patient transport operator &mdash; live in production</div>
+    <p class="vid-desc">A live production system answering real calls and real email for a business serving elderly, disabled and SEND passengers &mdash; callers for whom a wrong answer is not a bad user experience but a genuine harm. It answers, books, escalates, and reports to the owner daily. The parts relevant here: a <strong>warm voice handoff</strong> with a spoken summary, plus voicemail detection so a ring-out is treated as a failed transfer rather than stranding the caller; a <strong>triage &rarr; resolve &rarr; critic</strong> pipeline where nothing is auto-sent unverified; and tiered escalation, so pricing and safeguarding always reach a human while routine enquiries do not. <a href="ai-operations.html" style="color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(196,75,43,0.3);">Read the full case study &rarr;</a></p>
     <video class="demo-video" controls preload="metadata">
       <source src="AI Executive Assistant - Full Demo.mp4" type="video/mp4">
       Your browser does not support the video tag.
